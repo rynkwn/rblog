@@ -6,7 +6,8 @@ gem 'rails', '4.2.1'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+# gem 'sass-rails', '~> 5.0'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -31,6 +32,14 @@ gem 'bcrypt'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+# ____________________________________________
+# Gems I'm not that familiar with yet:
+
+# Decided to use SASS out of a preference for nesting.
+gem 'bootstrap-sass', '~> 3.2.0'
+# Autoprefixer automatically adds proper vendor prefixes when CSS is compiled.
+gem 'autoprefixer-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
