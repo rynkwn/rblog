@@ -17,14 +17,20 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* Colors and Assets */
+$white: #ffffff;
+$black: #000000;
+
+$background-pic: "symphony.png";
+
 /* Color Scheme */
-$primary: #fff;
-$secondary: #000;
+$primary: $white;
+$secondary: $black;
 
 /* Taken from Hartl/Universal */
-
 body {
   padding-top: 60px;
+  background: image-url($background-pic) repeat 0 0;
 }
 
 section {
