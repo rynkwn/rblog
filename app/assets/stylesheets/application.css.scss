@@ -19,9 +19,10 @@
 
 /* Colors and Assets */
 $white: #ffffff;
+$pearly_white: #E8E5DA;
 $black: #000000;
 
-$background-pic: "symphony.png";
+$background-pic: "fresh_snow.png";
 
 /* Color Scheme */
 $primary: $white;
@@ -55,13 +56,13 @@ textarea {
   left: 0;
   right: 0;
   height: 92px;
-  background: $secondary;
+  background: $black;
 }
   
 .left {
   position: absolute;
   left: 0;
-  top: 92px;
+  top: 100px;
   bottom: 0;
   width: 178px;
 }
@@ -69,9 +70,10 @@ textarea {
 .main {
   position: absolute;
   left: 178px; 
-  top: 92px;
-  right: 0;
-  bottom: 0;
+  top: 100px;
+  right: 178px;
+  bottom: 92px;
+  background: $pearly_white;
 }
 
 /* typography */
@@ -85,6 +87,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
+  color: $white;
 }
 
 h2 {
@@ -93,7 +96,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: #777;
+  color: $white;
 }
 
 p {
