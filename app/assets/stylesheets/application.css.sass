@@ -17,11 +17,34 @@
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
+$primary : #ffffff
+$secondary : #000000
+
+/* Taken from Hartl/Universal */
+
+body 
+  padding-top: 60px
+
+section 
+  overflow: auto
+
+textarea 
+  resize: vertical
+
+.center 
+  text-align: center
+  h1
+    margin-bottom: 10px
+
+/* Setup for screen layout. */
 .top
   position: absolute
   left: 0
   right: 0
   height: 92px
+  background: $secondary
+  .title-text
+    color: $primary
   
 .left 
   position: absolute
@@ -37,3 +60,24 @@
   right: 0
   bottom: 0
 
+// ________________________
+// Code below for Splash Page Purposes
+// Stolen from http://support.cargocollective.com/customer/portal/articles/708619-add-a-splash-page
+.splash
+  display: block!important
+  background-color: #000000
+  background-image: url(http://images2.fanpop.com/images/photos/7000000/Space-Art-Wallpaper-space-7076692-1440-900.jpg)
+  background-size: cover
+  background-position: center
+  background-repeat: no-repeat
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  z-index: 99999
+  
+.splash-container
+  display: flex
+  align-items: center
+  justify-content: center
