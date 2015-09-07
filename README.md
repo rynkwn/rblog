@@ -18,3 +18,21 @@ way.
 # Step Two - CSS
 Found this site to be useful:
 http://www.gotealeaf.com/blog/integrating-rails-and-bootstrap-part-2
+
+I initially went with just SASS, primarily because I had gotten used to the idea
+of code that's defined by indentation, and because I enjoyed the idea that 'Hey,
+I won't have to bother with semi-colons? Clearly this is the best choice.'
+
+It was not that great a choice. As someone who was relatively new to CSS in general,
+I was disheartened to find that a lot of examples appears to be in the SCSS format,
+and that the conversions were not always inherently obvious. (Though, I am almost
+absolutely sure that there exists a tool that auto-converts between the two styling
+formats.)
+
+Additionally, some chunks of code appeared much, much uglier without the curly braces.
+
+# Step Two and a Half - Still trying to make the site look good.
+I found this to be really cool: https://24ways.org/2012/how-to-make-your-site-look-half-decent/
+
+And the place where I got my background texture: http://subtlepatterns.com/page/4/
+It is the "Fresh snow" pattern by Kerstkaarten.
