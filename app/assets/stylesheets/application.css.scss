@@ -51,16 +51,9 @@ textarea {
 }
 
 /* Setup for screen layout. */
-.top {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 92px;
-  background: $black;
-}
-  
+
 .left {
-  position: absolute;
+  position: relative;
   left: 0;
   top: 100px;
   bottom: 0;
@@ -68,7 +61,7 @@ textarea {
 }
   
 .main {
-  position: absolute;
+  position: relative;
   left: 178px; 
   top: 100px;
   right: 178px;
