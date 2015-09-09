@@ -13,4 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-sprockets
 //= require_tree .
+
+// require_tree seems to recursively compile other javascript files in the 
+// directory. I believe it needs to be last in order to give properly give access
+// to other javascript files to various tools (bootstrap, for example).

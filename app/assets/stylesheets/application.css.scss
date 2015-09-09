@@ -1,0 +1,97 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ 
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* Colors and Assets */
+$white: #ffffff;
+$pearly_white: #E8E5DA;
+$black: #000000;
+
+$background-pic: "fresh_snow.png";
+
+/* Color Scheme */
+$primary: $white;
+$secondary: $black;
+
+/* Taken from Hartl/Universal */
+body {
+  padding-top: 60px;
+  background: image-url($background-pic) repeat 0 0;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+/* Setup for screen layout. */
+
+.left {
+  position: relative;
+  left: 0;
+  top: 100px;
+  bottom: 0;
+  width: 178px;
+}
+  
+.main {
+  position: relative;
+  margin-top: 100px;
+  margin-left: 178px;
+  margin-right: 178px;
+  background: $pearly_white;
+}
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: $white;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $white;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
