@@ -36,3 +36,11 @@ I found this to be really cool: https://24ways.org/2012/how-to-make-your-site-lo
 
 And the place where I got my background texture: http://subtlepatterns.com/page/4/
 It is the "Fresh snow" pattern by Kerstkaarten.
+
+# Step Three - Setting up a paper trail to handle the inevitable loss of data in the future.
+Using http://www.tutorialspoint.com/ruby-on-rails/rails-send-email.htm in order to,
+ideally, set up a tool that will auto-email my personal email with key information about
+written blog posts. As I have yet to look deeply into reasonably organizing migrations,
+especially for a project that is amorphous by definition (hoorah exploration)
+and will therefore frequently have updated models, this seems like a reasonable
+way of making sure that content survives catastrophic loss.
