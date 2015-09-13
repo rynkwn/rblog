@@ -36,3 +36,30 @@ I found this to be really cool: https://24ways.org/2012/how-to-make-your-site-lo
 
 And the place where I got my background texture: http://subtlepatterns.com/page/4/
 It is the "Fresh snow" pattern by Kerstkaarten.
+
+# Step Three - Setting up a paper trail to handle the inevitable loss of data in the future.
+Using http://www.tutorialspoint.com/ruby-on-rails/rails-send-email.htm in order to,
+ideally, set up a tool that will auto-email my personal email with key information about
+written blog posts. As I have yet to look deeply into reasonably organizing migrations,
+especially for a project that is amorphous by definition (hoorah exploration)
+and will therefore frequently have updated models, this seems like a reasonable
+way of making sure that content survives catastrophic loss.
+
+Heroku does not provide an inbuilt mail service however. Currently leaning towards
+using Postmark, as it provides 10k free inbound/outbound messages per month, which
+which is more than enough for my purposes.
+
+The tutorialspoint link doesn't appear relevant, given the existence of the
+postmark-rails gem.
+
+Additional postmark documentation that allowed me to successfully send an email
+manually to my main personal email: https://github.com/wildbit/postmark-gem/blob/master/README.md
+
+Set up a mailer, and a blog_history function that emails my personal email when called.
+Oddly enough, I couldn't get the mail() function to work, so I defaulted to the
+API approach. I have some concerns over memory leaks since I'm making a new object every
+time I want to send an email, but setting the client variable to nil (perhaps
+unnecessary?) will hopefully lessen any consequences down the road.
+
+Strongly tempted to look into this deeper in the future and perhaps write a tutorial
+on getting Postmark to work.
