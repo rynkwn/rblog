@@ -44,3 +44,7 @@ written blog posts. As I have yet to look deeply into reasonably organizing migr
 especially for a project that is amorphous by definition (hoorah exploration)
 and will therefore frequently have updated models, this seems like a reasonable
 way of making sure that content survives catastrophic loss.
+
+Heroku does not provide an inbuilt mail service however. Currently leaning towards
+using Postmark, as it provides 10k free inbound/outbound messages per month, which
+which is more than enough for my purposes.
