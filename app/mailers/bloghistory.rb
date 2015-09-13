@@ -7,7 +7,7 @@ class Bloghistory < ApplicationMailer
     client = Postmark::ApiClient.new(POSTMARK_API_KEY, http_open_timeout: 15)
     
     client.deliver(
-      :subject => subject + ' - ' + date,
+      :subject => 'BLOG: ' + subject + ' - ' + date,
       :to => 'rynkwn@gmail.com',
       :from => SENDER_SIGNATURE,
       :tag => tags,
