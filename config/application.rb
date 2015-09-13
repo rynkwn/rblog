@@ -24,6 +24,6 @@ module Workspace
     config.active_record.raise_in_transactional_callbacks = true
     
     config.action_mailer.delivery_method = :postmark
-config.action_mailer.postmark_settings = { :api_token => "94252afc-de91-441e-9d0b-495a6ccadd42" }
+    config.action_mailer.postmark_settings = { :api_token => "94252afc-de91-441e-9d0b-495a6ccadd42" }
   end
 end
