@@ -48,3 +48,6 @@ way of making sure that content survives catastrophic loss.
 Heroku does not provide an inbuilt mail service however. Currently leaning towards
 using Postmark, as it provides 10k free inbound/outbound messages per month, which
 which is more than enough for my purposes.
+
+The tutorialspoint link doesn't appear relevant, given the existence of the
+postmark-rails gem.
