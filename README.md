@@ -51,3 +51,6 @@ which is more than enough for my purposes.
 
 The tutorialspoint link doesn't appear relevant, given the existence of the
 postmark-rails gem.
+
+Additional postmark documentation that allowed me to successfully send an email
+manually to my main personal email: https://github.com/wildbit/postmark-gem/blob/master/README.md
