@@ -17,12 +17,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* Colors and Assets */
+/* Color and Asset Variables */
 $white: #ffffff;
 $pearly_white: #E8E5DA;
+$link_blue: #2A6496;
 $black: #000000;
 
-$background-pic: "fresh_snow.png";
+$background-pic: "footer_lodyas.png";
 
 /* Color Scheme */
 $primary: $white;
@@ -62,13 +63,23 @@ textarea {
   
 .main {
   position: relative;
-  margin-top: 100px;
-  margin-left: 178px;
-  margin-right: 178px;
+  margin: 20px;
+  padding-top: 72px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
   background: $pearly_white;
 }
 
 /* typography */
+
+.primary {
+  color: $primary;
+}
+
+.secondary {
+  color: $secondary;
+}
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
@@ -79,7 +90,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
-  color: $white;
+  color: $secondary;
 }
 
 h2 {
@@ -88,10 +99,16 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $white;
+  color: $secondary;
 }
 
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+}
+
+/* Colors */
+
+.white {
+  color: $white;
 }
