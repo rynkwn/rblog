@@ -17,7 +17,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* Colors and Assets */
+/* Color and Asset Variables */
 $white: #ffffff;
 $pearly_white: #E8E5DA;
 $black: #000000;
@@ -89,7 +89,7 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
-  color: $white;
+  color: $secondary;
 }
 
 h2 {
@@ -98,10 +98,16 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $white;
+  color: $secondary;
 }
 
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+}
+
+/* Colors */
+
+.white {
+  color: $white;
 }
