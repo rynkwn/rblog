@@ -63,3 +63,22 @@ unnecessary?) will hopefully lessen any consequences down the road.
 
 Strongly tempted to look into this deeper in the future and perhaps write a tutorial
 on getting Postmark to work.
+
+# Step Four - Changing Everything Again and Adding Content/Functionality.
+After a brief hiatus, ultimately determined that I was deeply unhappy with the
+aesthetic appearance of the site, and that to make it look good with my mental 
+schematic would take a long time.
+
+Long story short, it would have been best to go with the simplest, clean looking
+solution, and then iterating on top of that to become more complex/look better.
+
+I've implemented sessions (though not yet complete. Still need to tamper with the
+User model in order to differentiate between myself and all other possible users.)
+I've also filled out the title section a bit more, added some navigational links,
+and I've begun filling in content.
+
+The only question of note: for the About page, I have a small picture of myself.
+I'm almost confident I can link to a picture via a URL and load it inside the rails
+app, but my initial google searches didn't bring up too many solutions. Future
+Rails gem if it doesn't already exist? It'd be nice if the picture auto-updated
+as I updated, say, my Github profile page.
