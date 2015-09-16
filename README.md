@@ -84,9 +84,9 @@ Rails gem if it doesn't already exist? It'd be nice if the picture auto-updated
 as I updated, say, my Github profile page.
 
 # Step Four and a Half - Typography.
-The value of those <p></p> are finally becoming apparent. Styling blocks of text
+The value of those `<p></p>` are finally becoming apparent. Styling blocks of text
 to look decent is, unsurprisingly, a non-trivial endeavor. In the end, I went with
-this styling for my <p>
+this styling for my `<p>`:
 
         p {
           color: $secondary;
