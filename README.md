@@ -82,3 +82,7 @@ I'm almost confident I can link to a picture via a URL and load it inside the ra
 app, but my initial google searches didn't bring up too many solutions. Future
 Rails gem if it doesn't already exist? It'd be nice if the picture auto-updated
 as I updated, say, my Github profile page.
+
+# Step Four and a Half - Typography.
+The value of those <p></p> are finally becoming apparent. Styling blocks of text
+to look decent is, unsurprisingly, a non-trivial endeavor.
