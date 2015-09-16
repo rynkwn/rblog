@@ -85,4 +85,28 @@ as I updated, say, my Github profile page.
 
 # Step Four and a Half - Typography.
 The value of those <p></p> are finally becoming apparent. Styling blocks of text
-to look decent is, unsurprisingly, a non-trivial endeavor.
+to look decent is, unsurprisingly, a non-trivial endeavor. In the end, I went with
+this styling for my <p>
+
+        p {
+          color: $secondary;
+          font-size: 1.2em;
+          line-height: 1.7em;
+          text-indent: 2em;
+          text-align: justify;
+          font-family: 'Verdana', Times, "Times New Roman", serif;
+        }  
+
+Which goes with normal paragraph-styled, decent looking text. Verdana appears
+to be pretty universally popular, though I did try my hand with garamond in order
+to appear more "literary." Ultimately the thinness of the resulting font led me
+to just copy whatever font Paul Graham was using.
+
+As an extra tool, whatfont is a wonderful Chrome extension. As is ColorZilla. There
+is an established way of adding new, custom fonts to your rails app. This stack
+overflow question exemplifies it pretty well: http://stackoverflow.com/questions/12329137/how-to-add-a-custom-font-to-rails-app
+
+My understanding is that the @font-face essentially "declares/defines" the font.
+I had two separate .ttf files for Garamond (one for regular, one for bold.) I
+implemented this by defining two font-faces, both in the font-family Garamond,
+with the bold ttf file having a defined font-weight: bold.
