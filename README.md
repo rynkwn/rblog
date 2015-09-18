@@ -126,9 +126,63 @@ Easily fixed with modifying these attributes in the body:
           max-width: 950px;
         }
         
-## Content? Content
-I've just completed the basics of the site (navigation, the content of basic pages,
+## Blogging and Structure
+For those who have no experience with it, I strongly recommend reading Enterprise
+Rails. Having said that, I will also admit that I've only read the first 12 chapters
+or so thus far. Much of the first 10 chapters deals with ensuring
+database integrity: essentially how best to ensure that the data is correct,
+and how best to model said data.
 
-. It strikes me as intelligent however
-to first have several blogs and/or projects up before announcing the existence
-of the site. I also have yet to 
+Right now I plan to have two models: User and Blog.
+As I intend to be the only blogger, all blogs implicitly belong to me, so
+both User and Blog are relatively simple.
+
+The only point of concern however is that Blogs will have many different subjects
+they can fall under: they can be related to a certain project, perhaps they're
+professional, or maybe they're strictly a tech guide. 
+
+All such blogs will be fundamentally the same, but I will want to distinguish
+the subject matter when I want to show relevant content to a User who wants to see
+"just startup blogs" for example.
+
+        Blog
+          name: text  # My understanding is that there's no substantial difference
+                      # between string and text currently. Though text can store
+                      # far more characters than String.
+                      # I also believe some search gems like sunspot/elastisearch do
+                      # prefer text data. It's possible my memory is faulty on this
+                      # however.
+          date: date
+          subject: text  # Will be used to categorize blogs.
+          content: text
+          tags :text  # Unsure how much I'll use this. But it'll essentially be
+                      # an array of words that describe the main content of the
+                      # post.
+
+### How to Structure the Subject
+The subject attribute is relatively static. There's a set number of possible choices,
+but that set is expected to change organically with my usage of the site. The best
+way to model the Subject, then, is as a separate data table, which I'll populate
+/depopulate as needed.
+
+        Blog
+          ...
+          subject_id: integer  # will refer to a key in the Subject data table.
+          
+        Subject
+          name: text
+          
+#### While we're on this subject: 3NF (Third Form Normalization)
+The Form Normalizations are characteristics of your database as a whole and how
+you've structured data. Basically, if your data is properly normalized, you'll feel
+great because everything is clear and clean cut because the relationships 
+are all nicely understood and in the open. If your data isn't properly
+normalized, things get messy and you're not quite sure who's dating who and there's
+a lot more room for errors to creep in unintentionally, leading to issues like
+Janet, who DID say she was no longer dating Frank, but Frank still believes he's dating
+Janet, who is currently dating you.
+
+While a precise definition is perhaps outside the scope of this README, I found
+this site to be very helpful in easily understanding 1NF, 2NF, and 3NF. (There's
+also a 4NF.)
+http://www.essentialsql.com/get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english/
