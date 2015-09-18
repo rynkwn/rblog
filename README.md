@@ -152,7 +152,6 @@ the subject matter when I want to show relevant content to a User who wants to s
                       # I also believe some search gems like sunspot/elastisearch do
                       # prefer text data. It's possible my memory is faulty on this
                       # however.
-          date: date
           subject: text  # Will be used to categorize blogs.
           content: text
           tags :text  # Unsure how much I'll use this. But it'll essentially be
@@ -223,3 +222,19 @@ Essentially, after an instance of the model is created, it'll run the init funct
 which correctly assigns Ryan-ness. You do need the save afterwards to save the 
 change, and save! is used here over save as the latter only turns into false when
 an error crops up, while save! returns the error.
+
+## Now I get to Write Tests and Validations
+Technically. I should have written the tests beforehand, and then created/molded
+the various models until the tests passed (Test Driven Development). The reason 
+for this, is because Tests
+basically mimic, in much greater efficiency, the process I would do otherwise
+(which is recompile. Check to see if a feature exists/works. Notice it doesn't.
+Fix. Recompile. Repeat.)
+
+It is, in my opinion, unfortunately less satisfying than seeing and manipulating the
+results of your work. However, it's also worth noting that I do not currently
+know how to write particularly great tests. It's on the list of things I plan
+on improving upon. Later. Where I'll write a blog about it and do much more research
+on it before playing with it experimentally.
+
+Hartl is, again, a great source to get used to both tests and validations.
