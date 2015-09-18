@@ -180,7 +180,7 @@ are all nicely understood and in the open. If your data isn't properly
 normalized, things get messy and you're not quite sure who's dating who and there's
 a lot more room for errors to creep in unintentionally, leading to issues like
 Janet, who DID say she was no longer dating Frank, but Frank still believes he's dating
-Janet, who is currently dating you.
+Janet, when she's actually dating you.
 
 While a precise definition is perhaps outside the scope of this README, I found
 this site to be very helpful in easily understanding 1NF, 2NF, and 3NF. (There's
