@@ -125,3 +125,9 @@ Easily fixed with modifying these attributes in the body:
           margin: auto;
           max-width: 800px;
         }
+        
+## Content? Content
+I've just completed the basics of the site (navigation basically exists, 
+. It strikes me as intelligent however
+to first have several blogs and/or projects up before announcing the existence
+of the site. I also have yet to 
