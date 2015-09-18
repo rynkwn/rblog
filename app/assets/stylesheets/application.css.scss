@@ -21,9 +21,24 @@
 $white: #ffffff;
 $pearly_white: #E8E5DA;
 $link_blue: #2A6496;
+$light_grey: #9799A7;
 $black: #000000;
 
 $background-pic: "footer_lodyas.png";
+
+@font-face {
+  font-family: 'Garamond';    
+  src: url('/assets/fonts/garamond.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Garamond';
+  src: url('/assets/fonts/garamond bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
 /* Color Scheme */
 $primary: $white;
@@ -31,7 +46,9 @@ $secondary: $black;
 
 /* Taken from Hartl/Universal */
 body {
+  margin: auto;
   padding-top: 60px;
+  max-width: 800px;
   background: image-url($background-pic) repeat 0 0;
 }
 
@@ -44,6 +61,7 @@ textarea {
 }
 
 .center {
+  margin: auto;
   text-align: center;
 }
 
@@ -52,7 +70,6 @@ textarea {
 }
 
 /* Setup for screen layout. */
-
 .left {
   position: relative;
   left: 0;
@@ -72,7 +89,6 @@ textarea {
 }
 
 /* typography */
-
 .primary {
   color: $primary;
 }
@@ -103,12 +119,27 @@ h2 {
 }
 
 p {
-  font-size: 1.1em;
+  color: $secondary;
+  font-size: 1.2em;
   line-height: 1.7em;
+  text-indent: 2em;
+  text-align: justify;
+  margin-top: 10px;
+  font-family: 'Verdana', Times, "Times New Roman", serif;
+}
+
+.byline {
+  color: $light_grey;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-style: italic;
+  margin-bottom: 18px;
 }
 
 /* Colors */
-
 .white {
   color: $white;
+}
+
+.black {
+  color: $black;
 }

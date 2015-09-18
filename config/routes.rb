@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
 
   root 'main_pages#home'
+  
+  get 'about' => 'main_pages#about'
   
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'

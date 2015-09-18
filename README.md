@@ -63,3 +63,65 @@ unnecessary?) will hopefully lessen any consequences down the road.
 
 Strongly tempted to look into this deeper in the future and perhaps write a tutorial
 on getting Postmark to work.
+
+# Step Four - Changing Everything Again and Adding Content/Functionality.
+After a brief hiatus, ultimately determined that I was deeply unhappy with the
+aesthetic appearance of the site, and that to make it look good with my mental 
+schematic would take a long time.
+
+Long story short, it would have been best to go with the simplest, clean looking
+solution, and then iterating on top of that to become more complex/look better.
+
+I've implemented sessions (though not yet complete. Still need to tamper with the
+User model in order to differentiate between myself and all other possible users.)
+I've also filled out the title section a bit more, added some navigational links,
+and I've begun filling in content.
+
+The only question of note: for the About page, I have a small picture of myself.
+I'm almost confident I can link to a picture via a URL and load it inside the rails
+app, but my initial google searches didn't bring up too many solutions. Future
+Rails gem if it doesn't already exist? It'd be nice if the picture auto-updated
+as I updated, say, my Github profile page.
+
+# Step Four and a Half - Typography.
+The value of those `<p></p>` are finally becoming apparent. Styling blocks of text
+to look decent is, unsurprisingly, a non-trivial endeavor. In the end, I went with
+this styling for my `<p>`:
+
+        p {
+          color: $secondary;
+          font-size: 1.2em;
+          line-height: 1.7em;
+          text-indent: 2em;
+          text-align: justify;
+          font-family: 'Verdana', Times, "Times New Roman", serif;
+        }  
+
+Which goes with normal paragraph-styled, decent looking text. Verdana appears
+to be pretty universally popular, though I did try my hand with garamond in order
+to appear more "literary." Ultimately the thinness of the resulting font led me
+to just copy whatever font Paul Graham was using.
+
+As an extra tool, whatfont is a wonderful Chrome extension. As is ColorZilla. There
+is an established way of adding new, custom fonts to your rails app. This stack
+overflow question exemplifies it pretty well: http://stackoverflow.com/questions/12329137/how-to-add-a-custom-font-to-rails-app
+
+My understanding is that the @font-face essentially "declares/defines" the font.
+I had two separate .ttf files for Garamond (one for regular, one for bold.) I
+implemented this by defining two font-faces, both in the font-family Garamond,
+with the bold ttf file having a defined font-weight: bold.
+
+## Width of Content
+Something else I've discovered. Be careful with how you establish the width of
+your content. Many sites, I've noticed, have the content you're most likely to be
+interested in centered and dense. This was in marked contrast with my initial body
+content, which literally required me to move my head in order to keep reading my
+paragraphs.
+
+Easily fixed with modifying these attributes in the body: 
+        
+        body {
+          ...
+          margin: auto;
+          max-width: 800px;
+        }
