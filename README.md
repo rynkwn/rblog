@@ -186,3 +186,40 @@ While a precise definition is perhaps outside the scope of this README, I found
 this site to be very helpful in easily understanding 1NF, 2NF, and 3NF. (There's
 also a 4NF.)
 http://www.essentialsql.com/get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english/
+
+### A slight note on the User
+It's worth noting that I didn't document the entirety of my process. The User model,
+for example, is something I did behind the scenes and didn't tamper the README about.
+
+Hartl's Rails book is a great place to learn how to create a very comparable 
+User model/controller: https://www.railstutorial.org/ (Yes, you can read it 
+online for free.)
+
+Aside from using bcrypt to encrypt passwords, the only other thing I have of note
+is this wonderful little attribute:
+
+        User:
+          integer: ryan
+          
+While it may seem like narcissism, my plan is to have this attribute default
+to zero for all Users that don't have my email, while for my email the integer
+will become 1. This sidesteps the need to create a Superuser model (though I may
+have to do that in the future, I'd rather avoid excessive modeling right now), and
+ultimately seems like a simpler way of making sure there can only ever be one
+"Ryan."
+
+In order to do this, just include:
+
+      User Model
+      ...
+      after_initialize :init
+      
+      def init
+        self.ryan = self.email == 'rynkwn@gmail.com' ? 1 : 0
+        self.save!
+      end
+      
+Essentially, after an instance of the model is created, it'll run the init function,
+which correctly assigns Ryan-ness. You do need the save afterwards to save the 
+change, and save! is used here over save as the latter only turns into false when
+an error crops up, while save! returns the error.
