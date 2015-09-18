@@ -46,7 +46,9 @@ $secondary: $black;
 
 /* Taken from Hartl/Universal */
 body {
+  margin: auto;
   padding-top: 60px;
+  max-width: 800px;
   background: image-url($background-pic) repeat 0 0;
 }
 
@@ -59,6 +61,7 @@ textarea {
 }
 
 .center {
+  margin: auto;
   text-align: center;
 }
 
