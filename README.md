@@ -110,3 +110,18 @@ My understanding is that the @font-face essentially "declares/defines" the font.
 I had two separate .ttf files for Garamond (one for regular, one for bold.) I
 implemented this by defining two font-faces, both in the font-family Garamond,
 with the bold ttf file having a defined font-weight: bold.
+
+## Width of Content
+Something else I've discovered. Be careful with how you establish the width of
+your content. Many sites, I've noticed, have the content you're most likely to be
+interested in centered and dense. This was in marked contrast with my initial body
+content, which literally required me to move my head in order to keep reading my
+paragraphs.
+
+Easily fixed with modifying these attributes in the body: 
+        
+        body {
+          ...
+          margin: auto;
+          max-width: 800px;
+        }
