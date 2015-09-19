@@ -252,3 +252,7 @@ the simplest solution I found was to use: http://onlinefavicon.com/
 to generate the ico files, and then just attach:
 
         <%= favicon_link_tag 'name_of_favicon_file_saved_to_assets/images.ico' %>
+        
+inside `<head></head`
+
+
