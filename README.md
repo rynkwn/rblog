@@ -152,7 +152,6 @@ the subject matter when I want to show relevant content to a User who wants to s
                       # I also believe some search gems like sunspot/elastisearch do
                       # prefer text data. It's possible my memory is faulty on this
                       # however.
-          subject: text  # Will be used to categorize blogs.
           content: text
           tags :text  # Unsure how much I'll use this. But it'll essentially be
                       # an array of words that describe the main content of the
@@ -164,13 +163,15 @@ but that set is expected to change organically with my usage of the site. The be
 way to model the Subject, then, is as a separate data table, which I'll populate
 /depopulate as needed.
 
-        Blog
-          ...
-          subject_id: integer  # will refer to a key in the Subject data table.
-          
+It also makes sense to let Subjects have_many Blogs, in order to let me easily
+get all blogs in a certain subject.
+
         Subject
           name: text
           
+        Subject Model
+          has_many :blogs
+        
 #### While we're on this subject: 3NF (Third Form Normalization)
 The Form Normalizations are characteristics of your database as a whole and how
 you've structured data. Basically, if your data is properly normalized, you'll feel
@@ -238,3 +239,16 @@ on improving upon. Later. Where I'll write a blog about it and do much more rese
 on it before playing with it experimentally.
 
 Hartl is, again, a great source to get used to both tests and validations.
+
+## Favicon
+The small icon that represents your site!
+
+I took a small break from the mechanics of content-creation on my site to tamper
+with the Favicon. Currently, my intention is to upload my Gimp 2 creation to this
+site: http://realfavicongenerator.net/
+
+While I have no doubt the above would actually be much more useful in the long run,
+the simplest solution I found was to use: http://onlinefavicon.com/
+to generate the ico files, and then just attach:
+
+        <%= favicon_link_tag 'name_of_favicon_file_saved_to_assets/images.ico' %>
