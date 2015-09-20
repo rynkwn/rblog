@@ -23,6 +23,6 @@ module SessionsHelper
   
   # Returns whether or not the current user is Ryan.
   def ryan?
-    current_user.ryan?
+    logged_in? ? current_user.ryan? : false  # Ternary operators are literally the best.
   end
 end

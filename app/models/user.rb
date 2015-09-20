@@ -8,11 +8,10 @@ class User < ActiveRecord::Base
   
   has_secure_password
   
-  after_initialize :init
+  after_initialize :ryanize
     
-  def init
+  def ryanize
     self.ryan = self.email == 'rynkwn@gmail.com' ? 1 : 0
-    self.save!
   end
   
   def ryan?

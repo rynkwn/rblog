@@ -212,17 +212,28 @@ In order to do this, just include:
 
       User Model
       ...
-      after_initialize :init
+      after_initialize :ryanize
       
-      def init
+      def ryanize
         self.ryan = self.email == 'rynkwn@gmail.com' ? 1 : 0
-        self.save!
+        self.save!  # You may need this if you're not on Rails 4.2.1
       end
       
 Essentially, after an instance of the model is created, it'll run the init function,
 which correctly assigns Ryan-ness. You do need the save afterwards to save the 
 change, and save! is used here over save as the latter only turns into false when
 an error crops up, while save! returns the error.
+
+(Note, later)
+I originally had the function as:
+
+      def init
+        ...
+      end
+
+but I had an issue where it seemed the init function was run both on creation of
+the new object (when the 'new' page loaded), as well as after it was initialized.
+It seems init may be a "reserved" function with special purpose in rails.
 
 ## Now I get to Write Tests and Validations
 Technically. I should have written the tests beforehand, and then created/molded

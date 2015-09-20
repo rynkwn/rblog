@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20150918182834) do
   create_table "blogs", force: :cascade do |t|
     t.text     "name"
     t.date     "date_created"
-    t.integer  "subject_id"
     t.text     "content"
     t.text     "tags"
     t.datetime "created_at",   null: false
