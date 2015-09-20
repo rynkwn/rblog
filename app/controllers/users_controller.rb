@@ -10,7 +10,7 @@ class UsersController < ApplicationController
         flash[:success] = "Hooray!"
       else
         render 'new'
-        flash[:success] = "Oh no!"
+        flash[:danger] = "Oh no!"
       end
     end
     
