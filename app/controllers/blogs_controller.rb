@@ -20,6 +20,12 @@ class BlogsController < ApplicationController
   end
   
   def show
+    if Blog.exists?(params[:id])
+      @blog = Blog.find(params[:id])
+    else
+      flash[:danger] = "This... isn't the blog. (We lost it)."
+      redirect_to root_path
+    end
   end
   
   private
