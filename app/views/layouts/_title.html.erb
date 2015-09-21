@@ -15,6 +15,9 @@
             Blogs <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
+            <% Subject.all.each do |subject| %>
+              <li><%= link_to subject.name, '#' %></li>
+            <% end %>
           </ul>
         </li>
         

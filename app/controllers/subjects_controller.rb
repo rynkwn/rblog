@@ -7,10 +7,11 @@ class SubjectsController < ApplicationController
   def create
     @subject = Subject.new(subject_params)
     if @subject.save!
-      flash[:success] = "Blog saved!"
+      redirect_to root_path
+      flash[:success] = "Subject created!"
     else
       render 'new'
-      flash[:danger] = "Blog creation failed!"
+      flash[:danger] = "Subject creation failed!"
     end
   end
   
