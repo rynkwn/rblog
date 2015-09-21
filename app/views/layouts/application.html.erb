@@ -12,6 +12,11 @@
   <%= render 'layouts/title' %>
   
   <div class="main">
+    <% flash.each do |key, message| %>
+      <div id="flash-<%= key %>" class="alert alert-<%= key %> fade in">
+        <%= message %>
+      </div>
+    <% end %>
     <%= yield %>
   </div>
 </body>
