@@ -303,3 +303,7 @@ There does exist a fair variety of more complex markdown/rich text editor tools,
 but, thinking further on Paul Graham's essays, it seems worthwhile to work on making
 my written content intrinsically interesting, rather than depending on the 
 razzle-dazzle of more complex styling tools.
+
+It stands to reason that if you put a fish on land, it either rapidly develops
+lungs, or you put it back in the ocean. Because who would keep a fish that 
+clearly can't develop lungs on shore?
