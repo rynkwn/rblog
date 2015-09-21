@@ -14,7 +14,6 @@ class CreateBlogs < ActiveRecord::Migration
                     # post.
                     
       t.references :subject
-
       t.timestamps null: false
     end
   end
