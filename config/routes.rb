@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
 
-  root 'main_pages#home'
+  resources :users
+  resources :subjects
   
+  # Static Page Routes
+  root 'main_pages#home'
   get 'about' => 'main_pages#about'
   
+  # Login/Logout Routes
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   
-  resources :users
-  resources :subjects
+  # Blog Routes
+  get 'blog' => 'subjects#blogs'
 end

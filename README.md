@@ -146,16 +146,18 @@ the subject matter when I want to show relevant content to a User who wants to s
 "just startup blogs" for example.
 
         Blog
-          name: text  # My understanding is that there's no substantial difference
-                      # between string and text currently. Though text can store
-                      # far more characters than String.
-                      # I also believe some search gems like sunspot/elastisearch do
-                      # prefer text data. It's possible my memory is faulty on this
-                      # however.
-          content: text
-          tags :text  # Unsure how much I'll use this. But it'll essentially be
-                      # an array of words that describe the main content of the
-                      # post.
+          t.text :name  # My understanding is that there's no substantial difference
+                        # between string and text currently. Though text can store
+                        # far more characters than String.
+                        # I also believe some search gems like sunspot/elastisearch do
+                        # prefer text data. It's possible my memory is faulty on this
+                        # however.
+          t.text :content
+          t.text :tags  # Unsure how much I'll use this. But it'll essentially be
+                        # an array of words that describe the main content of the
+                        # post.
+          t.references :subject
+          
 
 ### How to Structure the Subject
 The subject attribute is relatively static. There's a set number of possible choices,
@@ -167,7 +169,7 @@ It also makes sense to let Subjects have_many Blogs, in order to let me easily
 get all blogs in a certain subject.
 
         Subject
-          name: text
+          t.text: name
           
         Subject Model
           has_many :blogs
@@ -199,7 +201,7 @@ Aside from using bcrypt to encrypt passwords, the only other thing I have of not
 is this wonderful little attribute:
 
         User:
-          integer: ryan
+          t.integer :ryan
           
 While it may seem like narcissism, my plan is to have this attribute default
 to zero for all Users that don't have my email, while for my email the integer

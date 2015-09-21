@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20150918182834) do
     t.date     "date_created"
     t.text     "content"
     t.text     "tags"
+    t.integer  "subject_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end

@@ -12,6 +12,8 @@ class CreateBlogs < ActiveRecord::Migration
       t.text :tags # Unsure how much I'll use this. But it'll essentially be
                     # an array of words that describe the main content of the
                     # post.
+                    
+      t.references :subject
 
       t.timestamps null: false
     end
