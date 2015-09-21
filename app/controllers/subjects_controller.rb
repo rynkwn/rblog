@@ -5,7 +5,7 @@ class SubjectsController < ApplicationController
   end
   
   def create
-    @subject = Subject.new(blog_params)
+    @subject = Subject.new(subject_params)
     if @subject.save!
       flash[:success] = "Blog saved!"
     else
