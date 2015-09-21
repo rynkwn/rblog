@@ -307,3 +307,19 @@ razzle-dazzle of more complex styling tools.
 It stands to reason that if you put a fish on land, it either rapidly develops
 lungs, or you put it back in the ocean. Because who would keep a fish that 
 clearly can't develop lungs on shore?
+
+## Data Nuking and You - Emailing Yourself the Paper Trail
+(Originally I just called it a data dump. But data nuking sounds so much cooler,
+and makes me wonder about the weaponization of emails.)
+
+Problem: I have two models which contains a variety of information. Only one of
+these models are well structured. The other can contain basically anything. While
+creating functions in each of the models in order to output the desired information
+is very easy, it isn't implicitly obvious what a good way of writing a parser to
+convert said information back into the originall object is.
+
+One thing I could do is just find a random character that I have virtually no chance
+of ever using, and then use that as a delimiter for the various "data chunks" that
+I'll be handling. For example: ʭ
+It's the "latin letter bidental percussive." Of course, the fact that I now know
+what my delimiter is drastically increases the chances of me using it.
