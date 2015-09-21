@@ -266,14 +266,32 @@ to generate the ico files, and then just attach:
 
         <%= favicon_link_tag 'name_of_favicon_file_saved_to_assets/images.ico' %>
         
-inside `<head></head`
+inside `<head></head>`
 
-# Step Four and Two Thirds - 
-
-## Indexing (Index Blogs by Subject)
-
-## Getting flashes to work as intended
-
-## Getting Blogs to WYSIWYG.
+# Step Five - After all the mechanics are in place
+Basic structures are in place and functionality is now a thing. Refining basically
+follows from here.
 
 ## Turning off Autocomplete.
+Autocomplete is rapidly becoming painful for Subject/Blog writing. Thankfully,
+this is a pretty quick fix. Just include this snippet
+
+        :autocomplete => "off"
+        
+in the relevant forms as one of the html options.
+
+## Indexing (Index Blogs by Subject)
+Logical as I'm often going to be pulling blogs based on their subject (and generally
+a reasonable move to make in relationships among tables.)
+
+Simply create a new migration and have this line:
+
+        add_index :blogs, :subject_id
+
+As of this writing, I'm still unsure if there exists a better way to organize my
+migrations. They rapidly become unwieldy, which leads me to the habit of readjusting
+my existing migrations, and then a `rake db:drop - rake db:migrate` to update
+my data tables. Worth looking into in the future.
+
+## Getting Blogs to retain basic formatting
+The issue with my blogs

@@ -11,11 +11,11 @@ class BlogsController < ApplicationController
     subject = Subject.find_by(id: params[:subject][:subject_id])
     @blog = subject.blogs.new(modified_params)
     if @blog.save
-      flash[:success] = "Blog saved!"
+      flash.now[:success] = "Blog saved!"
       redirect_to root_path
     else
       render 'new'
-      flash[:danger] = "Blog creation failed!"
+      flash.now[:danger] = "Blog creation failed!"
     end
   end
   
@@ -23,7 +23,7 @@ class BlogsController < ApplicationController
     if Blog.exists?(params[:id])
       @blog = Blog.find(params[:id])
     else
-      flash[:danger] = "This... isn't the blog. (We lost it)."
+      flash.now[:danger] = "This... isn't the blog. (We lost it)."
       redirect_to root_path
     end
   end

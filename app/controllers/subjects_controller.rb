@@ -8,10 +8,10 @@ class SubjectsController < ApplicationController
     @subject = Subject.new(subject_params)
     if @subject.save
       redirect_to root_path
-      flash[:success] = "Subject created!"
+      flash.now[:success] = "Subject created!"
     else
       render 'new'
-      flash[:danger] = "Subject creation failed!"
+      flash.now[:danger] = "Subject creation failed!"
     end
   end
   
