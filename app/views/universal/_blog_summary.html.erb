@@ -1,3 +1,6 @@
-<h1 style="text-indent:0em"><%= blog.name %></h1>
+<h1 class="text-left"><%= blog.name %></h1>
+<h3 class="byline"> Written on <%= blog.date_created %></h3>
 
-Test
+<p>
+  <%= blog.summarize %>
+</p>
