@@ -15,7 +15,7 @@ class SubjectsController < ApplicationController
     end
   end
   
-  def blogs
+  def overview
     if Subject.exists?(params[:id])
       @subject = Subject.find(params[:id])
       @blogs = @subject.blogs

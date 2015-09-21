@@ -16,7 +16,7 @@
           </a>
           <ul class="dropdown-menu">
             <% Subject.all.each do |subject| %>
-              <li><%= link_to subject.name, blog_path(id: subject) %></li>
+              <li><%= link_to subject.name, overview_path(id: subject) %></li>
             <% end %>
           </ul>
         </li>
@@ -38,7 +38,7 @@
               Admin Tools <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "New Blog", '#' %></li>
+              <li><%= link_to "New Blog", new_blog_path %></li>
               <li><%= link_to "New Subject", new_subject_path %></li>
             </ul>
           </li>

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :subjects
+  resources :blogs
   
   # Static Page Routes
   root 'main_pages#home'
@@ -13,5 +14,5 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   
   # Blog Routes
-  get 'blog' => 'subjects#blogs'
+  get 'overview' => 'subjects#overview'
 end
