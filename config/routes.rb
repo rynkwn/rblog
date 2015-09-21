@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   # Static Page/Admin Routes
   root 'main_pages#home'
   get 'about' => 'main_pages#about'
-  get 'datadump' => 'main_pages#data_dump'
+  get 'datanuke' => 'main_pages#data_nuke'
   
   # Login/Logout Routes
   get 'login' => 'sessions#new'
