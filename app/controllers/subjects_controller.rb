@@ -6,7 +6,7 @@ class SubjectsController < ApplicationController
   
   def create
     @subject = Subject.new(subject_params)
-    if @subject.save!
+    if @subject.save
       redirect_to root_path
       flash[:success] = "Subject created!"
     else

@@ -10,7 +10,7 @@ class BlogsController < ApplicationController
 
     subject = Subject.find_by(id: params[:subject][:subject_id])
     @blog = subject.blogs.new(modified_params)
-    if @blog.save!
+    if @blog.save
       flash[:success] = "Blog saved!"
       redirect_to root_path
     else
