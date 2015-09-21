@@ -1,6 +1,6 @@
 <h1 class="secondary">New Blog</h1>
 
-<%= form_for(@blog, html: {class: 'form'})do |f| %>
+<%= form_for(@blog, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>
