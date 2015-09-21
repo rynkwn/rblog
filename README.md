@@ -269,8 +269,8 @@ to generate the ico files, and then just attach:
 inside `<head></head>`
 
 # Step Five - After all the mechanics are in place
-Basic structures are in place and functionality is now a thing. Refining basically
-follows from here.
+Basic structures are in place and functionality is now a thing. Refining
+follows from here, as well as some extraneous features.
 
 ## Turning off Autocomplete.
 Autocomplete is rapidly becoming painful for Subject/Blog writing. Thankfully,
@@ -293,5 +293,13 @@ migrations. They rapidly become unwieldy, which leads me to the habit of readjus
 my existing migrations, and then a `rake db:drop - rake db:migrate` to update
 my data tables. Worth looking into in the future.
 
-## Getting Blogs to retain basic formatting
-The issue with my blogs
+## Getting Blogs to retain basic line/paragraph formatting.
+This solution is actually very simple. Just pass in the blog's content to the 
+rails function `simple_format`, which produces html from text.
+
+Its documentation is here: http://api.rubyonrails.org/classes/ActionView/Helpers/TextHelper.html#method-i-simple_format
+
+There does exist a fair variety of more complex markdown/rich text editor tools,
+but, thinking further on Paul Graham's essays, it seems worthwhile to work on making
+my written content intrinsically interesting, rather than depending on the 
+razzle-dazzle of more complex styling tools.
