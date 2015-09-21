@@ -9,4 +9,16 @@ module ApplicationHelper
       page_title + " | " + base_title
     end
   end
+  
+  # Generates the subtitle.
+  def subtitle
+    subtitles = [
+                  "We do not endorse piracy.",
+                  "Hello, World",
+                  "Who reads subtitles anyways?",
+                  "I'm not paid enough for this.",
+                  "o_o"
+                ]
+    subtitles.sample
+  end
 end

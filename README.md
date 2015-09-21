@@ -271,3 +271,7 @@ inside `<head></head`
 # Step Four and Two Thirds - 
 
 ## Indexing (Index Blogs by Subject)
+
+## Getting flashes to work as intended
+
+## Getting Blogs to WYSIWYG.
