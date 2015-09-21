@@ -14,6 +14,15 @@ class SubjectsController < ApplicationController
     end
   end
   
+  def blogs
+    if Subject.exists?(params[:id])
+      @subject = Subject.find(params[:id])
+      @blogs = @subject.blogs
+    else
+      redirect_to root_path
+    end
+  end
+  
   private
   def subject_params
     params.require(:subject).permit(:name)

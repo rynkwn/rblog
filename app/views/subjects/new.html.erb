@@ -1,0 +1,10 @@
+<h1 class="secondary">New Subject</h1>
+
+<%= form_for(@subject, html: {class: 'form'})do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  
+  <%= f.submit "Sign up!", class: "btn-primary" %>
+<% end %>

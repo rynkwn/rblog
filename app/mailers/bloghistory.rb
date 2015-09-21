@@ -16,4 +16,18 @@ class Bloghistory < ApplicationMailer
       
     client = nil
   end
+  
+  # A standard email.
+  def standard(subject, content)
+    client = Postmark::ApiClient.new(POSTMARK_API_KEY, http_open_timeout: 15)
+    
+    client.deliver(
+      :subject => 'BLOG: ' + subject,
+      :to => 'rynkwn@gmail.com',
+      :from => SENDER_SIGNATURE,
+      :text_body => content
+      )
+      
+    client = nil
+  end
 end
