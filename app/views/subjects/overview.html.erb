@@ -1,0 +1,5 @@
+<h1 class="text-left"><%= @subject.name %> Blogs</h1>
+
+<% @blogs.each do |blog| %>
+  <%= render partial: "universal/blog_summary", :locals => { :blog => blog }%>
+<% end %>

@@ -19,8 +19,16 @@ module Workspace
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    
+    # Enable the asset pipeline
+    config.assets.enabled = true
+    config.assets.paths << Rails.root.join('/app/assets/fonts')
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    
+    config.action_mailer.delivery_method = :postmark
+    config.action_mailer.postmark_settings = { :api_token => "94252afc-de91-441e-9d0b-495a6ccadd42" }
+    config.action_mailer.perform_deliveries = true
   end
 end

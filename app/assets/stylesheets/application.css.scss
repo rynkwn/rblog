@@ -17,12 +17,28 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* Colors and Assets */
+/* Color and Asset Variables */
 $white: #ffffff;
 $pearly_white: #E8E5DA;
+$link_blue: #2A6496;
+$light_grey: #9799A7;
 $black: #000000;
 
-$background-pic: "fresh_snow.png";
+$background-pic: "footer_lodyas.png";
+
+@font-face {
+  font-family: 'Garamond';    
+  src: url('/assets/fonts/garamond.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Garamond';
+  src: url('/assets/fonts/garamond bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
 /* Color Scheme */
 $primary: $white;
@@ -30,7 +46,9 @@ $secondary: $black;
 
 /* Taken from Hartl/Universal */
 body {
+  margin: auto;
   padding-top: 60px;
+  max-width: 950px;
   background: image-url($background-pic) repeat 0 0;
 }
 
@@ -43,6 +61,7 @@ textarea {
 }
 
 .center {
+  margin: auto;
   text-align: center;
 }
 
@@ -51,7 +70,6 @@ textarea {
 }
 
 /* Setup for screen layout. */
-
 .left {
   position: relative;
   left: 0;
@@ -62,13 +80,22 @@ textarea {
   
 .main {
   position: relative;
-  margin-top: 100px;
-  margin-left: 178px;
-  margin-right: 178px;
+  margin: 20px;
+  padding-top: 72px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
   background: $pearly_white;
 }
 
 /* typography */
+.primary {
+  color: $primary;
+}
+
+.secondary {
+  color: $secondary;
+}
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
@@ -79,19 +106,44 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
-  color: $white;
+  color: $secondary;
 }
 
 h2 {
-  font-size: 1.2em;
+  font-size: 2.4em;
   letter-spacing: -1px;
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $white;
+  color: $secondary;
 }
 
 p {
-  font-size: 1.1em;
+  color: $secondary;
+  font-size: 1.2em;
   line-height: 1.7em;
+  text-indent: 2em;
+  text-align: justify;
+  margin-top: 10px;
+  font-family: 'Verdana', Times, "Times New Roman", serif;
+}
+
+.byline {
+  color: $light_grey;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-style: italic;
+  margin-bottom: 18px;
+}
+
+.text-left {
+  text-align: left;
+}
+
+/* Colors */
+.white {
+  color: $white;
+}
+
+.black {
+  color: $black;
 }
