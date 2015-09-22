@@ -1,4 +1,5 @@
 class SubjectsController < ApplicationController
+  before_action :authorized?, :except => :overview
   
   def new
     @subject = Subject.new
