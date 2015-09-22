@@ -1,0 +1,8 @@
+<%= form_for(@subject, html: {class: 'form', :autocomplete => "off"})do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  
+  <%= f.submit "Submit", class: "btn-primary" %>
+<% end %>

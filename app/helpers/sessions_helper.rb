@@ -25,4 +25,11 @@ module SessionsHelper
   def ryan?
     logged_in? ? current_user.ryan? : false  # Ternary operators are literally the best.
   end
+  
+  # Checks to see if user has correct authorization to access a page.
+  def authorized?
+    if !ryan?
+      redirect_to root_path
+    end
+  end
 end

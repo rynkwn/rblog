@@ -2,3 +2,7 @@
 <h4 class="byline"> Written on <%= @blog.date_created %></h4>
 
 <%= simple_format @blog.content %>
+
+<% if ryan? %>
+  <%= link_to "Edit", edit_blog_path(@blog) %>
+<% end %>
