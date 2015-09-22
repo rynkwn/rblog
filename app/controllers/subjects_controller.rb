@@ -15,6 +15,14 @@ class SubjectsController < ApplicationController
     end
   end
   
+  def destroy
+    if Subject.exists?(params[:id])
+      Subject.delete(params[:id])
+      flash.now[:success] = "Subject Deleted"
+    end
+    redirect_to root_path
+  end
+  
   def overview
     if Subject.exists?(params[:id])
       @subject = Subject.find(params[:id])

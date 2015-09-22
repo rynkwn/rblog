@@ -28,6 +28,31 @@ class BlogsController < ApplicationController
     end
   end
   
+  def edit
+    @blog = Blog.find(params[:id])
+  end
+  
+  def update
+    @blog = Blog.find(params[:id])
+    modified_params = blog_params
+    modified_params[:tags] = tag_parser(modified_params[:tags])
+    if @blog.update_attributes(modified_params)
+      flash.now[:success] = "Blog updated"
+    end
+    render 'edit'
+  end
+  
+  def destroy
+    
+    if Blog.exists?(params[:id])
+      Blog.delete(params[:id])
+      flash[:success] = "Blog Deleted"
+    else
+      flash.now[:danger] = "Blog not found to be deleted"
+    end
+    redirect_to root_path
+  end
+  
   private
   def blog_params
       params.require(:blog).permit(:name, 

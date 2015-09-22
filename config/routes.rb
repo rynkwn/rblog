@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   
   # Blog Routes
   get 'overview' => 'subjects#overview'
+  get 'blogete' => 'blogs#destroy'
+  delete 'blogete' => 'blogs#destroy'
 end
