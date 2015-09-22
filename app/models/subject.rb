@@ -4,8 +4,10 @@ class Subject < ActiveRecord::Base
   has_many :blogs
   
   # to_data converts the meaningful data of this object into a string, to be used
-  # for data_nukes.
+  # for data_nukes. ʭ is the delimiter between attributes, ʬ delimits objects.
   def to_data
-    "Name: " + self.name
+    "Type: " + "Subject" + "ʭ" +
+    "Name: " + self.name +
+    "ʬ"
   end
 end

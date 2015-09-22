@@ -14,13 +14,15 @@ class Blog < ActiveRecord::Base
   end
   
   # to_data converts the meaningful data of this object into a string, to be used
-  # for data_nukes.
+  # for data_nukes. ʭ is the delimiter between attributes, ʬ delimits objects.
   def to_data
-    "Name: " + self.name + "\n" +
-    "Date Created: " + self.date_created.to_s + "\n" +
-    "Subject: " + Subject.find_by(id: self.subject_id).name + "\n" +
-    "Content: " + self.content + "\n" +
-    "Tags: " + self.tags.to_s
+    "Type: " + "Blog" + "ʭ" +
+    "Name: " + self.name + "ʭ" +
+    "Date Created: " + self.date_created.to_s + "ʭ" +
+    "Subject: " + Subject.find_by(id: self.subject_id).name + "ʭ" +
+    "Content: " + self.content + "ʭ" +
+    "Tags: " + self.tags.to_s +
+    "ʬ"
   end
   
 end

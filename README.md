@@ -321,5 +321,17 @@ convert said information back into the originall object is.
 One thing I could do is just find a random character that I have virtually no chance
 of ever using, and then use that as a delimiter for the various "data chunks" that
 I'll be handling. For example: ʭ
+
 It's the "latin letter bidental percussive." Of course, the fact that I now know
 what my delimiter is drastically increases the chances of me using it.
+
+I also probably want something to delimit individual objects. So I present to you:
+ʬ
+
+It's the "latin letter bilabial percussive."
+
+Hm. Now that I think about it a bit more,
+I could have also just converted things into JSON and just modified which
+attributes I actually want sent out. Hm. But this way, the data "encryption" and
+parser are both in-house. Which is cool.
+May convert to a more standardized format in the future. Perhaps.
