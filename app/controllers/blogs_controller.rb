@@ -43,12 +43,11 @@ class BlogsController < ApplicationController
   end
   
   def destroy
-    
     if Blog.exists?(params[:id])
       Blog.delete(params[:id])
       flash[:success] = "Blog Deleted"
     else
-      flash.now[:danger] = "Blog not found to be deleted"
+      flash[:danger] = "Blog not found to be deleted"
     end
     redirect_to root_path
   end

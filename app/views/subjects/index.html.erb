@@ -1,0 +1,7 @@
+<% @subjects.each do |subject| %>
+  <%= subject.name %> 
+  <%= link_to "Edit", edit_subject_path(subject) %> 
+  <%= link_to "Delete", subject_delete_path(id: subject) %>
+  
+  <br>
+<% end %>

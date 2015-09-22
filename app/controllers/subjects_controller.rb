@@ -15,10 +15,28 @@ class SubjectsController < ApplicationController
     end
   end
   
+  def index
+    @subjects = Subject.all
+  end
+  
+  def edit
+    @subject = Subject.find(params[:id])
+  end
+  
+  def update
+    @subject = Subject.find(params[:id])
+    if @subject.update_attributes(subject_params)
+      flash.now[:success] = "Subject updated"
+    end
+    render 'edit'
+  end
+  
   def destroy
     if Subject.exists?(params[:id])
       Subject.delete(params[:id])
-      flash.now[:success] = "Subject Deleted"
+      flash[:success] = "Subject Deleted"
+    else
+      flash[:danger] = "Subject could not be found!"
     end
     redirect_to root_path
   end
