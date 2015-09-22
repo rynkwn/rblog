@@ -28,7 +28,7 @@ class SubjectsController < ApplicationController
     if @subject.update_attributes(subject_params)
       flash.now[:success] = "Subject updated"
     end
-    render 'edit'
+    redirect_to subjects_path
   end
   
   def destroy
@@ -38,7 +38,7 @@ class SubjectsController < ApplicationController
     else
       flash[:danger] = "Subject could not be found!"
     end
-    redirect_to root_path
+    redirect_to subjects_path
   end
   
   def overview

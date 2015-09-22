@@ -43,7 +43,7 @@ class BlogsController < ApplicationController
     if @blog.update_attributes(modified_params)
       flash.now[:success] = "Blog updated"
     end
-    render 'edit'
+    render 'show'
   end
   
   def destroy
@@ -53,7 +53,7 @@ class BlogsController < ApplicationController
     else
       flash[:danger] = "Blog not found to be deleted"
     end
-    redirect_to root_path
+    redirect_to blogs_path
   end
   
   private
