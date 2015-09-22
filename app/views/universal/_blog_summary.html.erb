@@ -1,7 +1,4 @@
 <%= link_to blog.name, blog_path(blog) %>
 <div class="byline">
   Written on <%= blog.date_created %>
-  <% if ryan? %>
-    <%= link_to "Edit", edit_blog_path(blog) %>
-  <% end %>
 </div>

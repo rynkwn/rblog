@@ -1,0 +1,6 @@
+<% @blogs.each do |blog| %>
+  <%= blog.name %> <%= link_to "Edit", edit_blog_path(blog) %> <br>
+  <%= blog.date_created %>
+  
+  <br><br>
+<% end %>

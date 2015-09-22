@@ -28,6 +28,10 @@ class BlogsController < ApplicationController
     end
   end
   
+  def index
+    @blogs = Blog.all
+  end
+  
   def edit
     @blog = Blog.find(params[:id])
   end
