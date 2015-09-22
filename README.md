@@ -348,3 +348,34 @@ Achieved success with data nuke launch. EXCEPT. I had to change html_body -> bod
 as otherwise no message would be sent with my email.
 
 Will no doubt write a tutorial on how to integrate Postmark into your rails app.
+
+Here's the strangest thing. When trying to use Postmark in the Heroku app,
+it triggers a bug where it informs me that I need either text_body or html_body.
+Neither actually sends the correct content as part of the message. My solution
+is to have a dummy text_body as part of the mailer, and include the content with
+the `:body` key.
+
+The error trigger only seems to occur in the Heroku app. In my cloud9/developmental
+app, there's no such bug with lacking both a text_body/html_body.
+
+Strange.
+
+## Checking Authorization
+Happily simple. The actions of non-admin users are pretty limited. I don't want
+them editing my blogs or having access to critical site features by typing in the
+correct URL and params.
+
+In my case, I create this function:
+
+        # Checks to see if user has correct authorization to access a page.
+        def authorized?
+          if !ryan?
+            redirect_to root_path
+          end
+        end
+
+And then I insert this line at the top of relevant controllers. Where the except
+lists out (in an array, if necessary) all the various functions that should be
+publically available.
+
+        before_action :authorized?, :except => :overview

@@ -1,4 +1,5 @@
 class BlogsController < ApplicationController
+  before_action :authorized?, :except => :show
   
   def new
     @blog = Blog.new
@@ -26,6 +27,34 @@ class BlogsController < ApplicationController
       flash.now[:danger] = "This... isn't the blog. (We lost it)."
       redirect_to root_path
     end
+  end
+  
+  def index
+    @blogs = Blog.all
+  end
+  
+  def edit
+    @blog = Blog.find(params[:id])
+  end
+  
+  def update
+    @blog = Blog.find(params[:id])
+    modified_params = blog_params
+    modified_params[:tags] = tag_parser(modified_params[:tags])
+    if @blog.update_attributes(modified_params)
+      flash.now[:success] = "Blog updated"
+    end
+    render 'show'
+  end
+  
+  def destroy
+    if Blog.exists?(params[:id])
+      Blog.delete(params[:id])
+      flash[:success] = "Blog Deleted"
+    else
+      flash[:danger] = "Blog not found to be deleted"
+    end
+    redirect_to blogs_path
   end
   
   private

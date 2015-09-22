@@ -12,8 +12,15 @@ Rails.application.routes.draw do
   # Login/Logout Routes
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
+  get 'logout' => 'sessions#destroy'
   delete 'logout' => 'sessions#destroy'
   
   # Blog Routes
   get 'overview' => 'subjects#overview'
+  get 'blog_delete' => 'blogs#destroy'
+  delete 'blog_delete' => 'blogs#destroy'
+  
+  # Subject Routes
+  get 'subject_delete' => 'subjects#destroy'
+  delete 'subject_delete' => 'subjects#destroy'
 end
