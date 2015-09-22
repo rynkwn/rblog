@@ -335,3 +335,16 @@ I could have also just converted things into JSON and just modified which
 attributes I actually want sent out. Hm. But this way, the data "encryption" and
 parser are both in-house. Which is cool.
 May convert to a more standardized format in the future. Perhaps.
+
+
+### Data Nuking - When Nukes Fail
+This is easily my favorite subtitles in this README so far.
+
+Modified the way I'd been handling emails into a similar structure as this
+asker:
+http://stackoverflow.com/questions/26738466/rails-4-actionmailer-not-sending-emails
+
+Achieved success with data nuke launch. EXCEPT. I had to change html_body -> body,
+as otherwise no message would be sent with my email.
+
+Will no doubt write a tutorial on how to integrate Postmark into your rails app.

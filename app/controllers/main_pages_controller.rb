@@ -1,5 +1,4 @@
 class MainPagesController < ApplicationController
-  include Bloghistory
   
   def data_nuke
     if ryan?
@@ -13,8 +12,11 @@ class MainPagesController < ApplicationController
         data += blog.to_data
       end
       
-      standard('DATA DUMP - ' + Time.now.to_s, data)
+      Bloghistory::standard('DATA DUMP - ' + Time.now.to_s, data).deliver
+      flash.now[:success] = "Data nuke launched!"
     else
+      flash.now[:danger] = "Incorrect Authorization Level, Repriming coordinates " +
+                           "of data nuke."
     end
   end
 end
