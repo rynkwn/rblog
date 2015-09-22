@@ -6,7 +6,7 @@ class Bloghistory < ApplicationMailer
       :to => 'rynkwn@gmail.com',
       :from => SENDER_SIGNATURE,
       :tag => tags,
-      :body => content
+      :text_body => content
     )
   end
   
@@ -16,7 +16,7 @@ class Bloghistory < ApplicationMailer
       :subject => 'BLOG: ' + subject,
       :to      => 'rynkwn@gmail.com',
       :from    => SENDER_SIGNATURE,
-      :body => content
+      :text_body => content
     )
   end
 end
