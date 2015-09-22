@@ -1,6 +1,4 @@
-<h3 class="text-left"><%= link_to blog.name, blog_path(blog) %></h3>
-<h4 class="byline"> Written on <%= blog.date_created %></h4>
-
-<p>
-  <%= blog.summarize %>
-</p>
+<%= link_to blog.name, blog_path(blog) %>
+<div class="byline">
+  Written on <%= blog.date_created %>
+</div>

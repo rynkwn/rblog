@@ -338,7 +338,7 @@ May convert to a more standardized format in the future. Perhaps.
 
 
 ### Data Nuking - When Nukes Fail
-This is easily my favorite subtitles in this README so far.
+These are easily my favorite subtitles in this README so far.
 
 Modified the way I'd been handling emails into a similar structure as this
 asker:
