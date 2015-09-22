@@ -20,4 +20,9 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
+  
+  # Returns whether or not the current user is Ryan.
+  def ryan?
+    logged_in? ? current_user.ryan? : false  # Ternary operators are literally the best.
+  end
 end

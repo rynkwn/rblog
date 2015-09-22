@@ -5,12 +5,18 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon_large.ico' %>
 </head>
 
 <body>
   <%= render 'layouts/title' %>
   
   <div class="main">
+    <% flash.each do |key, message| %>
+      <div id="flash-<%= key %>" class="alert alert-<%= key %> fade in">
+        <%= message %>
+      </div>
+    <% end %>
     <%= yield %>
   </div>
 </body>

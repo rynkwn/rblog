@@ -123,5 +123,228 @@ Easily fixed with modifying these attributes in the body:
         body {
           ...
           margin: auto;
-          max-width: 800px;
+          max-width: 950px;
         }
+        
+## Blogging and Structure
+For those who have no experience with it, I strongly recommend reading Enterprise
+Rails. Having said that, I will also admit that I've only read the first 12 chapters
+or so thus far. Much of the first 10 chapters deals with ensuring
+database integrity: essentially how best to ensure that the data is correct,
+and how best to model said data.
+
+Right now I plan to have two models: User and Blog.
+As I intend to be the only blogger, all blogs implicitly belong to me, so
+both User and Blog are relatively simple.
+
+The only point of concern however is that Blogs will have many different subjects
+they can fall under: they can be related to a certain project, perhaps they're
+professional, or maybe they're strictly a tech guide. 
+
+All such blogs will be fundamentally the same, but I will want to distinguish
+the subject matter when I want to show relevant content to a User who wants to see
+"just startup blogs" for example.
+
+        Blog
+          t.text :name  # My understanding is that there's no substantial difference
+                        # between string and text currently. Though text can store
+                        # far more characters than String.
+                        # I also believe some search gems like sunspot/elastisearch do
+                        # prefer text data. It's possible my memory is faulty on this
+                        # however.
+          t.text :content
+          t.text :tags  # Unsure how much I'll use this. But it'll essentially be
+                        # an array of words that describe the main content of the
+                        # post.
+          t.references :subject
+          
+
+### How to Structure the Subject
+The subject attribute is relatively static. There's a set number of possible choices,
+but that set is expected to change organically with my usage of the site. The best
+way to model the Subject, then, is as a separate data table, which I'll populate
+/depopulate as needed.
+
+It also makes sense to let Subjects have_many Blogs, in order to let me easily
+get all blogs in a certain subject.
+
+        Subject
+          t.text: name
+          
+        Subject Model
+          has_many :blogs
+        
+#### While we're on this subject: 3NF (Third Form Normalization)
+The Form Normalizations are characteristics of your database as a whole and how
+you've structured data. Basically, if your data is properly normalized, you'll feel
+great because everything is clear and clean cut because the relationships 
+are all nicely understood and in the open. If your data isn't properly
+normalized, things get messy and you're not quite sure who's dating who and there's
+a lot more room for errors to creep in unintentionally, leading to issues like
+Janet, who DID say she was no longer dating Frank, but Frank still believes he's dating
+Janet, when she's actually dating you.
+
+While a precise definition is perhaps outside the scope of this README, I found
+this site to be very helpful in easily understanding 1NF, 2NF, and 3NF. (There's
+also a 4NF.)
+http://www.essentialsql.com/get-ready-to-learn-sql-11-database-third-normal-form-explained-in-simple-english/
+
+### A slight note on the User
+It's worth noting that I didn't document the entirety of my process. The User model,
+for example, is something I did behind the scenes and didn't tamper the README about.
+
+Hartl's Rails book is a great place to learn how to create a very comparable 
+User model/controller: https://www.railstutorial.org/ (Yes, you can read it 
+online for free.)
+
+Aside from using bcrypt to encrypt passwords, the only other thing I have of note
+is this wonderful little attribute:
+
+        User:
+          t.integer :ryan
+          
+While it may seem like narcissism, my plan is to have this attribute default
+to zero for all Users that don't have my email, while for my email the integer
+will become 1. This sidesteps the need to create a Superuser model (though I may
+have to do that in the future, I'd rather avoid excessive modeling right now), and
+ultimately seems like a simpler way of making sure there can only ever be one
+"Ryan."
+
+In order to do this, just include:
+
+      User Model
+      ...
+      after_initialize :ryanize
+      
+      def ryanize
+        self.ryan = self.email == 'rynkwn@gmail.com' ? 1 : 0
+        self.save!  # You may need this if you're not on Rails 4.2.1
+      end
+      
+Essentially, after an instance of the model is created, it'll run the init function,
+which correctly assigns Ryan-ness. You do need the save afterwards to save the 
+change, and save! is used here over save as the latter only turns into false when
+an error crops up, while save! returns the error.
+
+(Note, later)
+I originally had the function as:
+
+      def init
+        ...
+      end
+
+but I had an issue where it seemed the init function was run both on creation of
+the new object (when the 'new' page loaded), as well as after it was initialized.
+It seems init may be a "reserved" function with special purpose in rails.
+
+## Now I get to Write Tests and Validations
+Technically. I should have written the tests beforehand, and then created/molded
+the various models until the tests passed (Test Driven Development). The reason 
+for this, is because Tests
+basically mimic, in much greater efficiency, the process I would do otherwise
+(which is recompile. Check to see if a feature exists/works. Notice it doesn't.
+Fix. Recompile. Repeat.)
+
+It is, in my opinion, unfortunately less satisfying than seeing and manipulating the
+results of your work. However, it's also worth noting that I do not currently
+know how to write particularly great tests. It's on the list of things I plan
+on improving upon. Later. Where I'll write a blog about it and do much more research
+on it before playing with it experimentally.
+
+Hartl is, again, a great source to get used to both tests and validations.
+
+## Favicon
+The small icon that represents your site!
+
+I took a small break from the mechanics of content-creation on my site to tamper
+with the Favicon. Currently, my intention is to upload my Gimp 2 creation to this
+site: http://realfavicongenerator.net/
+
+While I have no doubt the above would actually be much more useful in the long run,
+the simplest solution I found was to use: http://onlinefavicon.com/
+to generate the ico files, and then just attach:
+
+        <%= favicon_link_tag 'name_of_favicon_file_saved_to_assets/images.ico' %>
+        
+inside `<head></head>`
+
+# Step Five - After all the mechanics are in place
+Basic structures are in place and functionality is now a thing. Refining
+follows from here, as well as some extraneous features.
+
+## Turning off Autocomplete.
+Autocomplete is rapidly becoming painful for Subject/Blog writing. Thankfully,
+this is a pretty quick fix. Just include this snippet
+
+        :autocomplete => "off"
+        
+in the relevant forms as one of the html options.
+
+## Indexing (Index Blogs by Subject)
+Logical as I'm often going to be pulling blogs based on their subject (and generally
+a reasonable move to make in relationships among tables.)
+
+Simply create a new migration and have this line:
+
+        add_index :blogs, :subject_id
+
+As of this writing, I'm still unsure if there exists a better way to organize my
+migrations. They rapidly become unwieldy, which leads me to the habit of readjusting
+my existing migrations, and then a `rake db:drop - rake db:migrate` to update
+my data tables. Worth looking into in the future.
+
+## Getting Blogs to retain basic line/paragraph formatting.
+This solution is actually very simple. Just pass in the blog's content to the 
+rails function `simple_format`, which produces html from text.
+
+Its documentation is here: http://api.rubyonrails.org/classes/ActionView/Helpers/TextHelper.html#method-i-simple_format
+
+There does exist a fair variety of more complex markdown/rich text editor tools,
+but, thinking further on Paul Graham's essays, it seems worthwhile to work on making
+my written content intrinsically interesting, rather than depending on the 
+razzle-dazzle of more complex styling tools.
+
+It stands to reason that if you put a fish on land, it either rapidly develops
+lungs, or you put it back in the ocean. Because who would keep a fish that 
+clearly can't develop lungs on shore?
+
+## Data Nuking and You - Emailing Yourself the Paper Trail
+(Originally I just called it a data dump. But data nuking sounds so much cooler,
+and makes me wonder about the weaponization of emails.)
+
+Problem: I have two models which contains a variety of information. Only one of
+these models are well structured. The other can contain basically anything. While
+creating functions in each of the models in order to output the desired information
+is very easy, it isn't implicitly obvious what a good way of writing a parser to
+convert said information back into the originall object is.
+
+One thing I could do is just find a random character that I have virtually no chance
+of ever using, and then use that as a delimiter for the various "data chunks" that
+I'll be handling. For example: ʭ
+
+It's the "latin letter bidental percussive." Of course, the fact that I now know
+what my delimiter is drastically increases the chances of me using it.
+
+I also probably want something to delimit individual objects. So I present to you:
+ʬ
+
+It's the "latin letter bilabial percussive."
+
+Hm. Now that I think about it a bit more,
+I could have also just converted things into JSON and just modified which
+attributes I actually want sent out. Hm. But this way, the data "encryption" and
+parser are both in-house. Which is cool.
+May convert to a more standardized format in the future. Perhaps.
+
+
+### Data Nuking - When Nukes Fail
+These are easily my favorite subtitles in this README so far.
+
+Modified the way I'd been handling emails into a similar structure as this
+asker:
+http://stackoverflow.com/questions/26738466/rails-4-actionmailer-not-sending-emails
+
+Achieved success with data nuke launch. EXCEPT. I had to change html_body -> body,
+as otherwise no message would be sent with my email.
+
+Will no doubt write a tutorial on how to integrate Postmark into your rails app.
