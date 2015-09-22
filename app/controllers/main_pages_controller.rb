@@ -1,5 +1,4 @@
 class MainPagesController < ApplicationController
-  before_action authorized?
   
   def data_nuke
     if ryan?
