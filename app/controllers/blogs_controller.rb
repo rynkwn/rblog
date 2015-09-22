@@ -1,4 +1,5 @@
 class BlogsController < ApplicationController
+  before_action :authorized?, :except => :show
   
   def new
     @blog = Blog.new
