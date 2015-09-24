@@ -13,7 +13,7 @@ class BlogsController < ApplicationController
     @blog = subject.blogs.new(modified_params)
     if @blog.save
       flash.now[:success] = "Blog saved!"
-      redirect_to root_path
+      redirect_to blog_path(@blog)
     else
       render 'new'
       flash.now[:danger] = "Blog creation failed!"

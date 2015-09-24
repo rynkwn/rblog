@@ -28,6 +28,12 @@ gem 'bcrypt'
 # For emails
 gem 'postmark-rails'
 
+# Allowing me to render Markdown written blogs into HTML.
+# Followed https://www.codefellows.org/blog/how-to-create-a-markdown-friendly-blog-in-a-rails-app
+# in order to get here.
+gem 'redcarpet'
+gem 'coderay'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
