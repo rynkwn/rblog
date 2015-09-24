@@ -1,4 +1,4 @@
-The code repo for the blogging platform -INSERT URL HERE-
+The code repo for the blogging platform http://arg.herokuapp.com/
 
 # Why do you have a RoR code repo?
 So while I am interested in blogging some of my experiences in startups and 
@@ -379,3 +379,26 @@ lists out (in an array, if necessary) all the various functions that should be
 publically available.
 
         before_action :authorized?, :except => :overview
+        
+# Step Six - Aftermath
+As far as I can tell, the basics of the site are complete. Complete enough,
+at least, that I can finally replace the -INSERT URL HERE- section at the 
+very top with the actual url of my site. I've already started writing blogs,
+and I technically am good to go on being a live site.
+
+Step six, consequently, may be the last BIG step on this README. There are definitely
+a lot of extra things to do (for exmaple, I still have no way of temporarily
+saving drafts of my blogs. But that should be incredibly easy. As easy as adding
+a little extra attribute that asks me `:published?`.)
+
+There may be additional BIG steps. But I'll refrain from using them unless they're
+significant feature additions. If you've gotten this far, also be aware that I plan
+on converting my uber-long and ~~hard~~ impossible to follow README document
+into a series of small, topical documents for later publication.
+
+## Rendering My Blogs Better
+My previous solution to rendering the text in my blogs was acceptable, but rapidly
+unraveled by my second blog, which contained code.
+
+The solution I'm looking at, which'll render my blogs written in Markdown, is:
+https://www.codefellows.org/blog/how-to-create-a-markdown-friendly-blog-in-a-rails-app
