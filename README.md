@@ -402,3 +402,5 @@ unraveled by my second blog, which contained code.
 
 The solution I'm looking at, which'll render my blogs written in Markdown, is:
 https://www.codefellows.org/blog/how-to-create-a-markdown-friendly-blog-in-a-rails-app
+
+## I guess I'm Feeling Lucky
