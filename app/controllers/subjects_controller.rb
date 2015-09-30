@@ -45,7 +45,7 @@ class SubjectsController < ApplicationController
   def overview
     if Subject.exists?(params[:id])
       @subject = Subject.find(params[:id])
-      @blogs = @subject.blogs
+      @blogs = @subject.blogs.order(date_created: :asc)
     else
       redirect_to root_path
     end
