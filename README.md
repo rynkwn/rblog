@@ -420,6 +420,3 @@ ever calling rake assets:precompile intentionally.)
 
 All you really need to do then is use the wonderful `image_url("image_name")`
 helper function as the content for the `og:image` meta property.
-
-
-## I guess I'm Feeling Lucky
