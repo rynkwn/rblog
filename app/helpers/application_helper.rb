@@ -6,7 +6,7 @@ module ApplicationHelper
     if page_title.empty?
       base_title
     else
-      page_title + " | " + base_title
+      base_title + ": " + page_title
     end
   end
   
@@ -25,9 +25,9 @@ module ApplicationHelper
   # Renders markdown text into HTML
   def markdown(text)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
-      no_intra_emphasis: true, 
-      fenced_code_blocks: true,   
-      disable_indented_code_blocks: true)
+                                      no_intra_emphasis: true, 
+                                      fenced_code_blocks: true,   
+                                      disable_indented_code_blocks: true)
     return markdown.render(text).html_safe
   end
 end

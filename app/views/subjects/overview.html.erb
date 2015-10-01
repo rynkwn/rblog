@@ -1,3 +1,5 @@
+<% provide(:title, @subject.name + " blogs") %>
+
 <h1 class="text-left"><%= @subject.name %> Blogs</h1>
 
 <% @blogs.reverse.each do |blog| %>
