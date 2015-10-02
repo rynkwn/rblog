@@ -30,4 +30,15 @@ module ApplicationHelper
                                       disable_indented_code_blocks: true)
     return markdown.render(text).html_safe
   end
+  
+  # Temp Google Search
+  def google
+    ser = Google::Search::Web.new do |search|
+      search.query = "Lilium Soundcloud"
+      search.size = :small
+    end
+    output = ""
+    ser.find { |item|  output += item.uri }
+    return output
+  end
 end
