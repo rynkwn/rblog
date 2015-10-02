@@ -27,6 +27,8 @@ gem 'bcrypt'
 
 # For emails
 gem 'postmark-rails'
+# Trying to do Google Searches
+gem 'google-search'
 
 # Allowing me to render Markdown written blogs into HTML.
 # Followed https://www.codefellows.org/blog/how-to-create-a-markdown-friendly-blog-in-a-rails-app
