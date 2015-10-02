@@ -23,4 +23,7 @@ Rails.application.routes.draw do
   # Subject Routes
   get 'subject_delete' => 'subjects#destroy'
   delete 'subject_delete' => 'subjects#destroy'
+  
+  # Project Routes
+  get 'lucky' => 'projects#lucky'
 end
