@@ -1,0 +1,29 @@
+<h1>Feeling Lucky?</h1>
+
+<br>
+
+<p>
+  Welcome to the first of many upcoming little tidbits bolted onto the skeleton
+  of this site. This little bar replicates the ancient "I'm Feeling Lucky" button
+  from Google's youth. It'll auto-open a new tab with the result
+</p>
+  
+<p>
+  Be careful. Not everything will be safe. Not everything is something you should
+  click.
+</p>
+
+<%= form_tag(lucky_path, :method => "get", class: "navbar-form center") do %>
+  <div class="input-append">
+    <%= text_field_tag :search, params[:search], class: "span2 center", 
+                       placeholder: "Feeling lucky?"%>
+    <button class="btn btn-success btn-sm" type="submit"> Luck </button>
+  </div>
+<% end %>
+
+<div class="center">
+  <br>
+  <% if !@url.nil? %>
+    <%= link_to params[:search], @url %>
+  <% end %>
+</div>
