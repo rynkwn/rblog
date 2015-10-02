@@ -411,7 +411,6 @@ much more aesthetically pleasing whenever it's shared on Facebook.
 This "quickie" also seems pretty valuable: http://www.tomauger.com/2013/tips-and-tricks/tell-facebook-which-thumbnail-image-to-choose-when-linking-your-site
 
 ### In order to define an image for Facebook to use as a thumbnail:
-
 Assets in assets/images (I believe among other things) are automatically moved to
 a public folder when you use `rake assets:precompile` (which seems to be automatically
 run with some frequency, likely bundled somewhere else. Enough so that I coule 
@@ -420,3 +419,5 @@ ever calling rake assets:precompile intentionally.)
 
 All you really need to do then is use the wonderful `image_url("image_name")`
 helper function as the content for the `og:image` meta property.
+
+## I'm Feeling Lucky
