@@ -421,3 +421,9 @@ All you really need to do then is use the wonderful `image_url("image_name")`
 helper function as the content for the `og:image` meta property.
 
 ## I'm Feeling Lucky
+Used https://github.com/tj/google-search, but the documentation here...
+is horrendous. The project structure is not one I understand clearly, and
+while I did find the example to work reasonably well despite some of my
+modifications, some aspects of the syntax still puzzle me, and I'm unsure
+if I'm pulling in unnecessary data. This is problematic. On that note,
+UML diagrams of this site may be useful in the near future.
