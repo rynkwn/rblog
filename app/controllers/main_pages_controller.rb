@@ -1,4 +1,6 @@
 class MainPagesController < ApplicationController
+  require 'json'
+  
   before_action :authorized?, :only => [:data_nuke, :data_parse]
 
   # Compiles relevant data using the to_data function of models
@@ -24,7 +26,8 @@ class MainPagesController < ApplicationController
   end
   
   
-  def data_parse(data)
-    
+  def data_parse()
+    data = '{"id":1,"name":"Tester","created_at":"2015-09-21T04:27:29.833Z","updated_at":"2015-09-22T06:08:41.704Z","type":"subject"}'
+    @results = JSON.parse(data)
   end
 end

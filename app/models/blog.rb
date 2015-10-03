@@ -12,4 +12,9 @@ class Blog < ActiveRecord::Base
       self.content
     end
   end
+  
+  # Overrides the as_json function to include a type key-value.
+  def as_json(options)
+    super().merge!(type: "blog")
+  end
 end

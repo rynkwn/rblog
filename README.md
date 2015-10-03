@@ -341,6 +341,11 @@ May convert to a more standardized format in the future. Perhaps.
 Building the parser is a low-gain moderate effort activity. Which is unfortunate.
 Going for the rational, reasonable approach of just using JSON.
 
+(Even Later)
+
+However. Parsing strings of JSON? Sees to call for the latin letter bidental
+percussive.
+
 
 ### Data Nuking - When Nukes Fail
 These are easily my favorite subtitles in this README so far.
