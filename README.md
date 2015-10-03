@@ -336,6 +336,11 @@ attributes I actually want sent out. Hm. But this way, the data "encryption" and
 parser are both in-house. Which is cool.
 May convert to a more standardized format in the future. Perhaps.
 
+(Later)
+
+Building the parser is a low-gain moderate effort activity. Which is unfortunate.
+Going for the rational, reasonable approach of just using JSON.
+
 
 ### Data Nuking - When Nukes Fail
 These are easily my favorite subtitles in this README so far.
