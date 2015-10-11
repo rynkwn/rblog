@@ -29,12 +29,7 @@ class MainPagesController < ApplicationController
   def data_parse
     data = '{"id":1,"name":"SUB","created_at":"2015-10-11T20:01:32.002Z","updated_at":"2015-10-11T20:01:32.002Z","type":"subject"}ʭ{"id":1,"name":"BLO","date_created":"2015-10-11","content":"CONTENT","tags":["TAGS"],"subject_id":1,"created_at":"2015-10-11T20:01:46.949Z","updated_at":"2015-10-11T20:01:46.949Z","type":"blog","subject":"SUB"}ʭ'
     data.split("ʭ").each do |dat|
-      dat = JSON.parse(dat)
-      if dat["type"] == "subject"
-        SubjectsController::create_from_json(dat)
-      elsif dat["type"] == "blog"
-        BlogsController::create_from_json(dat)
-      end
+      create_from_json(JSON.parse(dat))
     end
     @show = Blog.last
   end

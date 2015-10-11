@@ -20,20 +20,6 @@ class BlogsController < ApplicationController
     end
   end
   
-  # Creates an instance of the object from a json string
-  def create_from_hash(json)
-    subject = Subject.find_by(name: json["subject"])
-    
-    # TODO: Is there a more elegant way of doing this without explicitly
-    # assigning everything?
-    blog = subject.blogs.new(name: json["name"],
-                             date_created: json["date_created"],
-                             content: json["content"],
-                             tags: json["tags"]
-                            )
-    blog.save
-  end
-  
   def show
     if Blog.exists?(params[:id])
       @blog = Blog.find(params[:id])
