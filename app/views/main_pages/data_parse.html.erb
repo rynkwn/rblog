@@ -1,0 +1,6 @@
+<%= form_tag(dataparse_path, :method => "get", class: "navbar-form center") do %>
+  <div class="input-append">
+    <%= text_area_tag :data, params[:data], cols: 80, rows: 15, class: "span2 center" %>
+  </div>
+  <button class="btn btn-success btn-sm" type="submit"> Reboot Data </button>
+<% end %>
