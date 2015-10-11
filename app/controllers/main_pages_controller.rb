@@ -11,10 +11,10 @@ class MainPagesController < ApplicationController
       
       # Dumping the relevant data.
       Subject.all.each do |subject|
-        data += subject.to_json
+        data = data + subject.to_json + "ʭ"
       end
       Blog.all.each do |blog|
-        data += blog.to_json
+        data = data + blog.to_json + "ʭ"
       end
       
       Bloghistory::standard('DATA DUMP - ' + Time.now.to_s, data).deliver
@@ -26,8 +26,16 @@ class MainPagesController < ApplicationController
   end
   
   
-  def data_parse()
-    data = '{"id":1,"name":"Tester","created_at":"2015-09-21T04:27:29.833Z","updated_at":"2015-09-22T06:08:41.704Z","type":"subject"}'
-    @results = JSON.parse(data)
+  def data_parse
+    data = '{"id":1,"name":"SUB","created_at":"2015-10-11T20:01:32.002Z","updated_at":"2015-10-11T20:01:32.002Z","type":"subject"}ʭ{"id":1,"name":"BLO","date_created":"2015-10-11","content":"CONTENT","tags":["TAGS"],"subject_id":1,"created_at":"2015-10-11T20:01:46.949Z","updated_at":"2015-10-11T20:01:46.949Z","type":"blog","subject":"SUB"}ʭ'
+    data.split("ʭ").each do |dat|
+      dat = JSON.parse(dat)
+      if dat["type"] == "subject"
+        SubjectsController::create_from_json(dat)
+      elsif dat["type"] == "blog"
+        BlogsController::create_from_json(dat)
+      end
+    end
+    @show = Blog.last
   end
 end

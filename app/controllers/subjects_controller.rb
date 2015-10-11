@@ -16,6 +16,12 @@ class SubjectsController < ApplicationController
     end
   end
   
+  # Creates an instance of the object from a json string
+  def create_from_json(json)
+    subject = Subject.new(json["name"])
+    subject.save
+  end
+  
   def index
     @subjects = Subject.all
   end
