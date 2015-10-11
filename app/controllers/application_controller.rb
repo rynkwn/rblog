@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   # Creates an object from a json input.
   def create_from_json(json)
     if(json["type"] == "subject")
-      subject = Subject.new(json["name"])
+      subject = Subject.new(name: json["name"])
       subject.save
     elsif(json["type"] == "blog")
       subject = Subject.find_by(name: json["subject"])
