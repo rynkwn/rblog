@@ -3,11 +3,8 @@ class Subject < ActiveRecord::Base
   
   has_many :blogs
   
-  # to_data converts the meaningful data of this object into a string, to be used
-  # for data_nukes. ʭ is the delimiter between attributes, ʬ delimits objects.
-  def to_data
-    "Type: " + "Subject" + "ʭ" +
-    "Name: " + self.name +
-    "ʬ"
+  # Overrides the as_json function to include a type key-value.
+  def as_json(options)
+    super().merge!(type: "subject")
   end
 end

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root 'main_pages#home'
   get 'about' => 'main_pages#about'
   get 'datanuke' => 'main_pages#data_nuke'
+  get 'dataparse' => 'main_pages#data_parse'
   
   # Login/Logout Routes
   get 'login' => 'sessions#new'
