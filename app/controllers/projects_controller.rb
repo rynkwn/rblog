@@ -22,8 +22,8 @@ class ProjectsController < ApplicationController
   # ada controls the ADA tool.
   def ada
     if params[:crush]
-      if Crush.exists?(name: params[:crush])
-        crush = Crush.find_by(name: params[:crush])
+      if Crush.exists?(name: params[:crush].downcase)
+        crush = Crush.find_by(name: params[:crush].downcase)
         crush.increment_fans
       else
         Crush.create(name: params[:crush], fans: 1)
@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
     end
     
     if params[:lookup]
-      @crush = Crush.find_by(name: params[:lookup])
+      @crush = Crush.find_by(name: params[:lookup].downcase)
     end
   end
 end
