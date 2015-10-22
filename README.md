@@ -437,3 +437,12 @@ while I did find the example to work reasonably well despite some of my
 modifications, some aspects of the syntax still puzzle me, and I'm unsure
 if I'm pulling in unnecessary data. This is problematic. On that note,
 UML diagrams of this site may be useful in the near future.
+
+## Anonymous Donations Accepted (ADA)
+A "for-love" project. I'd be interested in making this perhaps a Facebook app
+in the future, but it also seems worthwhile to devote a small amount
+of time to see how well it hits off among my own group of friends.
+
+Of course, it'd be best to have a system in place to provide analytics
+over my own site before then. BUT. Let's build this first, hack together
+a small view counter, and then build the analytics platform later.
