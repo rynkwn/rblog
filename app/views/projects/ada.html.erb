@@ -3,7 +3,20 @@
 <br>
 
 <p>
-  Like many people, I put a lot of stock into liking people. 
+</p>
+
+<p>
+  <% if @crushed %>
+    *burp*
+  <% end %>
+  
+  <% if @lookup %>
+    <% if @crush %>
+      <%= @crush.get_name %> has <%= pluralize(@crush.fans, 'fan') %>!
+    <% else %>
+      I'm sorry, we couldn't find that person.
+    <% end %>
+  <% end %>  
 </p>
 
 Drop your crush's name.
@@ -15,7 +28,7 @@ Drop your crush's name.
   </div>
 <% end %>
 
-Are you curious how many people are crushing on so-and-so?
+
 <%= form_tag(ada_path, :method => "get", class: "navbar-form center") do %>
   <div class="input-append">
     <%= text_field_tag :lookup, params[:lookup], size: 68, class: "span2 center", 

@@ -6,19 +6,6 @@ class ProjectsController < ApplicationController
     end
   end
   
-  private
-  
-  # Temp Google Search
-  def google(hint)
-    search = Google::Search::Web.new do |gopher|
-      gopher.query = hint
-      gopher.size = :small
-    end
-    output = ""
-    search.find { |item|  output += item.uri }
-    return output
-  end
-  
   # ada controls the ADA tool.
   def ada
     if params[:crush]
@@ -32,7 +19,21 @@ class ProjectsController < ApplicationController
     end
     
     if params[:lookup]
+      @lookup = true
       @crush = Crush.find_by(name: params[:lookup].downcase)
     end
+  end
+  
+  private
+  
+  # Temp Google Search
+  def google(hint)
+    search = Google::Search::Web.new do |gopher|
+      gopher.query = hint
+      gopher.size = :small
+    end
+    output = ""
+    search.find { |item|  output += item.uri }
+    return output
   end
 end
