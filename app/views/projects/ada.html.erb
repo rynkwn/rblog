@@ -1,31 +1,26 @@
-<h1>Feeling Lucky?</h1>
+<h1>Anonymous Donations Accepted</h1>
 
 <br>
 
 <p>
-  Welcome to the first of many upcoming little tidbits bolted onto the skeleton
-  of this site. This little bar replicates the ancient "I'm Feeling Lucky" button
-  from Google's youth. It'll drop a little hyperlink at the bottom of the page
-  with your result, since I don't yet know how to hijack your browser and force
-  it to make a new tab directing to a specific URL.
-</p>
   
-<p>
-  Be careful. Not everything will be safe. Not everything is something you should
-  click.
 </p>
 
-<%= form_tag(lucky_path, :method => "get", class: "navbar-form center") do %>
+
+<%= form_tag(ada_path, :method => "get", class: "navbar-form center") do %>
   <div class="input-append">
-    <%= text_field_tag :search, params[:search], class: "span2 center", 
-                       placeholder: "Feeling lucky?"%>
+    <%= text_field_tag :crush, params[:crush], class: "span2 center", 
+                       placeholder: "Crush"%>
     <button class="btn btn-success btn-sm" type="submit"> Luck </button>
   </div>
 <% end %>
 
-<div class="center">
-  <br>
-  <% if !@url.nil? %>
-    <%= link_to params[:search], @url %>
-  <% end %>
-</div>
+
+
+<%= form_tag(ada_path, :method => "get", class: "navbar-form center") do %>
+  <div class="input-append">
+    <%= text_field_tag :lookup, params[:lookup], class: "span2 center", 
+                       placeholder: "Lookup"%>
+    <button class="btn btn-success btn-sm" type="submit"> Luck </button>
+  </div>
+<% end %>
