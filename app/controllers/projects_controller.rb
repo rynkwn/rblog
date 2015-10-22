@@ -28,9 +28,11 @@ class ProjectsController < ApplicationController
       else
         Crush.create(name: params[:crush], fans: 1)
       end
+      @crushed = true
     end
     
     if params[:lookup]
+      @crush = Crush.find_by(name: params[:lookup])
     end
   end
 end

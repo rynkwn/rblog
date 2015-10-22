@@ -439,7 +439,7 @@ if I'm pulling in unnecessary data. This is problematic. On that note,
 UML diagrams of this site may be useful in the near future.
 
 ## Anonymous Donations Accepted (ADA)
-A "for-love" project. I'd be interested in making this perhaps a Facebook app
+Another mini-project. I'd be interested in making this perhaps a Facebook app
 in the future, but it also seems worthwhile to devote a small amount
 of time to see how well it hits off among my own group of friends.
 
