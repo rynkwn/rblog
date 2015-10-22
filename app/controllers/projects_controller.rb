@@ -21,6 +21,16 @@ class ProjectsController < ApplicationController
   
   # ada controls the ADA tool.
   def ada
+    if params[:crush]
+      if Crush.exists?(name: params[:crush])
+        crush = Crush.find_by(name: params[:crush])
+        crush.increment_fans
+      else
+        Crush.create(name: params[:crush], fans: 1)
+      end
+    end
     
+    if params[:lookup]
+    end
   end
 end
