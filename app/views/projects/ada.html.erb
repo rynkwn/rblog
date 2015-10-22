@@ -3,24 +3,23 @@
 <br>
 
 <p>
-  People are complex and life is difficult. 
+  Like many people, I put a lot of stock into liking people. 
 </p>
 
-
+Drop your crush's name.
 <%= form_tag(ada_path, :method => "get", class: "navbar-form center") do %>
   <div class="input-append">
-    <%= text_field_tag :crush, params[:crush], class: "span2 center", 
-                       placeholder: "Crush"%>
-    <button class="btn btn-success btn-sm" type="submit"> Luck </button>
+    <%= text_field_tag :crush, params[:crush], size: 70, class: "span2 center", 
+                       placeholder: "Yep. Drop it righhhhttttt here."%>
+    <button class="btn btn-success btn-sm" type="submit"> Pray </button>
   </div>
 <% end %>
 
-
-
+Are you curious how many people are crushing on so-and-so?
 <%= form_tag(ada_path, :method => "get", class: "navbar-form center") do %>
   <div class="input-append">
-    <%= text_field_tag :lookup, params[:lookup], class: "span2 center", 
-                       placeholder: "Lookup"%>
-    <button class="btn btn-success btn-sm" type="submit"> Luck </button>
+    <%= text_field_tag :lookup, params[:lookup], size: 68, class: "span2 center", 
+                       placeholder: "How many people are crushing on..."%>
+    <button class="btn btn-success btn-sm" type="submit"> Search </button>
   </div>
 <% end %>
