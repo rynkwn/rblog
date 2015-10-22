@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   
   # Project Routes
   get 'lucky' => 'projects#lucky'
+  get 'ada' => 'projects#ada'
 end

@@ -18,4 +18,9 @@ class ProjectsController < ApplicationController
     search.find { |item|  output += item.uri }
     return output
   end
+  
+  # ada controls the ADA tool.
+  def ada
+    
+  end
 end
