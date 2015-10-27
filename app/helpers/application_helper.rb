@@ -37,6 +37,8 @@ module ApplicationHelper
   
   private
   def hit(page_desc)
-    Hit.create(page: page_desc, date_created: Time.now)
+    if !UNTRACKED_PAGES.include?(page_desc)
+      Hit.create(page: page_desc, date_created: Time.now)
+    end
   end
 end
