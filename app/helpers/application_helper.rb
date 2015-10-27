@@ -4,17 +4,15 @@ module ApplicationHelper
   def full_title(page_title = '')
     base_title = "aRg"
     
-    if page_title.empty?  # I'm repeating the hit function here. Can I avoid that?
-      hit(base_title)
-      return base_title
-    else
-      hit(page_title)
-      return page_title
-    end
+    page_title.empty? ? base_title : page_title
   end
   
   # Creates a page description on a per-page basis for analytics purposes.
   def page_desc(desc = '')
+    base_desc = "aRg"
+    
+    final_desc = desc.empty? ? base_desc : desc
+    hit(final_desc)
   end
   
   # Generates the subtitle.
@@ -25,7 +23,8 @@ module ApplicationHelper
                   "Who reads subtitles anyways?",
                   "I'm not paid enough for this.",
                   "o_o",
-                  "Han shot first"
+                  "Han shot first",
+                  "Jar Jar was not the worst thing. It was the droids."
                 ]
     subtitles.sample
   end
