@@ -476,3 +476,9 @@ on the current value as read in. I.e., I would do something like:
 The problem with this is in a threaded environment, I can imagine this generating
 errors in the database. I.e., if there are simultaneous hits on a page, then what 
 is the new value put into the database?
+
+(A bit of time later)
+
+The inevitable question now is "what's a good way to model pages I don't want to
+track hits for? Create a constant storing untracked pages and check to see if the
+given page is one of those? Hm.
