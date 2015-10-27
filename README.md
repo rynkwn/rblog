@@ -437,3 +437,42 @@ while I did find the example to work reasonably well despite some of my
 modifications, some aspects of the syntax still puzzle me, and I'm unsure
 if I'm pulling in unnecessary data. This is problematic. On that note,
 UML diagrams of this site may be useful in the near future.
+
+## Anonymous Donations Accepted (ADA)
+Another mini-project. I'd be interested in making this perhaps a Facebook app
+in the future, but it also seems worthwhile to devote a small amount
+of time to see how well it hits off among my own group of friends.
+
+Of course, it'd be best to have a system in place to provide analytics
+over my own site before then. BUT. Let's build this first, hack together
+a small view counter, and then build the analytics platform later.
+
+## Analytics
+Prior to developing the "consumer user" model, analytics should be relatively
+simple. Right now my main interest is just tracking "hits." Literally
+how many people go to a certain link/page.
+
+The most thread-secure/easiest way of doing this, in my mind, is just to create
+a new model: `Hits` which stores a text object describing the page, as well
+as a date.
+
+A hit is created whenever a page on the site is loaded. Analytics will be done
+by creating a hash consisting of all Hits, where the key is the page description,
+the value is the number of hits.
+
+Every now and then, I'll want the Hits database to be flushed
+of old hits.
+
+The alternative design (and probably the one that occurred to me first) was to 
+have `Hits` store page descriptions and `num_of_hits`. Aside from being
+less flexible than the decided upon design, another issue is that the I do not
+know if it's possible to send a simple "increment" command that doesn't depend
+on the current value as read in. I.e., I would do something like:
+
+```
+  obj.update(new_value: old_value + 1)
+```
+
+The problem with this is in a threaded environment, I can imagine this generating
+errors in the database. I.e., if there are simultaneous hits on a page, then what 
+is the new value put into the database?
