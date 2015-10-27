@@ -38,7 +38,10 @@ class MainPagesController < ApplicationController
   # Iterates over the Hits database and returns a hash of page descriptions to
   # hit count. More options planned.
   def analytics
-    @summary = {}
+    @summary = Hash.new(0)  # Sets default value to non-extant keys to 0.
     
+    Hit.all.each do |hit|
+      @summary[hit.page] += 1 
+    end
   end
 end
