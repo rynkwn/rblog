@@ -20,7 +20,8 @@ module ApplicationHelper
                   "Hello, World",
                   "Who reads subtitles anyways?",
                   "I'm not paid enough for this.",
-                  "o_o"
+                  "o_o",
+                  "Han shot first"
                 ]
     subtitles.sample
   end
