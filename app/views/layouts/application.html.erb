@@ -9,6 +9,10 @@
   <meta property="og:image" content= <%= image_url("thumbnail1.png") %>/>
 </head>
 
+<behind-the-scenes-stuff>
+  <% page_desc(yield(:page_desc)) %>
+</behind-the-scenes-stuff>
+
 <body>
   <%= render 'layouts/title' %>
   
