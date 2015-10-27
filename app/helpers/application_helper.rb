@@ -13,6 +13,10 @@ module ApplicationHelper
     end
   end
   
+  # Creates a page description on a per-page basis for analytics purposes.
+  def page_desc(desc = '')
+  end
+  
   # Generates the subtitle.
   def subtitle
     subtitles = [
