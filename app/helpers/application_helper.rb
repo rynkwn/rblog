@@ -35,9 +35,7 @@ module ApplicationHelper
   end
   
   private
-  
-  # Saves the "Hit" to the database.
   def hit(page_desc)
-    Hits.create(page: page_desc, date_created: Time.now)
+    Hit.create(page: page_desc, date_created: Time.now)
   end
 end
