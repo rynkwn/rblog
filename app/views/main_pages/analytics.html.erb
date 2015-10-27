@@ -5,7 +5,7 @@
     <td>Page Title</td>
     <td>Hits</td>
   </tr>
-  <% @summary.keys do |page| %>
+  <% @summary.keys.each do |page| %>
     <tr>
       <td><%= page %></td>
       <td><%= @summary[page] %></td>
