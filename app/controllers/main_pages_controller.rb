@@ -25,6 +25,7 @@ class MainPagesController < ApplicationController
     end
   end
   
+  # Parses a data nuke and adds the embedded objects to the database.
   def data_parse
     data = params[:data]
     if !data.nil?
@@ -32,5 +33,12 @@ class MainPagesController < ApplicationController
         create_from_json(JSON.parse(dat))
       end
     end
+  end
+  
+  # Iterates over the Hits database and returns a hash of page descriptions to
+  # hit count. More options planned.
+  def analytics
+    @summary = {}
+    
   end
 end
