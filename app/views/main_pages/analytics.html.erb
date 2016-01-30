@@ -15,3 +15,8 @@
   <% end %>
 </table>
 
+<%= form_tag(analytics_send_data_path, :method => "get", class: "navbar-form center") do %>
+  <div class="input-append">
+    <button class="btn btn-success btn-sm" type="submit"> Send Meta Data </button>
+  </div>
+<% end %>

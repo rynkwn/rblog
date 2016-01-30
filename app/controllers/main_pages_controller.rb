@@ -6,7 +6,7 @@ class MainPagesController < ApplicationController
                           :data_nuke, 
                           :data_parse, 
                           :analytics
-                        ]
+                         ]
   
   #############################################################
   #
@@ -61,20 +61,30 @@ class MainPagesController < ApplicationController
   
   # We create a JSON object to email to a third party data storage system.
   # This JSON object contains the range of dates as well as the meta data.
-  def hit_meta
-    # Assume that the first and last objects correspond to
-    # first and last hits made.
-    first_date = Hit.first.as_json[:date_created]
-    last_date = Hit.last.as_json[:date_created]
-    
-    summary_data = {
-                    start_date: first_date,
-                    end_date: last_date,
-                    hits: summarize
-                    }
-                    
-    Bloghistory::analytics_email(first_date, last_date, summary_data).deliver
-    flash.now[:success] = "Analytics data sent!"
+  def analytics_send_data
+    if(Hit.count > 0)
+      # Assume that the first and last objects correspond to
+      # first and last hits made.
+      first_date = Hit.first.as_json['date_created'].strftime("%d-%m-%Y")
+      last_date = Hit.last.as_json['date_created'].strftime("%d-%m-%Y")
+      
+      summary_data = {
+                      start_date: first_date,
+                      end_date: last_date,
+                      hits: summarize
+                      }
+                      
+      Bloghistory::analytics_email(
+                                   first_date, 
+                                   last_date, 
+                                   summary_data
+                                   ).deliver
+      Hit.delete_all
+      flash.now[:success] = "Analytics data sent!"
+      redirect_to(analytics_path)
+    else
+      flash.now[:danger] = "No analytics data to send."
+    end
   end
 
   private
