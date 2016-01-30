@@ -21,6 +21,7 @@ module MainPagesHelper
                     hits: summary
                     }
                     
-    
+    Bloghistory::analytics_email(first_date, last_date, summary_data).deliver
+    flash.now[:success] = "Analytics data sent!"
   end
 end
