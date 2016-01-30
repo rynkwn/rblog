@@ -5,8 +5,7 @@ class MainPagesController < ApplicationController
                 :only => [
                           :data_nuke, 
                           :data_parse, 
-                          :analytics,
-                          :hit_meta
+                          :analytics
                         ]
   
   #############################################################
@@ -60,35 +59,11 @@ class MainPagesController < ApplicationController
     @summary = summarize
   end
 
-  # We create a JSON object to email to a third party data storage system.
-  # This JSON object contains two things: DateRange and then a list of
-  # meta data similar to analytics above.
-  def hit_meta
-    
-    # To get the DateRange we only really need to grab the first and last row's
-    # and grab their date_created information.
-    first_date = Hit.first.as_json[:date_created]
-    last_date = Hit.last.as_json[:date_created]
-    
-    summary_data = {
-                    start_date: first_date,
-                    end_date: last_date,
-                    hits: summarize
-                    }
-                    
-    return summary_data
-  end
-
   private
-  
   # Summarize hit data.
   def summarize
     summary = Hash.new(0)
-    
-    Hit.all.each do |hit|
-      summary[hit.page] += 1
-    end
-    
+    Hit.all.each {|hit| summary[hit.page] += 1}
     return summary
   end
   
