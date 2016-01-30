@@ -80,7 +80,6 @@ class MainPagesController < ApplicationController
                                    summary_data
                                    ).deliver
       Hit.delete_all
-      flash.now[:success] = "Analytics data sent!"
       redirect_to(analytics_path)
     else
       flash.now[:danger] = "No analytics data to send."
