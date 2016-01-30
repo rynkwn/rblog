@@ -58,6 +58,24 @@ class MainPagesController < ApplicationController
   def analytics
     @summary = summarize
   end
+  
+  # We create a JSON object to email to a third party data storage system.
+  # This JSON object contains the range of dates as well as the meta data.
+  def hit_meta
+    # Assume that the first and last objects correspond to
+    # first and last hits made.
+    first_date = Hit.first.as_json[:date_created]
+    last_date = Hit.last.as_json[:date_created]
+    
+    summary_data = {
+                    start_date: first_date,
+                    end_date: last_date,
+                    hits: summarize
+                    }
+                    
+    Bloghistory::analytics_email(first_date, last_date, summary_data).deliver
+    flash.now[:success] = "Analytics data sent!"
+  end
 
   private
   # Summarize hit data.
