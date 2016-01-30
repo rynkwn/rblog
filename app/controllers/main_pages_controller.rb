@@ -1,7 +1,18 @@
 class MainPagesController < ApplicationController
   require 'json'
   
-  before_action :authorized?, :only => [:data_nuke, :data_parse]
+  before_action :authorized?, 
+                :only => [
+                          :data_nuke, 
+                          :data_parse, 
+                          :analytics
+                        ]
+  
+  #############################################################
+  #
+  # Data emailing related functions.
+  #
+  #############################################################
 
   # Compiles relevant data using the to_data function of models
   # and emails that data to my primary email address.
@@ -35,6 +46,13 @@ class MainPagesController < ApplicationController
     end
   end
   
+  
+  #############################################################
+  #
+  # Analytics related functions
+  #
+  #############################################################
+  
   # Iterates over the Hits database and returns a hash of page descriptions to
   # hit count. More options planned.
   def analytics
@@ -44,4 +62,5 @@ class MainPagesController < ApplicationController
       @summary[hit.page] += 1 
     end
   end
+
 end
