@@ -62,8 +62,10 @@ class MainPagesController < ApplicationController
     if params[:commit]
       if params[:table] == 'Hits'
         @summary = summarize_hits
+        @summary['Total'] = @summary.values.inject {|sum, n| sum + n}
       elsif params[:table] == 'Users'
         @summary = summarize_users
+        @summary['Total'] = @summary.values.count
       end
     else
       @summary = summarize_hits
