@@ -2,6 +2,13 @@
 
 <h1>Analytics</h1>
 
+<%= form_tag(analytics_path, method: "get") do %>
+  <%= select_tag(:table, options_for_select(@data_tables)) %>
+  <%= submit_tag("Filter") %>
+<% end %>
+
+<br>
+
 <table border="1" style="width:100%">
   <tr align="CENTER">
     <td>Page Title</td>
