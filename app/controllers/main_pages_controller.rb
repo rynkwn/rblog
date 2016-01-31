@@ -60,7 +60,11 @@ class MainPagesController < ApplicationController
     @data_tables = ['Users', 'Hits']
     
     if params[:commit]
-      
+      if params[:table] == 'Hits'
+        @summary = summarize_hits
+      elsif params[:table] == 'Users'
+        @summary = summarize_users
+      end
     else
       @summary = summarize_hits
     end
@@ -99,6 +103,12 @@ class MainPagesController < ApplicationController
   def summarize_hits
     summary = Hash.new(0)
     Hit.all.each {|hit| summary[hit.page] += 1}
+    return summary
+  end
+  
+  def summarize_users
+    summary = Hash.new('')
+    User.all.each {|user| summary[user.email] = user.email}
     return summary
   end
   
