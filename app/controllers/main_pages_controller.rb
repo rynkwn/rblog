@@ -5,7 +5,8 @@ class MainPagesController < ApplicationController
                 :only => [
                           :data_nuke, 
                           :data_parse, 
-                          :analytics
+                          :analytics,
+                          :analytics_send_data
                          ]
   
   #############################################################
@@ -56,7 +57,20 @@ class MainPagesController < ApplicationController
   # Iterates over the Hits database and returns a hash of page descriptions to
   # hit count. More options planned.
   def analytics
-    @summary = summarize
+    @data_tables = ['Users', 'Hits']
+    
+    if params[:commit]
+      if params[:table] == 'Hits'
+        @summary = summarize_hits
+        @summary['Total'] = @summary.values.inject {|sum, n| sum + n}
+      elsif params[:table] == 'Users'
+        @summary = summarize_users
+        @summary['Total'] = @summary.values.count
+      end
+    else
+      @summary = summarize_hits
+    end
+    
   end
   
   # We create a JSON object to email to a third party data storage system.
@@ -71,7 +85,7 @@ class MainPagesController < ApplicationController
       summary_data = {
                       start_date: first_date,
                       end_date: last_date,
-                      hits: summarize
+                      hits: summarize_hits
                       }
                       
       Bloghistory::analytics_email(
@@ -88,9 +102,15 @@ class MainPagesController < ApplicationController
 
   private
   # Summarize hit data.
-  def summarize
+  def summarize_hits
     summary = Hash.new(0)
     Hit.all.each {|hit| summary[hit.page] += 1}
+    return summary
+  end
+  
+  def summarize_users
+    summary = Hash.new('')
+    User.all.each {|user| summary[user.email] = user.email}
     return summary
   end
   
