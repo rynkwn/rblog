@@ -5,7 +5,8 @@ class MainPagesController < ApplicationController
                 :only => [
                           :data_nuke, 
                           :data_parse, 
-                          :analytics
+                          :analytics,
+                          :analytics_send_data
                          ]
   
   #############################################################
@@ -58,7 +59,8 @@ class MainPagesController < ApplicationController
   def analytics
     @data_tables = ['Users', 'Hits']
     
-    if params[:filter]
+    if params[:commit]
+      
     else
       @summary = summarize_hits
     end
