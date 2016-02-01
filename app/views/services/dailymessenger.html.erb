@@ -8,16 +8,24 @@
 
 <p>
   Daily Messages are great, but there's a metric ton of them. Wouldn't it
-  be great if you could get a version that just included things you'd be
-  interested in, so you'd never miss another job opportunity or fun
-  event ever again?
+  be great if you could get a version that just included things you're
+  interested in, so you'd never miss another job opportunity, department announcement,
+  or fun event ever again?
 </p>
 
 <br>
 
-<p class='center'>
-  Welcome to the Daily Messenger
-</p>
+<% if logged_in? %>
+  <p class='center'>
+    <%= link_to "Go to my Daily Messenger!", '#' %>
+  </p>
+<% else %>
+  <p class='center'>
+    <%= link_to "Golly whiz sign me up!", '#' %>
+  </p>
+<% end %>
+
+
 
 <br>
 
@@ -83,13 +91,3 @@
 <p>
   I spend a lot of time alone.
 </p>
-
-<br>
-
-<% if logged_in? %>
-  Logged in!
-<% else %>
-  Not logged in!
-<% end %>
-
-Hooray! You got here!

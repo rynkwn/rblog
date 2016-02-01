@@ -13,3 +13,17 @@
   
   <%= f.submit "Log in!", class: "btn-primary" %>
 <% end %>
+
+<!--------------------------------------->
+
+<p class='center bold'>
+  <br>
+  Don't have an account?
+  
+  <%= form_tag(new_user_path, :method => "get", class: "navbar-form center") do %>
+    <div class="input-append">
+      <button class="btn btn-success btn-md" type="submit">Sign up!</button>
+    </div>
+  <% end %>
+</p>
+
