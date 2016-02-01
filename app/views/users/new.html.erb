@@ -1,5 +1,7 @@
 <h1 class="secondary">Sign Up</h1>
 
+<%= render 'error_messages' %>
+
 <%= form_for(@user, html: {class: 'form'})do |f| %>
   <div class="form-group">
     <%= f.label :email %>

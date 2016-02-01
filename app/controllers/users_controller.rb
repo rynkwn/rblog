@@ -8,10 +8,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      flash.now[:success] = "Hooray!"
+      flash.now[:success] = "Hooray! Welcome to " + NAME_OF_SITE
     else
       render 'new'
-      flash.now[:danger] = "Oh no!"
     end
   end
   
