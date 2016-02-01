@@ -37,6 +37,10 @@ class UsersController < ApplicationController
     end
   end
   
+  def daily_messenger_edit
+    @dm = ServiceDaily.find(params[:format])
+  end
+  
   private
   
   def user_params

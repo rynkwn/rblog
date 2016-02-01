@@ -57,4 +57,6 @@ Rails.application.routes.draw do
   # Daily Messenger Routes
   get 'dailymessenger' => 'services#dailymessenger'
   get 'my_daily_messenger' => 'users#my_daily_messenger'
+  get 'service_daily' => 'users#my_daily_messenger'
+  patch 'service_daily' => 'users#daily_messenger_edit'
 end

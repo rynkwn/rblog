@@ -1,0 +1,11 @@
+<%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
+  <div class="form-group">
+    <%= f.label :key_words %>
+    <%= f.text_field :key_words, class: 'form-control' %>
+    
+    <%= f.label :sender %>
+    <%= f.text_field :sender, class: 'form-control' %>
+  </div>
+  
+  <%= f.submit "Submit", class: "btn-primary" %>
+<% end %>
