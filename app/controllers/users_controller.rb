@@ -14,6 +14,16 @@ class UsersController < ApplicationController
     end
   end
   
+  #####################################
+  #
+  # Service related methods.
+  #
+  #####################################
+  
+  def create_daily
+    
+  end
+  
   private
   def user_params
     params.require(:user).permit(:email, 

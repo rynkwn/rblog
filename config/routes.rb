@@ -29,4 +29,7 @@ Rails.application.routes.draw do
   
   # Project Routes
   get 'lucky' => 'projects#lucky'
+  
+  # Service Routes
+  get 'dailymessenger' => 'services#dailymessenger'
 end
