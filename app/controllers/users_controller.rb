@@ -32,6 +32,7 @@ class UsersController < ApplicationController
         @dm = user.service_daily
       end
     else
+      redirect_to login_path
       flash[:danger] = "I'm sorry, you're not logged in!"
     end
   end
