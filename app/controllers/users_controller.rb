@@ -21,7 +21,6 @@ class UsersController < ApplicationController
   #####################################
   
   def my_daily_messenger
-    
     user = current_user
     
     if(user)
@@ -33,16 +32,8 @@ class UsersController < ApplicationController
         @dm = user.service_daily
       end
     else
-      redirect_to login_path
-      flash.now[:danger] = "I'm sorry, you're not logged in!"
+      flash[:danger] = "I'm sorry, you're not logged in!"
     end
-      
-  end
-  
-  # Create a daily messenger pattern and assign it to this user.
-  def create_daily
-    dm = ServiceDaily.create
-    dm.user = @user
   end
   
   private
