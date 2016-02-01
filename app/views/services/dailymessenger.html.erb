@@ -13,15 +13,15 @@
   or fun event ever again?
 </p>
 
-<br>
-
 <% if logged_in? %>
   <p class='center'>
+    <br>
     <%= link_to "Go to my Daily Messenger!", '#' %>
   </p>
 <% else %>
   <p class='center'>
-    <%= link_to "Golly whiz sign me up!", '#' %>
+    <br>
+    <%= link_to "Golly whiz sign me up!", login_path %>
   </p>
 <% end %>
 
