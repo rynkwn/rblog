@@ -20,8 +20,18 @@ class UsersController < ApplicationController
   #
   #####################################
   
+  def my_daily_messenger
+    if(! @user.service_daily)
+      @dm = ServiceDaily.create
+      @dm.user = @user
+    else
+      @dm = @user.service_daily
+  end
+  
+  # Create a daily messenger pattern and assign it to this user.
   def create_daily
-    
+    dm = ServiceDaily.create
+    dm.user = @user
   end
   
   private

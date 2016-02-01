@@ -13,10 +13,19 @@
   or fun event ever again?
 </p>
 
+<br>
+
+<p>
+  With the Daily Messenger, you can specify what key words to look for in the daily
+  messages, as well as what departments, clubs, or people you're always happy
+  to hear from. We'll do the filtering, and everyday we'll send you a special email
+  containing only the Daily Message content you want.
+</p>
+
 <% if logged_in? %>
   <p class='center'>
     <br>
-    <%= link_to "Go to my Daily Messenger!", '#' %>
+    <%= link_to "Go to my Daily Messenger!", my_daily_messenger_path %>
   </p>
 <% else %>
   <p class='center'>
