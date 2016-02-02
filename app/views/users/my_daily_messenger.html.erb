@@ -2,7 +2,7 @@
 
 <%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
-    <%= f.label 'What key words do you want to search for?' %>
+    <%= f.label 'What key words do you want to filter for?' %>
     <%= f.text_field :key_words, class: 'form-control' %>
     
     <%= f.label 'What groups do you always want to receive daily messages from?' %>
