@@ -111,9 +111,18 @@ class MainPagesController < ApplicationController
   def daily_messenger_send
     message = params[:dailymessage]
     if(message)
-      messageOrig = message.split("\r\n\r\n")
-      messageMatch = messageOrig.map(&:downcase)
-      messageSenders = message.split("\r\n").reject{|line| !line.include?("from")}
+      messageOrig = message.split("\r\n\r\n").reject{|line| line.include?("===")}
+      messageMatch = messageOrig.map{|x|
+        x = x.downcase
+        x = x.strip
+      }
+      messageSenders = messageOrig.map{|x| 
+        x = x.split("\r\n")[-1]
+        x = x.downcase
+        x = x.strip
+      }
+      
+      
       
       debugger
     end
