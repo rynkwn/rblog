@@ -109,6 +109,11 @@ class MainPagesController < ApplicationController
   
   # Sends out daily messenger emails.
   def daily_messenger_send
+    message = params[:dailymessage]
+    if(message)
+      message = message.split("\r\n\r\n")
+      debugger
+    end
   end
 
   private
