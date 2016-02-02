@@ -39,6 +39,16 @@ class UsersController < ApplicationController
   
   def daily_messenger_edit
     @dm = ServiceDaily.find(params[:format])
+    modified_params = service_daily_params
+    modified_params[:key_words] = tag_parser(params[:service_daily][:key_words])
+    
+    if @dm.update_attributes(modified_params)
+      redirect_to my_daily_messenger_path
+      flash.now[:success] = "Daily Messenger Preferences updated!"
+    else
+      redirect_to my_daily_messenger_path
+      flash.now[:danger] = "Snap. Something went wrong."
+    end
   end
   
   private
@@ -47,5 +57,19 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, 
                                  :password, 
                                  :password_confirmation)
+  end
+  
+  def service_daily_params
+    params.require(:service_daily).permit(:key_words,
+                                 :sender)
+  end
+  
+  # Parses tags into an array based on typical delimiters (spaces, commas) and
+  # removes whitespace.
+  # Copied from Blogs_Controller
+  def tag_parser(tags)
+    parsed = tags.split(/[\s,']/)
+    parsed.reject(&:empty?)
+    return parsed
   end
 end
