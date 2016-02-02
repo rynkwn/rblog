@@ -110,8 +110,14 @@ class MainPagesController < ApplicationController
   # Sends out daily messenger emails.
   def daily_messenger_send
     message = params[:dailymessage]
+    
+    # If there's a daily message to send.
     if(message)
+      
+      # Okay, now we parse the daily messages 
+      # messageOrig splits by message.
       messageOrig = message.split("\r\n\r\n").reject{|line| line.include?("===")}
+      
       messageMatch = messageOrig.map{|x|
         x = x.downcase
         x = x.strip
@@ -122,7 +128,11 @@ class MainPagesController < ApplicationController
         x = x.strip
       }
       
-      
+      # For each service daily, we get the correct messages,
+      # put them together, and then send them to the person.
+      ServiceDaily.all.each {|dm|
+        
+      }
       
       debugger
     end
