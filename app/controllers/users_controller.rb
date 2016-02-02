@@ -71,14 +71,17 @@ class UsersController < ApplicationController
   def comma_parser(words)
     parsed = words.split(/[,]/)
     parsed = parsed.map(&:strip)
-    parsed.reject(&:empty?)
+    parsed = parsed.map {|x| x = x.gsub(/\s+/, ' ')}
+    parsed = parsed.map(&:downcase)
+    parsed = parsed.reject(&:blank?)
     return parsed
   end
   
   # Parse by spaces and commas.
   def space_comma_parser(words)
     parsed = words.split(/[\s,]/)
-    parsed.reject(&:empty?)
+    parsed = parsed.map(&:downcase)
+    parsed = parsed.reject(&:blank?)
     return parsed
   end
 end
