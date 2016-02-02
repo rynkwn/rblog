@@ -1,4 +1,10 @@
 class UsersController < ApplicationController
+  
+  before_action :logged_in_user?, 
+                :only => [
+                          :my_daily_messenger,
+                          :daily_messenger_edit
+                         ]
     
   def new
     @user = User.new
@@ -23,22 +29,19 @@ class UsersController < ApplicationController
   def my_daily_messenger
     user = current_user
     
-    if(user)
-      if(! user.service_daily)
-        @dm = ServiceDaily.new
-        @dm.user = user
-        @dm.save!
-      else
-        @dm = user.service_daily
-      end
+    if(! user.service_daily)
+      @dm = ServiceDaily.new
+      @dm.user = user
+      @dm.save!
     else
-      redirect_to login_path
-      flash[:danger] = "I'm sorry, you're not logged in!"
+      @dm = user.service_daily
     end
   end
   
   def daily_messenger_edit
-    @dm = ServiceDaily.find(params[:format])
+    user = current_user
+    
+    @dm = ServiceDaily.find(user_id: user.id)
     
     modified_params = service_daily_params
     modified_params[:key_words] = space_comma_parser(params[:service_daily][:key_words])
