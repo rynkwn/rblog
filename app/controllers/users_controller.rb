@@ -44,10 +44,10 @@ class UsersController < ApplicationController
     
     if @dm.update_attributes(modified_params)
       redirect_to my_daily_messenger_path
-      flash.now[:success] = "Daily Messenger Preferences updated!"
+      flash[:success] = "Daily Messenger Preferences updated!"
     else
       redirect_to my_daily_messenger_path
-      flash.now[:danger] = "Snap. Something went wrong."
+      flash[:danger] = "Snap. Something went wrong."
     end
   end
   
