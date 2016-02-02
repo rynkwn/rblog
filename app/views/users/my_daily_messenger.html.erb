@@ -1,11 +1,13 @@
+<h1>My Daily Messenger</h1>
+
 <%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
-    <%= f.label :key_words %>
+    <%= f.label 'What key words do you want to search for?' %>
     <%= f.text_field :key_words, class: 'form-control' %>
     
-    <%= f.label :sender %>
-    <%= f.text_field :sender, class: 'form-control' %>
+    <%= f.label 'What groups do you always want to receive daily messages from?' %>
+    <%= f.text_field :sender, value: @dm.sender.join(", "), class: 'form-control' %>
   </div>
-  
+
   <%= f.submit "Submit", class: "btn-primary" %>
 <% end %>

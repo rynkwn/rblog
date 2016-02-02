@@ -39,8 +39,10 @@ class UsersController < ApplicationController
   
   def daily_messenger_edit
     @dm = ServiceDaily.find(params[:format])
+    
     modified_params = service_daily_params
-    modified_params[:key_words] = tag_parser(params[:service_daily][:key_words])
+    modified_params[:key_words] = space_comma_parser(params[:service_daily][:key_words])
+    modified_params[:sender] = comma_parser(params[:service_daily][:sender])
     
     if @dm.update_attributes(modified_params)
       redirect_to my_daily_messenger_path
@@ -64,11 +66,18 @@ class UsersController < ApplicationController
                                  :sender)
   end
   
-  # Parses tags into an array based on typical delimiters (spaces, commas) and
-  # removes whitespace.
+  # Parses just by commas
   # Copied from Blogs_Controller
-  def tag_parser(tags)
-    parsed = tags.split(/[\s,']/)
+  def comma_parser(words)
+    parsed = words.split(/[,]/)
+    parsed = parsed.map(&:lstrip)
+    parsed.reject(&:empty?)
+    return parsed
+  end
+  
+  # Parse by spaces and commas.
+  def space_comma_parser(words)
+    parsed = words.split(/[\s,]/)
     parsed.reject(&:empty?)
     return parsed
   end
