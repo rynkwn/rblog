@@ -70,7 +70,7 @@ class UsersController < ApplicationController
   # Copied from Blogs_Controller
   def comma_parser(words)
     parsed = words.split(/[,]/)
-    parsed = parsed.map(&:lstrip)
+    parsed = parsed.map(&:strip)
     parsed.reject(&:empty?)
     return parsed
   end
