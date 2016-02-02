@@ -6,7 +6,8 @@ class MainPagesController < ApplicationController
                           :data_nuke, 
                           :data_parse, 
                           :analytics,
-                          :analytics_send_data
+                          :analytics_send_data,
+                          :daily_messenger_send
                          ]
   
   #############################################################
@@ -99,8 +100,19 @@ class MainPagesController < ApplicationController
       flash.now[:danger] = "No analytics data to send."
     end
   end
+  
+  #############################################################
+  #
+  # Daily Messenger related functions
+  #
+  #############################################################
+  
+  # Sends out daily messenger emails.
+  def daily_messenger_send
+  end
 
   private
+  
   # Summarize hit data.
   def summarize_hits
     summary = Hash.new(0)
