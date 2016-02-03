@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   def daily_messenger_edit
     user = current_user
     
-    @dm = ServiceDaily.find(user_id: user.id)
+    @dm = user.service_daily
     
     modified_params = service_daily_params
     modified_params[:key_words] = space_comma_parser(params[:service_daily][:key_words])
