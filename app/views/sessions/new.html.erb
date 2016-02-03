@@ -11,6 +11,8 @@
     <%= f.password_field :password, class: 'form-control' %>
   </div>
   
+  <%= hidden_field_tag 'intended_route', params[:intended_route] %>
+  
   <%= f.submit "Log in!", class: "btn-primary" %>
 <% end %>
 
