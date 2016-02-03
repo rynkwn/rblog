@@ -9,10 +9,9 @@ class SessionsController < ApplicationController
       flash.now[:success] = 'Welcome!'
       log_in user
       
-      debugger
-      
       # If there was an intended route, redirect there.
       if params[:intended_route]
+        redirect_to params[:intended_route]
       else
         redirect_to root_path
       end

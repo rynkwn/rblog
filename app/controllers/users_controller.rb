@@ -15,6 +15,12 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash.now[:success] = "Hooray! Welcome to " + NAME_OF_SITE
+      
+      if(params[:intended_route])
+        redirect_to params[:intended_route]
+      else
+        redirect_to root_path
+      end
     else
       render 'new'
     end
