@@ -2,24 +2,27 @@
 
 <%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
-    <%= f.label 'What key words do you want to filter for?' %>
-    <%= f.text_field :key_words, class: 'form-control' %>
+    <%= f.label :key_words, "What key words do you want to filter for?" %>
+    <%= f.text_field :key_words, placeholder: "job internship free food competition research REU",
+                     class: 'form-control' %>
     
     <%= f.label 'What groups do you always want to receive daily messages from?' %>
-    <%= f.text_field :sender, value: @dm.sender.map(&:capitalize).join(", "), class: 'form-control' %>
+    <%= f.text_field :sender, placeholder: "Frank Morgan, career center, dean's office, mathematics and statistics",
+                     value: @dm.sender.map(&:capitalize).join(", "), class: 'form-control' %>
   </div>
 
   <%= f.submit "Submit", class: "btn-primary" %>
 <% end %>
 
 <p>
-  Extra Rules for Daily Messenger:
+  Tips for Daily Messenger:
   
   <ul>
     <li>Capitalization doesn't matter!</li>
     <li>Key words can be separated by either spaces or commas.</li>
     <li>When you specify groups you always want to hear from, separate them by commas!</li>
     <li>You can go crazy with spaces. We'll still love you.</li>
+    <li>You can go directly to "My Daily Messenger" from the account tab above!</li>
   </ul>
 </p>
 
