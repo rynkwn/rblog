@@ -22,17 +22,12 @@
   containing only the Daily Message content you want.
 </p>
 
-<% if logged_in? %>
-  <p class='center'>
-    <br>
-    <%= link_to "Go to my Daily Messenger!", my_daily_messenger_path %>
-  </p>
-<% else %>
-  <p class='center'>
-    <br>
-    <%= link_to "Go to my Daily Messenger!", login_path(intended_route: my_daily_messenger_path) %>
-  </p>
-<% end %>
+<% path = logged_in? ? my_daily_messenger_path : login_path(intended_route: my_daily_messenger_path) %>
+
+<p class='center'>
+  <br>
+  <%= link_to "Go to my Daily Messenger!", path %>
+</p>
 
 <h3 class='bold'>The Brave, The Bold, The Beta Testers</h3>
 
