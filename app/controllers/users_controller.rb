@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
+      user_signup_email(@user.email)
       flash.now[:success] = "Hooray! Welcome to " + NAME_OF_SITE
       
       if(params[:intended_route])
@@ -62,6 +63,12 @@ class UsersController < ApplicationController
     end
   end
   
+  #####################################
+  #
+  # Private methods
+  #
+  #####################################
+  
   private
   
   def user_params
@@ -92,5 +99,37 @@ class UsersController < ApplicationController
     parsed = parsed.map(&:downcase)
     parsed = parsed.reject(&:blank?)
     return parsed
+  end
+  
+  def user_signup_email(receiver)
+    subject = "Welcome to aRg!"
+    content = "Hello!\n\n" +
+    
+    "\tYou don't need to confirm your account or anything, and if this " + 
+    "isn't something you remotely expected to see, I suggest you reply to this " + 
+    "email immediately with something like 'Identity Theft is no Joke, Ryan'\n\n" +
+    
+    "That'll catch my eye.\n\n" +
+    
+    "\tAnyways... Welcome! aRg is a weird site that I spend a lot of time on. " +
+    "Right now a lot of it is just blogs and smaller projects of mine, but " +
+    "hopefully there'll eventually be lots of cool features, tools, services, " +
+    "and widgets for you to play around with.\n\n" +
+    
+    "Send me emails. Whether of bugs (the computer kind), bugs (the insect kind), " +
+    "space, AI, or just how your day has been.\n\n" +
+    
+    "It gets lonely being stuck in a computer.\n\n" +
+    
+    "So lonely...\n\n" +
+    
+    "Best,\n"+
+    "Ryan"
+    
+    ServiceMailer::email(
+                          subject,
+                          receiver,
+                          content
+                          ).deliver
   end
 end
