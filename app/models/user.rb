@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   #
   ####################################################
   
-  has_one :service_daily
+  has_one :service_daily, :dependent => :destroy
     
   ####################################################
   #
