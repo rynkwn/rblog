@@ -105,25 +105,25 @@ class UsersController < ApplicationController
     subject = "Welcome to aRg!"
     content = "Hello!\n\n" +
     
-    "\tYou don't need to confirm your account or anything, and if this " + 
+    "You don't need to confirm your account or anything, and if this " + 
     "isn't something you remotely expected to see, I suggest you reply to this " + 
-    "email immediately with something like 'Identity Theft is no Joke, Ryan'\n\n" +
+    "email immediately with something like 'Identity Theft is not a Joke, Ryan.'\n\n" +
     
     "That'll catch my eye.\n\n" +
     
-    "\tAnyways... Welcome! aRg is a weird site that I spend a lot of time on. " +
+    "Anyways... Welcome! aRg is a weird site that I spend a lot of time on. " +
     "Right now a lot of it is just blogs and smaller projects of mine, but " +
     "hopefully there'll eventually be lots of cool features, tools, services, " +
     "and widgets for you to play around with.\n\n" +
     
-    "Send me emails. Whether of bugs (the computer kind), bugs (the insect kind), " +
-    "space, AI, or just how your day has been.\n\n" +
+    "I always enjoy emails, so feel free to send me as many as you'd like. " +
+    "Whether of bugs (the computer kind), " + 
+    "bugs (the insect kind), the ISS, " +
+    "space, AI, or just how your day has been. " +
+    "I'm not really a huge fan of bugs (the insect kind) though, so try to restrain " +
+    "yourself when you send me giant popping 3D closeups of insects.\n\n" +
     
-    "It gets lonely being stuck in a computer.\n\n" +
-    
-    "So lonely...\n\n" +
-    
-    "Best,\n"+
+    "Cheers,\n\n"+
     "Ryan"
     
     ServiceMailer::email(
