@@ -167,3 +167,16 @@ p {
     color: $state-danger-text;
   }
 }
+
+/* Table */
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+td {
+    padding: 8px;
+}

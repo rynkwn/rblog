@@ -6,6 +6,17 @@
     <%= f.text_field :key_words, placeholder: "job internship free food competition research REU",
                      class: 'form-control' %>
     
+    <table class="center">
+      <% mdm_words.each do |desc, values| %>
+        <tr>
+            <td><%= check_box_tag "words[]", values %></td>
+            <td class="text-left"><%= desc %></td>
+        </tr>
+      <% end %>
+    </table>
+    
+    
+    
     <%= f.label 'What groups do you always want to receive daily messages from?' %>
     <%= f.text_field :sender, placeholder: "Frank Morgan, career center, dean's office, mathematics and statistics",
                      value: @dm.sender.map(&:capitalize).join(", "), class: 'form-control' %>

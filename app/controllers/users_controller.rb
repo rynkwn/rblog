@@ -47,6 +47,8 @@ class UsersController < ApplicationController
   
   def daily_messenger_edit
     user = current_user
+    words = params[:words].join(",")
+    words = words.split(",")
     
     @dm = user.service_daily
     
