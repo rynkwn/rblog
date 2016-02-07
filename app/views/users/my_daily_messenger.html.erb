@@ -1,10 +1,15 @@
 <h1>My Daily Messenger</h1>
 
+<!-- EXTRA CODE I MAY WANT TO REINSTATE AT SOME POINT.
+    f.text_field :key_words, placeholder: "job internship free food competition research REU",
+                    class: 'form-control'
+
+-->
+
 <%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
-    <%= f.label :key_words, "What key words do you want to filter for?" %>
-    <%= f.text_field :key_words, placeholder: "job internship free food competition research REU",
-                     class: 'form-control' %>
+    
+    <%= f.label :key_words, "What things do you want to filter for?"%>
     
     <table class="center">
       <% mdm_words.each do |desc, values| %>
