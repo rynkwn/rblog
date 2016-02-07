@@ -9,7 +9,7 @@
     <table class="center">
       <% mdm_words.each do |desc, values| %>
         <tr>
-            <td><%= check_box_tag "words[]", values %></td>
+            <td><%= check_box_tag "words[]", values, checked = (values.split(",") - @dm.key_words).empty? %></td>
             <td class="text-left"><%= desc %></td>
         </tr>
       <% end %>
