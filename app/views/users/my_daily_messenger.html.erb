@@ -12,12 +12,20 @@
     <%= f.label :key_words, "What things do you want to filter for?"%>
     
     <table class="center">
-      <% mdm_words.each do |desc, values| %>
+      <% mdm_words.to_a.flatten.in_groups_of(4, '&nbsp;') {|group| %>
         <tr>
-            <td><%= check_box_tag "words[]", values, checked = (values.split(",") - @dm.key_words).empty? %></td>
-            <td class="text-left"><%= desc %></td>
+            <td><%= check_box_tag "words[]", group[1], checked = (group[1].split(",") - @dm.key_words).empty? %></td>
+            <td class="text-left"><%= group[0] %></td>
+            
+            <% if group[3] == '&nbsp;' %>
+              <td> </td>
+              <td> </td>
+            <% else %>
+              <td><%= check_box_tag "words[]", group[3], checked = (group[3].split(",") - @dm.key_words).empty? %></td>
+              <td class="text-left"><%= group[2] %></td>
+            <% end %>
         </tr>
-      <% end %>
+      <% } %>
     </table>
     
     
