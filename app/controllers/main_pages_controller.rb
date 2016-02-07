@@ -131,10 +131,43 @@ class MainPagesController < ApplicationController
       # For each service daily, we get the correct messages,
       # put them together, and then send them to the person.
       ServiceDaily.all.each {|dm|
-        
-      }
       
-      debugger
+        email = dm.user.email
+        
+        # We want to store indices to keep track of which messages we're
+        # interested in.
+        selected_messages = []
+        counter = 0
+        messageMatch.each do |bodytext|
+          
+          dm.key_words.each do |word|
+            if bodytext.include? word
+              selected_messages << counter
+              break
+            end
+          end
+          
+          counter = counter + 1
+        end
+        
+        counter = 0
+        messageSenders.each do |sendertext|
+          
+          dm.sender.each do |word|
+            if sendertext.include? word
+              selected_messages << counter
+              break
+            end
+          end
+          
+          counter = counter + 1
+        end
+        
+        selected_messages = selected_messages.uniq
+        filtered_content = messageOrig.values_at(selected_messages)
+        
+        daily_messenger(email, filtered_content).deliver
+      }
     end
   end
 
