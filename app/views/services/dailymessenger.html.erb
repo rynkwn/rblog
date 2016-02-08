@@ -20,11 +20,15 @@
   containing only the Daily Message content you want.
 </p>
 
+<!----------------------------------------------->
+
 <% path = logged_in? ? my_daily_messenger_path : login_path(intended_route: my_daily_messenger_path) %>
 
 <div class='center'>
   <%= button_to "Go to My Daily Messenger", path, :method => "get", :class => "btn, btn-success btn-lg" %>  
 </div>
+
+<!----------------------------------------------->
 
 <h3 class='bold'>The Brave, The Bold, The (Closed) Beta Testers</h3>
 
