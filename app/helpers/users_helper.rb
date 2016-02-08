@@ -24,4 +24,34 @@ module UsersHelper
     
     return words
   end
+  
+  def mdm_senders
+    
+    senders = {}
+    
+    # Mathematics and Statistics
+    # Department of Biology
+    # Department of Chemistry
+    # Department of Psychology
+    # Career Center
+    # Office of Financial Aid
+    # Davis Center
+    # Williams College Museum of Art
+    # Athletics Department
+    senders["Mathematics and Statistics"]= "mathematics,statistics"
+    senders["Department of Biology"] = "biology department"
+    
+    senders["Department of Chemistry"] = "chemistry department"
+    senders["Department of Psychology"] = "psychology department"
+    
+    senders["Career Center"] = "career center"
+    senders["Office of Financial Aid"] = "financial aid"
+    
+    senders["Davis Center"] = "davis center"
+    senders["Williams College Museum of Art"] = "wcma,williams college museum of art"
+    
+    senders["Athletics Department"] = "athletics"
+    
+    return senders
+  end
 end

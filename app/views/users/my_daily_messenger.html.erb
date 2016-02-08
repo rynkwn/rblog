@@ -28,13 +28,27 @@
       <% } %>
     </table>
     
-    
-    
     <%= f.label 'What groups do you always want to receive daily messages from?' %>
-    <%= f.text_field :sender, placeholder: "Frank Morgan, career center, dean's office, mathematics and statistics",
-                     value: @dm.sender.map(&:capitalize).join(", "), class: 'form-control' %>
+    
+    <table class="center">
+      <% mdm_senders.to_a.flatten.in_groups_of(4, '&nbsp;') {|group| %>
+        <tr>
+            <td><%= check_box_tag "words[]", group[1], checked = (group[1].split(",") - @dm.key_words).empty? %></td>
+            <td class="text-left"><%= group[0] %></td>
+            
+            <% if group[3] == '&nbsp;' %>
+              <td> </td>
+              <td> </td>
+            <% else %>
+              <td><%= check_box_tag "words[]", group[3], checked = (group[3].split(",") - @dm.key_words).empty? %></td>
+              <td class="text-left"><%= group[2] %></td>
+            <% end %>
+        </tr>
+      <% } %>
+    </table>
+    
   </div>
-
+  
   <%= f.submit "Submit", class: "btn-primary" %>
 <% end %>
 
