@@ -10,7 +10,7 @@ module UsersHelper
     # A capella
     # Personal Financials
     # Startups and Entrepreneurship 
-    words["Internships and Jobs"] = "internship,job,resume,apply,program,recruiting,recruit,recruitment,part-time,route 2"
+    words["Internships and Jobs"] = "internship,job,apply,program,recruiting,recruit,recruitment,part-time,route 2"
     words["Colloquiums"] = "colloquium"
     
     words["Startups and Entrepreneurship"] = "startup,entrepreneur"
