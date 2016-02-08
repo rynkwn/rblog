@@ -9,7 +9,7 @@
 <%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
     
-    <%= f.label :key_words, "What things do you want to filter for?"%>
+    <%= f.label :key_words, "What topics are you interested in?"%>
     
     <table class="center">
       <% mdm_words.to_a.flatten.in_groups_of(4, '&nbsp;') {|group| %>
