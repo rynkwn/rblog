@@ -164,7 +164,7 @@ class MainPagesController < ApplicationController
         end
         
         selected_messages = selected_messages.uniq
-        filtered_content = Arrayutils::values_at(messageOrig, selected_messages)
+        filtered_content = Arrayutils::values_at(messageOrig, selected_messages).join("\n\n")
         
         ServiceMailer::daily_messenger(email, filtered_content).deliver
       }
