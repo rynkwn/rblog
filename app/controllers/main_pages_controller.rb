@@ -112,7 +112,7 @@ class MainPagesController < ApplicationController
     message = params[:dailymessage]
     
     # If there's a daily message to send.
-    if(message)
+    if(! message.empty?)
       
       # These two lines of code will probably case some heartache for me
       # in the future. Be aware.

@@ -1,6 +1,12 @@
 <h1>Parse Daily Message Content</h1>
 
 <%= form_tag(daily_messenger_send_path, :method => "post", class: "navbar-form center") do %>
+  <h3>Message to the Users?</h3>
+  <div class="input-append">
+    <%= text_area_tag :mymessage, params[:mymessage], cols: 100, rows: 10, class: "span2 center" %>
+  </div>
+  
+  <h3>Daily Message Content</h3>
   <div class="input-append">
     <%= text_area_tag :dailymessage, params[:dailymessage], cols: 100, rows: 40, class: "span2 center" %>
   </div>
