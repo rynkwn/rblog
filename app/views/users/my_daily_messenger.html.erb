@@ -12,7 +12,7 @@
     <%= f.label :key_words, "What topics are you interested in?"%>
     
     <table class="center">
-      <% mdm_words.to_a.flatten.in_groups_of(4, '&nbsp;') {|group| %>
+      <% DAILY_MESSENGER_KEYWORDS.to_a.flatten.in_groups_of(4, '&nbsp;') {|group| %>
         <tr>
             <td><%= check_box_tag "words[]", group[1], checked = (group[1].split(",") - @dm.key_words).empty? %></td>
             <td class="text-left"><%= group[0] %></td>
@@ -31,7 +31,7 @@
     <%= f.label 'What groups do you always want to receive daily messages from?' %>
     
     <table class="center">
-      <% mdm_senders.to_a.flatten.in_groups_of(4, '&nbsp;') {|group| %>
+      <% DAILY_MESSENGER_SENDERS.to_a.flatten.in_groups_of(4, '&nbsp;') {|group| %>
         <tr>
             <td><%= check_box_tag "senders[]", group[1], checked = (group[1].split(",") - @dm.sender).empty? %></td>
             <td class="text-left"><%= group[0] %></td>
