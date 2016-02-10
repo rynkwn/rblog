@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201180016) do
+ActiveRecord::Schema.define(version: 20160210151447) do
 
   create_table "blogs", force: :cascade do |t|
     t.text     "name"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20160201180016) do
   create_table "crushes", force: :cascade do |t|
     t.text     "name"
     t.integer  "fans"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "daily_messages", force: :cascade do |t|
+    t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

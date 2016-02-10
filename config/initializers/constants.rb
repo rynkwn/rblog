@@ -5,7 +5,7 @@ UNTRACKED_PAGES = %w[ Analytics Admin ]
 # Postmark Constants
 POSTMARK_API_KEY = "94252afc-de91-441e-9d0b-495a6ccadd42"  # (Manually inserted into application.rb)
 SENDER_SIGNATURE = 'rhk1@williams.edu'
-    
+
 # Daily Message Constants
 DAILY_MESSENGER_KEYWORDS = {
   "Internships and Jobs" => "internship,job,apply,program,recruiting,recruit,recruitment,part-time,route 2",
