@@ -114,6 +114,19 @@ class MainPagesController < ApplicationController
     # If there's a daily message to send.
     if(message)
       
+      # These two lines of code will probably case some heartache for me
+      # in the future. Be aware.
+      msg = DailyMessage.new(content: message)
+      msg.save
+      
+      # Mappings stores 
+      #messages = {}
+      #mappings = {}
+      
+      #DailyMessage.all.each {|ms|
+        #messages[ms.created_at.strftime("%d-%m-%Y")] = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
+      #}
+      
       # Okay, now we parse the daily messages 
       # messageOrig splits by message.
       messageOrig = message.split("\r\n\r\n").reject{|line| line.include?("===")}
@@ -172,6 +185,11 @@ class MainPagesController < ApplicationController
   end
 
   private
+  
+  # Daily Messenger Params
+  def daily_message_params
+    params.require(:daily_message).permit(:content)
+  end
   
   # Summarize hit data.
   def summarize_hits
