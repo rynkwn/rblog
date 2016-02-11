@@ -13,6 +13,25 @@ module Arrayutils
     return temp
   end
   
+  # Return all elements of array one that contain any elements in array two.
+  # I work under the assumption that both arrays contain Strings. Unsure about
+  # broader circumstances.
+  # @param arrayOne is the array we're filtering with our array of conditions.
+  # @param arrayTwo is our array of conditions.
+  # @return An array of indices representing elements in arrayOne that satisfy
+  # the conditions array.
+  def Arrayutils.string_overlaps(arrayOne, arrayTwo)
+    indices = []
+    
+    for i in 0..(arrayOne.length - 1)
+      if Arrayutils::contains_string(arrayOne[i], arrayTwo)
+        indices << i
+      end
+    end
+    
+    return indices
+  end
+  
   # Figure out if a body of text contains at least one element of a String array
   # efficiently
   # @param bodytext
