@@ -126,59 +126,17 @@ class MainPagesController < ApplicationController
         messages[ms.created_at.strftime("%d-%m-%Y")] = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}.downcase.strip
       }
       
-      # Okay, now we parse the daily messages 
-      # messageOrig splits by message.
-      messageOrig = message.split("\r\n\r\n").reject{|line| line.include?("===")}
-      
-      messageMatch = messageOrig.map{|x|
-        x = x.downcase
-        x = x.strip
-      }
-      messageSenders = messageOrig.map{|x| 
-        x = x.split("\r\n")[-1]
-        x = x.downcase
-        x = x.strip
-      }
-      
       # For each service daily, we get the correct messages,
       # put them together, and then send them to the person.
       ServiceDaily.all.each {|dm|
       
         email = dm.user.email
         
+        filtered_content = ""
         
-        
-        # We want to store indices to keep track of which messages we're
-        # interested in.
-        selected_messages = []
-        counter = 0
-        messageMatch.each do |bodytext|
-          
-          dm.key_words.each do |word|
-            if bodytext.include? word
-              selected_messages << counter
-              break
-            end
-          end
-          
-          counter = counter + 1
+        messages.each do |date, many_messages|
+          filtered_content = filtered_content + grab_relevant_messages(dm.key_words, dm.senders, many_messages, date)
         end
-        
-        counter = 0
-        messageSenders.each do |sendertext|
-          
-          dm.sender.each do |word|
-            if sendertext.include? word
-              selected_messages << counter
-              break
-            end
-          end
-          
-          counter = counter + 1
-        end
-        
-        selected_messages = selected_messages.uniq
-        filtered_content = Arrayutils::values_at(messageOrig, selected_messages).join("\n\n")
         
         ServiceMailer::daily_messenger(email, filtered_content).deliver
       }
@@ -219,9 +177,14 @@ class MainPagesController < ApplicationController
       x = x.split("\r\n")[-1]
     }
     
-    for i in 0..(messages.length - 1)
-    end
+    messageIndices = Arrayutils::string_overlaps(messages, topics)
+    senderIndices = Arrayutils::string_overlaps(messageSenders, senders)
     
+    indices = messageIndices.concat(senderIndices).uniq
+    content = Arrayutils::values_at(messages, indices).join("\n\n")
+    content = content + "\n\n"
+    
+    output = output + content
     return output
   end
   
