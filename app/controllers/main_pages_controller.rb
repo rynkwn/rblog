@@ -114,6 +114,11 @@ class MainPagesController < ApplicationController
     # If there's a daily message to send.
     if(message && ! message.empty?)
       
+      mymessage = ""
+      if(params[:mymessage] && ! params[:mymessage].empty?)
+        mymessage = params[:mymessage]
+      end
+      
       # These two lines of code will probably case some heartache for me
       # in the future. Be aware.
       msg = DailyMessage.new(content: message)
@@ -132,7 +137,7 @@ class MainPagesController < ApplicationController
       
         email = dm.user.email
         
-        filtered_content = ""
+        filtered_content = mymessage.empty? ? "" : mymessage + "\n\n"
         
         messages.each do |date, many_messages|
           filtered_content = filtered_content + grab_relevant_messages(dm.key_words, dm.sender, many_messages, date)
