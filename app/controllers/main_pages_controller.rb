@@ -112,7 +112,7 @@ class MainPagesController < ApplicationController
     message = params[:dailymessage]
     
     # If there's a daily message to send.
-    if(! message.empty?)
+    if(message && ! message.empty?)
       
       # These two lines of code will probably case some heartache for me
       # in the future. Be aware.
@@ -123,7 +123,7 @@ class MainPagesController < ApplicationController
       messages = {}
       
       DailyMessage.all.each {|ms|
-        messages[ms.created_at.strftime("%d-%m-%Y")] = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}.downcase.strip
+        messages[ms.created_at.strftime("%a, %b %d")] = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
       }
       
       # For each service daily, we get the correct messages,
@@ -135,7 +135,7 @@ class MainPagesController < ApplicationController
         filtered_content = ""
         
         messages.each do |date, many_messages|
-          filtered_content = filtered_content + grab_relevant_messages(dm.key_words, dm.senders, many_messages, date)
+          filtered_content = filtered_content + grab_relevant_messages(dm.key_words, dm.sender, many_messages, date)
         end
         
         ServiceMailer::daily_messenger(email, filtered_content).deliver
@@ -172,12 +172,17 @@ class MainPagesController < ApplicationController
   def grab_relevant_messages(topics, senders, messages, date)
     output = "Daily Messages for " + date + "\n\n"
     
-    # Grab the senders of these messages.
-    messageSenders = messages.map{|msg|
-      x = x.split("\r\n")[-1]
+    # We need to modify the case and styling of messages to get this to work.
+    messageComp = messages.map{|msg|
+      msg = msg.downcase.strip
     }
     
-    messageIndices = Arrayutils::string_overlaps(messages, topics)
+    # Grab the senders of these messages.
+    messageSenders = messageComp.map{|msg|
+      msg = msg.split("\r\n")[-1]
+    }
+    
+    messageIndices = Arrayutils::string_overlaps(messageComp, topics)
     senderIndices = Arrayutils::string_overlaps(messageSenders, senders)
     
     indices = messageIndices.concat(senderIndices).uniq
