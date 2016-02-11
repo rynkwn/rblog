@@ -30,7 +30,7 @@ class MainPagesController < ApplicationController
         data = data + blog.to_json + "ʭ"
       end
       
-      Bloghistory::standard('DATA DUMP - ' + Time.now.to_s, data).deliver
+      Bloghistory::standard('DATA DUMP - ' + Time.current.in_time_zone.to_s, data).deliver
       flash.now[:success] = "Data nuke launched!"
     else
       flash.now[:danger] = "Incorrect Authorization Level, Repriming coordinates " +
@@ -128,7 +128,7 @@ class MainPagesController < ApplicationController
       messages = {}
       
       DailyMessage.all.each {|ms|
-        messages[ms.created_at.strftime("%a, %b %d")] = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
+        messages[ms.created_at.in_time_zone.strftime("%a, %b %d")] = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
       }
       
       # For each service daily, we get the correct messages,
