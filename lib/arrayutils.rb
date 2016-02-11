@@ -12,4 +12,18 @@ module Arrayutils
     
     return temp
   end
+  
+  # Figure out if a body of text contains at least one element of a String array
+  # efficiently
+  # @param bodytext
+  # @param array is the String array which we're comparing on bodytext.
+  def Arrayutils.contains_string(bodytext, array)
+    array.each do |word|
+      if(bodytext.include? word)
+        return true
+      end
+    end
+    
+    return false
+  end
 end

@@ -120,12 +120,11 @@ class MainPagesController < ApplicationController
       msg.save
       
       # Mappings stores 
-      #messages = {}
-      #mappings = {}
+      messages = {}
       
-      #DailyMessage.all.each {|ms|
-        #messages[ms.created_at.strftime("%d-%m-%Y")] = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
-      #}
+      DailyMessage.all.each {|ms|
+        messages[ms.created_at.strftime("%d-%m-%Y")] = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}.downcase.strip
+      }
       
       # Okay, now we parse the daily messages 
       # messageOrig splits by message.
@@ -146,6 +145,8 @@ class MainPagesController < ApplicationController
       ServiceDaily.all.each {|dm|
       
         email = dm.user.email
+        
+        
         
         # We want to store indices to keep track of which messages we're
         # interested in.
@@ -202,6 +203,26 @@ class MainPagesController < ApplicationController
     summary = Hash.new('')
     User.all.each {|user| summary[user.email] = user.email}
     return summary
+  end
+  
+  # Grabs relevant messages from an array of daily messages, formats appropriately,
+  # and then returns the appropriately formatted String.
+  # @param topics == Key_words
+  # @param senders
+  # @param messages
+  # @param date
+  def grab_relevant_messages(topics, senders, messages, date)
+    output = "Daily Messages for " + date + "\n\n"
+    
+    # Grab the senders of these messages.
+    messageSenders = messages.map{|msg|
+      x = x.split("\r\n")[-1]
+    }
+    
+    for i in 0..(messages.length - 1)
+    end
+    
+    return output
   end
   
 end
