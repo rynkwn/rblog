@@ -13,7 +13,7 @@ module Arrayutils
     return temp
   end
   
-  # Return all elements of array one that contain any elements in array two.
+  # Return all elements (as indices) of array one that contain any elements in array two.
   # I work under the assumption that both arrays contain Strings. Unsure about
   # broader circumstances.
   # @param arrayOne is the array we're filtering with our array of conditions.
@@ -44,5 +44,20 @@ module Arrayutils
     end
     
     return false
+  end
+  
+  # You pass in a hash and an array containing some concat-ed values.
+  # @param hash is the hash that generated the concat-ed values.
+  # @param hash_values is the array of values we're going to retrieve unique keys from.
+  # @return All unique hash keys defined by the hash_values in an array.
+  def get_keys(hash, hash_values)
+    keys = []
+    hash.each do |k, v|
+      if (hash_values.length > (hash_values - v).length)
+        keys << k
+      end
+    end
+    
+    return keys
   end
 end

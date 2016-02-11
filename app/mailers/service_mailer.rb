@@ -12,9 +12,9 @@ class ServiceMailer < ApplicationMailer
   end
   
   # A daily messenger email.
-  def daily_messenger(receiver, content)
+  def daily_messenger(receiver, subject, content)
     mail(
-      :subject => 'Your Daily Messenger for ' + Date.current.in_time_zone.strftime("%a, %b %d"),
+      :subject => subject,
       :to      => receiver,
       :from    => SENDER_SIGNATURE,
       :text_body => "Needed for Heroku",

@@ -124,26 +124,63 @@ class MainPagesController < ApplicationController
       msg = DailyMessage.new(content: message)
       msg.save
       
-      # Mappings stores 
-      messages = {}
+      # Messages stores the original messages (with my date modification)
+      # Senders will be used for comparison.
+      messages = []
+      senders = []
       
       DailyMessage.all.each {|ms|
-        messages[ms.created_at.in_time_zone.strftime("%a, %b %d")] = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
+        days_messages = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
+        date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
+        
+        days_messages = days_messages.map {|x| x = date_created + "\n" + x }
+        days_senders = days_messages.map {|x| x = x.split("\r\n")[-1] }
+        
+        messages = messages.concat(days_messages)
+        senders = senders.concat(days_senders)
       }
+      
+      # Downcased messages and senders.
+      messagesComp = messages.map{|x| x = x.downcase.strip}
+      senders = senders.map{|x| x = x.downcase.strip}
+      
+      # mappings will store integers to reference which messages satisfy 
+      # a key_word or sender choice.
+      mappings = {}
+      
+      DAILY_MESSENGER_KEYWORDS.each do |topic, keywords|
+        mappings[topic] = Arrayutils::string_overlaps(messagesComp, keywords)
+      end
+      
+      DAILY_MESSENGER_SENDERS.each do |sender, sender_words|
+        mappings[sender] = Arrayutils::string_overlaps(senders, sender_words)
+      end
       
       # For each service daily, we get the correct messages,
       # put them together, and then send them to the person.
       ServiceDaily.all.each {|dm|
       
         email = dm.user.email
+        dm_keys = Arrayutils::get_keys(DAILY_MESSENGER_KEYWORDS, dm.key_words)
+        dm_keys = dm_keys.concat(Arrayutils::get_keys(DAILY_MESSENGER_SENDERS, dm.sender))
         
         filtered_content = mymessage.empty? ? "" : mymessage + "\n\n"
         
-        messages.each do |date, many_messages|
-          filtered_content = filtered_content + grab_relevant_messages(dm.key_words, dm.sender, many_messages, date)
+        dm_keys.each do |key|
+          filtered_content = filtered_content + "\n\n\n" +
+                          "_______________________________" + "\n" +
+                          key + "\n" +
+                          "_______________________________" + "\n"
+          content = Arrayutils.values_at(mappings[key]).join("\n\n")
+          
+          filtered_content = filtered_content + content
         end
         
-        ServiceMailer::daily_messenger(email, filtered_content).deliver
+        subject = filtered_content.empty? ? 
+                      "Daily Messenger: Nothing Interested Going on Right Now!" : 
+                      'Your Daily Messenger for ' + Date.current.in_time_zone.strftime("%a, %b %d")
+        
+        ServiceMailer::daily_messenger(email, subject, filtered_content).deliver
       }
     end
   end
