@@ -50,9 +50,10 @@ module Arrayutils
   # @param hash is the hash that generated the concat-ed values.
   # @param hash_values is the array of values we're going to retrieve unique keys from.
   # @return All unique hash keys defined by the hash_values in an array.
-  def get_keys(hash, hash_values)
+  def Arrayutils.get_keys(hash, hash_values)
     keys = []
     hash.each do |k, v|
+      v = v.split(",")
       if (hash_values.length > (hash_values - v).length)
         keys << k
       end

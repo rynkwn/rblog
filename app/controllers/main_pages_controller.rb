@@ -149,11 +149,11 @@ class MainPagesController < ApplicationController
       mappings = {}
       
       DAILY_MESSENGER_KEYWORDS.each do |topic, keywords|
-        mappings[topic] = Arrayutils::string_overlaps(messagesComp, keywords)
+        mappings[topic] = Arrayutils::string_overlaps(messagesComp, keywords.split(","))
       end
       
       DAILY_MESSENGER_SENDERS.each do |sender, sender_words|
-        mappings[sender] = Arrayutils::string_overlaps(senders, sender_words)
+        mappings[sender] = Arrayutils::string_overlaps(senders, sender_words.split(","))
       end
       
       # For each service daily, we get the correct messages,
@@ -171,7 +171,7 @@ class MainPagesController < ApplicationController
                           "_______________________________" + "\n" +
                           key + "\n" +
                           "_______________________________" + "\n"
-          content = Arrayutils.values_at(mappings[key]).join("\n\n")
+          content = Arrayutils.values_at(messages, mappings[key]).join("\n\n")
           
           filtered_content = filtered_content + content
         end
