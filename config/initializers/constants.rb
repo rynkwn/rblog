@@ -14,7 +14,8 @@ DAILY_MESSENGER_KEYWORDS = {
   "Competitions" => "prize,competition",
   "Food! (& Meals)" => "log lunch,log dinner,pizza",
   "Literature/Magazines" => "magazine,prose,short stories,poetry,literary,literary magazine",
-  "Music (Events, Auditions)" => "audition,composer,recital,musician"
+  "Music (Events, Auditions)" => "audition,composer,recital,musician",
+  "Spiritual Events" => "worship"
 }
 
 DAILY_MESSENGER_SENDERS = {
@@ -26,5 +27,7 @@ DAILY_MESSENGER_SENDERS = {
   "Office of Financial Aid" => "financial aid",
   "Davis Center" => "davis center",
   "Williams College Museum of Art" => "wcma,williams college museum of art",
-  "Athletics Department" => "athletics"
+  "Athletics Department" => "athletics",
+  "Williams Christian Fellowship" => "williams christian fellowship",
+  "Chaplain's Office" => "chaplain's office"
 }
