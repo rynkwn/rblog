@@ -209,34 +209,5 @@ class MainPagesController < ApplicationController
     return summary
   end
   
-  # Grabs relevant messages from an array of daily messages, formats appropriately,
-  # and then returns the appropriately formatted String.
-  # @param topics == Key_words
-  # @param senders
-  # @param messages
-  # @param date
-  def grab_relevant_messages(topics, senders, messages, date)
-    output = "Daily Messages for " + date + "\n\n"
-    
-    # We need to modify the case and styling of messages to get this to work.
-    messageComp = messages.map{|msg|
-      msg = msg.downcase.strip
-    }
-    
-    # Grab the senders of these messages.
-    messageSenders = messageComp.map{|msg|
-      msg = msg.split("\r\n")[-1]
-    }
-    
-    messageIndices = Arrayutils::string_overlaps(messageComp, topics)
-    senderIndices = Arrayutils::string_overlaps(messageSenders, senders)
-    
-    indices = messageIndices.concat(senderIndices).uniq
-    content = Arrayutils::values_at(messages, indices).join("\n\n")
-    content = content + "\n\n"
-    
-    output = output + content
-    return output
-  end
   
 end
