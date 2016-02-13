@@ -8,13 +8,13 @@ SENDER_SIGNATURE = 'rhk1@williams.edu'
   
 # Daily Message Constants
 DAILY_MESSENGER_KEYWORDS = {
-  "Internships and Jobs" => "internship,job,apply,program,recruiting,recruit,recruitment,part-time,route 2",
+  "Internships and Jobs" => "internship,job,program,part-time,full time, full-time,route 2",
   "Startups and Entrepreneurship" => "startup,entrepreneur",
   "A cappella" => "ephoria,accidentals,octet,springstreeters,good question,ephlats,elizabethans,aristocows",
   "Competitions" => "prize,compete,competition",
-  "Food! (& Meals)" => "dinner,lunch,pizza",
+  "Food! (& Meals)" => "log lunch,log dinner,pizza",
   "Literature/Magazines" => "magazine,prose,short stories,poetry,literary,literary magazine",
-  "Music (Events, Auditions)" => "audition,singing,cello,cellist,violist,viola,violin,quartet,quintet,tune,bass"
+  "Music (Events, Auditions)" => "audition,singing,cello,cellist,violist,viola,violin,quartet,quintet"
 }
 
 DAILY_MESSENGER_SENDERS = {

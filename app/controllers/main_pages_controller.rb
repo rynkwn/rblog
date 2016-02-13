@@ -167,13 +167,17 @@ class MainPagesController < ApplicationController
         filtered_content = mymessage.empty? ? "" : mymessage + "\n\n"
         
         dm_keys.each do |key|
-          filtered_content = filtered_content + "\n\n\n" +
-                          "_______________________________" + "\n" +
-                          key + "\n" +
-                          "_______________________________" + "\n"
+          content_header = "\n\n\n" +
+                          "--------------------------------" + "\n" +
+                          "\t" + key + "\n" +
+                          "--------------------------------" + "\n"
+          
           content = Arrayutils.values_at(messages, mappings[key]).join("\n\n")
           
-          filtered_content = filtered_content + content
+          if(! content.empty?)
+            filtered_content = filtered_content + content_header + content
+          end
+          
         end
         
         subject = filtered_content.empty? ? 
