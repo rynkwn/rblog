@@ -168,9 +168,9 @@ class MainPagesController < ApplicationController
         
         dm_keys.each do |key|
           content_header = "\n\n\n" +
-                          "--------------------------------" + "\n" +
+                          "----------------------------------------------------" + "\n" +
                           "\t" + key + "\n" +
-                          "--------------------------------" + "\n"
+                          "----------------------------------------------------" + "\n"
           
           content = Arrayutils.values_at(messages, mappings[key]).join("\n\n")
           

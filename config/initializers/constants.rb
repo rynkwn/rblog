@@ -14,7 +14,7 @@ DAILY_MESSENGER_KEYWORDS = {
   "Competitions" => "prize,competition",
   "Food! (& Meals)" => "log lunch,log dinner,pizza",
   "Literature/Magazines" => "magazine,prose,short stories,poetry,literary,literary magazine",
-  "Music (Events, Auditions)" => "audition,singing,cello,cellist,violist,viola,violin,quartet,quintet"
+  "Music (Events, Auditions)" => "audition,composer,recital,musician"
 }
 
 DAILY_MESSENGER_SENDERS = {
