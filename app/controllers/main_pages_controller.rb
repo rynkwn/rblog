@@ -129,7 +129,7 @@ class MainPagesController < ApplicationController
       messages = []
       senders = []
       
-      DailyMessage.all.each {|ms|
+      DailyMessage.all.reverse.each {|ms|
         days_messages = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
         date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
         
