@@ -61,4 +61,14 @@ module Arrayutils
     
     return keys
   end
+  
+  # Returns whether or not val exists in the array.
+  def Arrayutils.include?(array, val)
+    array.each do |x|
+      if val == x
+        return true
+      end
+    end
+    return false
+  end
 end

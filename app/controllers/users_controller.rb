@@ -48,17 +48,8 @@ class UsersController < ApplicationController
   def daily_messenger_edit
     user = current_user
     
-    words = []
-    if(params[:words])
-      words = params[:words].join(",")
-      words = words.split(",")
-    end
-    
-    senders = []
-    if(params[:senders])
-      senders = params[:senders].join(",")
-      senders = senders.split(",")
-    end
+    words = params[:words]
+    senders = params[:senders]
     
     @dm = user.service_daily
     

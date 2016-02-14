@@ -161,8 +161,7 @@ class MainPagesController < ApplicationController
       ServiceDaily.all.each {|dm|
       
         email = dm.user.email
-        dm_keys = Arrayutils::get_keys(DAILY_MESSENGER_KEYWORDS, dm.key_words)
-        dm_keys = dm_keys.concat(Arrayutils::get_keys(DAILY_MESSENGER_SENDERS, dm.sender))
+        dm_keys = dm.key_words.concat(dm.sender)
         
         filtered_content = mymessage.empty? ? "" : mymessage + "\n\n"
         
