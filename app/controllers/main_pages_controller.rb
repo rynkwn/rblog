@@ -116,7 +116,10 @@ class MainPagesController < ApplicationController
       
       mymessage = ""
       if(params[:mymessage] && ! params[:mymessage].empty?)
-        mymessage = params[:mymessage]
+        mymessage =       "----------------------------------------------------" + "\n" +
+                          "\t" + "Message from Ryan" + "\n" +
+                          "----------------------------------------------------" + "\n"
+        mymessage = mymessage + params[:mymessage]
       end
       
       # These two lines of code will probably case some heartache for me
