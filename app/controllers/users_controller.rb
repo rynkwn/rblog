@@ -98,14 +98,19 @@ class UsersController < ApplicationController
     "Anyways... Welcome! aRg is a weird site that I spend a lot of time on. " +
     "Right now a lot of it is just blogs and smaller projects of mine, but " +
     "hopefully there'll eventually be lots of cool features, tools, services, " +
-    "and widgets for you to play around with.\n\n" +
+    "and widgets to play around with.\n\n" +
     
     "I always enjoy emails, so feel free to send me as many as you'd like. " +
     "Whether of bugs (the computer kind), " + 
-    "bugs (the insect kind), the ISS, " +
+    "bugs (the insect kind), " +
     "space, AI, or just how your day has been. " +
     "I'm not really a huge fan of bugs (the insect kind) though, so try to restrain " +
     "yourself when you send me giant popping 3D closeups of insects.\n\n" +
+    
+    "The only serious service I currently have running is the Daily Messenger, " +
+    "and if there's anything that could make the service better for you, just drop " +
+    "me an email. (You can reply to this email, or send an email directly to rynkwn@gmail.com) " +
+    "If you'd rather be anonymous, there's also this form: http://goo.gl/forms/ZNrt8NCPk9\n\n" + 
     
     "Cheers,\n\n"+
     "Ryan"
