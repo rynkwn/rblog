@@ -54,12 +54,7 @@ class UsersController < ApplicationController
     @dm = user.service_daily
     
     modified_params = {}
-    #modified_params = service_daily_params
-    #modified_params[:key_words] = space_comma_parser(params[:service_daily][:key_words])
-    #modified_params[:key_words] << words
-    #modified_params[:key_words] = modified_params[:key_words].flatten.uniq]
     modified_params[:key_words] = words
-    #modified_params[:sender] = comma_parser(params[:service_daily][:sender])
     modified_params[:sender] = senders
     
     if @dm.update_attributes(modified_params)
@@ -88,25 +83,6 @@ class UsersController < ApplicationController
   def service_daily_params
     params.require(:service_daily).permit(:key_words,
                                  :sender)
-  end
-  
-  # Parses just by commas
-  # Copied from Blogs_Controller
-  def comma_parser(words)
-    parsed = words.split(/[,]/)
-    parsed = parsed.map(&:strip)
-    parsed = parsed.map {|x| x = x.gsub(/\s+/, ' ')}
-    parsed = parsed.map(&:downcase)
-    parsed = parsed.reject(&:blank?)
-    return parsed
-  end
-  
-  # Parse by spaces and commas.
-  def space_comma_parser(words)
-    parsed = words.split(/[\s,]/)
-    parsed = parsed.map(&:downcase)
-    parsed = parsed.reject(&:blank?)
-    return parsed
   end
   
   def user_signup_email(receiver)
