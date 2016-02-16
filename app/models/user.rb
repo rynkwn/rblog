@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   
   has_secure_password
   
-  after_initialize :ryanize
+  after_create :ryanize
   
   ####################################################
   #

@@ -214,7 +214,7 @@ In order to do this, just include:
 
       User Model
       ...
-      after_initialize :ryanize
+      after_create :ryanize
       
       def ryanize
         self.ryan = self.email == 'rynkwn@gmail.com' ? 1 : 0
