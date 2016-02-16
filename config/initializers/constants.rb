@@ -8,26 +8,26 @@ SENDER_SIGNATURE = 'rhk1@williams.edu'
   
 # Daily Message Constants
 DAILY_MESSENGER_KEYWORDS = {
-  "Internships and Jobs" => "internship,job,part-time,full time,full-time,route 2",
-  "Startups and Entrepreneurship" => "startup,entrepreneur",
   "A cappella" => "ephoria,accidentals,octet,springstreeters,good question,ephlats,elizabethans,aristocows",
   "Competitions" => "prize,competition",
   "Food! (& Meals)" => "log lunch,log dinner,pizza",
+  "Internships and Jobs" => "internship,job,part-time,full time,full-time,route 2",
   "Literature/Magazines" => "magazine,prose,short stories,poetry,literary,literary magazine",
   "Music (Events, Auditions)" => "audition,composer,recital,musician",
-  "Spiritual Events" => "worship"
+  "Spiritual Events" => "worship",
+  "Startups and Entrepreneurship" => "startup,entrepreneur"
 }
 
 DAILY_MESSENGER_SENDERS = {
-  "Mathematics and Statistics" => "mathematics,statistics",
+  "Athletics Department" => "athletics",
+  "Career Center" => "career center",
+  "Chaplain's Office" => "chaplain's office",
   "Department of Biology" => "biology department",
   "Department of Chemistry" => "chemistry department",
   "Department of Psychology" => "psychology department",
-  "Career Center" => "career center",
-  "Office of Financial Aid" => "financial aid",
   "Davis Center" => "davis center",
+  "Mathematics and Statistics" => "mathematics,statistics",
+  "Office of Financial Aid" => "financial aid",
   "Williams College Museum of Art" => "wcma,williams college museum of art",
-  "Athletics Department" => "athletics",
-  "Williams Christian Fellowship" => "williams christian fellowship",
-  "Chaplain's Office" => "chaplain's office"
+  "Williams Christian Fellowship" => "williams christian fellowship"
 }
