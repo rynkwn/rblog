@@ -200,7 +200,7 @@ class MainPagesController < ApplicationController
         
         if !filtered_content.empty?
           header = "----------------------------------------------------" + "\n" +
-                   "Change preferences at https://rblog-rynkwn.c9.io/my_daily_messenger" + "\n" +
+                   "Change preferences at https://arg.press/my_daily_messenger" + "\n" +
                    "----------------------------------------------------"
           
           filtered_content = header + filtered_content
