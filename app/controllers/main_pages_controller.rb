@@ -7,7 +7,8 @@ class MainPagesController < ApplicationController
                           :data_parse, 
                           :analytics,
                           :analytics_send_data,
-                          :daily_messenger_send
+                          :daily_messenger_send,
+                          :daily_messenger_announcement
                          ]
   
   #############################################################
