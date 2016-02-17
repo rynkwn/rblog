@@ -183,9 +183,19 @@ class MainPagesController < ApplicationController
           
         end
         
-        subject = filtered_content.empty? ? 
-                      "Daily Messenger: Nothing Interested Going on Right Now!" : 
-                      'Your Daily Messenger for ' + Date.current.in_time_zone.strftime("%a, %b %d")
+        
+        # Assume that Daily Messenger is empty.
+        subject = "Daily Messenger: Nothing Interested Going on Right Now!"
+        
+        if !filtered_content.empty?
+          header = "----------------------------------------------------" + "\n" +
+                   "Change preferences at https://rblog-rynkwn.c9.io/my_daily_messenger" + "\n" +
+                   "----------------------------------------------------"
+          
+          filtered_content = header + filtered_content
+          
+          subject = 'Your Daily Messenger for ' + Date.current.in_time_zone.strftime("%a, %b %d")
+        end
         
         ServiceMailer::daily_messenger(email, subject, filtered_content).deliver
       }
