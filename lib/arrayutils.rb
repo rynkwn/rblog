@@ -13,6 +13,19 @@ module Arrayutils
     return temp
   end
   
+  # Returns an array sans values at specified indices.
+  def Arrayutils.delete_at(array, indices)
+    temp = []
+    
+    for i in 0..(array.length - 1)
+      if(! indices.include? i)
+        temp << array[i]
+      end
+    end
+    
+    return temp
+  end
+  
   # Return all elements (as indices) of array one that contain any elements in array two.
   # I work under the assumption that both arrays contain Strings. Unsure about
   # broader circumstances.
@@ -70,5 +83,26 @@ module Arrayutils
       end
     end
     return false
+  end
+  
+  # A modified version of uniq. Returns an array of indices that reflect
+  # redundant values in the array. If the array is ["1", "2", "3", "2"], then the function
+  # will return [3], which is the index of the second "2"
+  # @param array Is the array we'll be analyzing
+  # @param similarity Is the minimum similarity of two items for them to be
+  # considered "equal".
+  def Arrayutils.redundant_indices(array)
+    map = {}
+    indices = []
+    
+    for i in 0..(array.length - 1)
+      if(map[array[i]].nil?)
+        map[array[i]] = true
+      else
+        indices << i
+      end
+    end
+    
+    return indices
   end
 end

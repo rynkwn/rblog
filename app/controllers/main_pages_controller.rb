@@ -129,13 +129,18 @@ class MainPagesController < ApplicationController
       msg.save
       
       # Messages stores the original messages (with my date modification)
+      # Tempmessages will be used for filtering and comparison of message bodies.
       # Senders will be used for comparison.
       messages = []
+      tempmessages = []
       senders = []
       
       DailyMessage.all.reverse.each {|ms|
         days_messages = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
         date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
+        
+        temp_days_messages = days_messages.map{|x| x = x.downcase.strip}
+        tempmessages = tempmessages.concat(temp_days_messages)
         
         days_messages = days_messages.map {|x| x = date_created + "\n" + x }
         days_senders = days_messages.map {|x| x = x.split("\r\n")[-1] }
@@ -145,8 +150,14 @@ class MainPagesController < ApplicationController
       }
       
       # Downcased messages and senders.
-      messagesComp = messages.map{|x| x = x.downcase.strip}
+      messagesComp = tempmessages
       senders = senders.map{|x| x = x.downcase.strip}
+      
+      # TODO: Increase robustness. Currently useless.
+      # Check for repeated messages and remove them.
+      #redundant_indices = Arrayutils::redundant_indices(messagesComp)
+      #messagesComp = Arrayutils::delete_at(messagesComp, redundant_indices)
+      #senders = Arrayutils::delete_at(senders, redundant_indices)
       
       # mappings will store integers to reference which messages satisfy 
       # a key_word or sender choice.
