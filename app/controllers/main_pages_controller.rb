@@ -8,7 +8,8 @@ class MainPagesController < ApplicationController
                           :analytics,
                           :analytics_send_data,
                           :daily_messenger_send,
-                          :daily_messenger_announcement
+                          :daily_messenger_announcement,
+                          :daily_messenger_keyword_change
                          ]
   
   #############################################################
@@ -222,6 +223,19 @@ class MainPagesController < ApplicationController
       ServiceDaily.all.each do |dm|
         user = dm.user
         ServiceMailer::email(subject, user.email, message).deliver
+      end
+    end
+  end
+  
+  # Use to convert users by changing all instances of @from to @to in their
+  # ServiceDaily keywords.
+  def daily_messenger_keyword_change
+    from = params[:from]
+    to = params[:to]
+    if(from && !from.empty? && to && !to.empty?)
+      ServiceDaily.all.each do |dm|
+        dm.key_words = Arrayutils::replace(dm.key_words, from, to)
+        dm.save
       end
     end
   end

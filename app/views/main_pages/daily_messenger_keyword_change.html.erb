@@ -1,0 +1,15 @@
+<h1>Keyword to change for all DM users?</h1>
+
+<%= form_tag(daily_messenger_keyword_change_path, :method => "post", class: "navbar-form center") do %>
+  <h3>From?</h3>
+  <div class="input-append">
+    <%= text_area_tag :from, params[:from], cols: 100, rows: 1, class: "span2 center" %>
+  </div>
+  
+  <h3>To</h3>
+  <div class="input-append">
+    <%= text_area_tag :to, params[:to], cols: 100, rows: 1, class: "span2 center" %>
+  </div>
+  
+  <button class="btn btn-success btn-sm" type="submit"> Submit </button>
+<% end %>

@@ -105,4 +105,9 @@ module Arrayutils
     
     return indices
   end
+  
+  # Replaces instances of X with Y in the array.
+  def Arrayutils.replace(array, x, y)
+    array = array.map{|val| val == x ? y : val}
+  end
 end
