@@ -60,7 +60,7 @@ class MainPagesController < ApplicationController
   # Iterates over the Hits database and returns a hash of page descriptions to
   # hit count. More options planned.
   def analytics
-    @data_tables = ['Users', 'Hits']
+    @data_tables = ['Users', 'Hits', 'Daily Messenger']
     
     if params[:commit]
       if params[:table] == 'Hits'
@@ -69,6 +69,8 @@ class MainPagesController < ApplicationController
       elsif params[:table] == 'Users'
         @summary = summarize_users
         @summary['Total'] = @summary.values.count
+      elsif params[:table] = "Daily Messenger"
+        @summary = summarize_dm
       end
     else
       @summary = summarize_hits
@@ -257,6 +259,15 @@ class MainPagesController < ApplicationController
   def summarize_users
     summary = Hash.new('')
     User.all.each {|user| summary[user.email] = user.email}
+    return summary
+  end
+  
+  def summarize_dm
+    summary = Hash.new(0)
+    ServiceDaily.all.each do |dm|
+      dm.key_words.each {|keyword| summary[keyword] += 1}
+      dm.sender.each {|sender| summary[sender] += 1}
+    end
     return summary
   end
   
