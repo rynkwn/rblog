@@ -15,8 +15,12 @@ Rails.application.routes.draw do
   get 'dataparse' => 'main_pages#data_parse'
   get 'analytics' => 'main_pages#analytics'
   get 'analytics_send_data' => 'main_pages#analytics_send_data'
+  
+  # Admin functions related to Daily Messenger
   get 'daily_messenger_send' => 'main_pages#daily_messenger_send'
   post 'daily_messenger_send' => 'main_pages#daily_messenger_send'
+  get 'daily_messenger_announcement' => 'main_pages#daily_messenger_announcement'
+  post 'daily_messenger_announcement' => 'main_pages#daily_messenger_announcement'
   
   #################################
   #

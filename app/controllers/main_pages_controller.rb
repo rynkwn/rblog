@@ -107,7 +107,7 @@ class MainPagesController < ApplicationController
   #
   #############################################################
   
-  # Sends out daily messenger emails.
+  # Sends out daily messenger emails
   def daily_messenger_send
     message = params[:dailymessage]
     
@@ -188,6 +188,19 @@ class MainPagesController < ApplicationController
         
         ServiceMailer::daily_messenger(email, subject, filtered_content).deliver
       }
+    end
+  end
+  
+  # Send announcement email to Daily Messenger Users.
+  def daily_messenger_announcement
+    subject = params[:subject]
+    message = params[:message]
+    
+    if(subject && !subject.empty? && message && !message.empty?)
+      ServiceDaily.all.each do |dm|
+        user = dm.user
+        ServiceMailer::email(subject, user.email, message).deliver
+      end
     end
   end
 
