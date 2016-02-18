@@ -8,8 +8,22 @@ class User < ActiveRecord::Base
   
   has_secure_password
   
-  after_initialize :ryanize
+  after_create :ryanize
+  
+  ####################################################
+  #
+  # Relationships with other models
+  #
+  ####################################################
+  
+  has_one :service_daily, :dependent => :destroy
     
+  ####################################################
+  #
+  # Model methods
+  #
+  ####################################################
+  
   def ryanize
     self.ryan = self.email == 'rynkwn@gmail.com' ? 1 : 0
   end

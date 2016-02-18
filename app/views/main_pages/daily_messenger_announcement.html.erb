@@ -1,0 +1,15 @@
+<h1>Announce to DM users?</h1>
+
+<%= form_tag(daily_messenger_announcement_path, :method => "post", class: "navbar-form center") do %>
+  <h3>Subject for Announcement</h3>
+  <div class="input-append">
+    <%= text_area_tag :subject, params[:subject], cols: 100, rows: 2, class: "span2 center" %>
+  </div>
+  
+  <h3>Message to the Users?</h3>
+  <div class="input-append">
+    <%= text_area_tag :message, params[:message], cols: 100, rows: 10, class: "span2 center" %>
+  </div>
+  
+  <button class="btn btn-success btn-sm" type="submit"> Send </button>
+<% end %>

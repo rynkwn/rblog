@@ -8,8 +8,10 @@ module ApplicationHelper
   end
   
   # Creates a page description on a per-page basis for analytics purposes.
+  # Given the relatively large number of Admin pages, I'll specify
+  # which pages I want to track hits for.
   def page_desc(desc = '')
-    base_desc = "aRg"
+    base_desc = "Admin"
     
     final_desc = desc.empty? ? base_desc : desc
     hit(final_desc)

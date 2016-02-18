@@ -128,6 +128,10 @@ p {
   font-family: 'Verdana', Times, "Times New Roman", serif;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .byline {
   color: $light_grey;
   font-family: Georgia, Times, "Times New Roman", serif;
@@ -146,4 +150,33 @@ p {
 
 .black {
   color: $black;
+}
+
+/* Forms */
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+/* Table */
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+td {
+    padding: 8px;
 }

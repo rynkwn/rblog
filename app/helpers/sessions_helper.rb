@@ -15,6 +15,14 @@ module SessionsHelper
     !current_user.nil?
   end
   
+  # Checks to see if the user is logged in, else redirects to login page.
+  def logged_in_user?
+    if(! logged_in?)
+      redirect_to login_path
+      flash[:danger] = "I'm sorry, you're not logged in!"
+    end
+  end
+  
   # Logs out the current user.
   def log_out
     session.delete(:user_id)

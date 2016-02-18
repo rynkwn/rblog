@@ -41,6 +41,23 @@
           </a>
           <ul class="dropdown-menu">
             <li><%= link_to "Feeling Lucky?", lucky_path %></li>
+            <li><%= link_to "Daily Messenger", dailymessenger_path %></li>
+          </ul>
+        </li>
+        
+        <!-- Account -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Account <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <% if !logged_in? %>
+              <li><%= link_to "Login", login_path %></li>
+              <li><%= link_to "Sign up", new_user_path %></li>
+            <% else %>
+              <li><%= link_to "Logout", logout_path %></li>
+              <li><%= link_to "My Daily Messenger", my_daily_messenger_path %></li>
+            <% end %>
           </ul>
         </li>
         
@@ -58,6 +75,9 @@
               <li><%= link_to "Data Nuke", datanuke_path %></li>
               <li><%= link_to "Data Reboot", dataparse_path %></li>
               <li><%= link_to "Analytics", analytics_path %></li>
+              <li><%= link_to "Daily Messenger Manager", daily_messenger_send_path %></li>
+              <li><%= link_to "Daily Messenger Announcement", daily_messenger_announcement_path %></li>
+              <li><%= link_to "DM Keyword Changer", daily_messenger_keyword_change_path %></li>
             </ul>
           </li>
         <% end %>

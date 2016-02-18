@@ -70,7 +70,7 @@ class BlogsController < ApplicationController
   # removes whitespace.
   def tag_parser(tags)
     parsed = tags.split(/[\s,']/)
-    parsed.reject(&:empty?)
+    parsed = parsed.reject(&:empty?)
     return parsed
   end
 end

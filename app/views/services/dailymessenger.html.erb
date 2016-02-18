@@ -1,0 +1,195 @@
+<% provide(:page_desc, "SERVICE: Daily Messenger") %>
+
+<h1>Daily Messenger</h1>
+<h4 class='center'>(AKA Project Gefilte Fish)</h4>
+
+<br>
+<br>
+
+<p>
+  Daily Messages are great, but there's a metric ton of them. It's easy to lose
+  track of things you're genuinely interested in, and way too easy to miss out
+  on opportunities you wish you had taken.
+</p>
+
+<p>
+  With the Daily Messenger, you can specify what topics you're interested in, 
+  as well as what departments, clubs, or people you're always happy
+  to hear from. Once you set your preferences, we'll do the filtering, 
+  and everyday we'll send you a special email
+  containing only the Daily Message content you want.
+</p>
+
+<!----------------------------------------------->
+
+<% path = logged_in? ? my_daily_messenger_path : login_path(intended_route: my_daily_messenger_path) %>
+<% dm_button_text = logged_in? ? "Go to My Daily Messenger" : "Sign Me Up!" %>
+
+<div class='center'>
+  <%= button_to dm_button_text, path, :params => {intended_route: my_daily_messenger_path}, :method => "get", :class => "btn, btn-success btn-lg" %>  
+</div>
+
+<!----------------------------------------------->
+
+<h3 class='bold'>The Brave, The Bold, The (Closed) Beta Testers</h3>
+
+<p>
+  Fan Zhang ('17') - 
+  Shannon Hsu ('15) -
+  Stephanie Li ('18) -
+  Mohamed Soussi ('16) -
+  Bill Zito ('16) -
+  Kenneth Park ('17) -
+  Yuanchu Dang ('17) -
+  Karan Tibrewal ('18)
+</p>
+
+<br>
+
+<!----------------------------------------------->
+
+<h2>FAQ</h2>
+
+<p class='bold'>
+  Q: How exactly does this process work?
+</p>
+
+<p>
+  Once you sign up for an account, go to "My Daily Messenger." Then, check off
+  the boxes you're interested in.
+</p>
+
+<p>
+  Once you click "Submit," you're done! I'll automatically send you a filtered
+  version of Daily Messages every day. If there's nothing that'll interest you,
+  I'll send you an email with the subject line: "Nothing interesting today!"
+</p>
+
+<br>
+
+<p class='bold'>
+  Q: So it's just a filtered version of Daily Messages?
+</p>
+
+<p>
+  I'll also keep track of past Daily Message content that might
+  still be relevant so you never miss out. For example, if someone posts a job
+  on Monday, I'll tell you about that job posting even if you open up your
+  Daily Messenger email on Wednesday. (I'll still do this even if they
+  forget to put the job posting up again!)
+</p>
+
+<br>
+
+<p class='bold'>
+  Q: I set my preferences, but I didn't get my Daily Messenger!
+</p>
+
+<p>
+  Wait a day! Unless you sign-up super-early in the morning,
+  it's unlikely that you'll get an email the same day. Don't worry about
+  missing out on anything, since I'll also send you past content
+  that you might still be interested in.
+</p>
+
+<br>
+
+<p class='bold'>
+  Q: The stuff I'm interested in isn't a topic/group :(
+</p>
+
+<p>
+  Email me what you're interested in! (rynkwn@gmail.com or rhk1@williams.edu)
+  Once you do, I'll delve back into the murky depths of dozens of Daily Messages
+  to parse out what's necessary to have your stuff be an option. Remember,
+  a lot of people could benefit from you telling me what you'd like to see.
+</p>
+
+<br>
+
+<p class='bold'>
+  Q: ... Why does it say it's also known as "Project Gefilte Fish"?
+</p>
+
+<p>
+  Er. Well. When I was trying to come up with a name for the service, I kept
+  trying variations of "Filter." Eventually, I was reminded of a blooper from
+  Rush Hour 2, and I ended up thinking "Wow. Gefilte Fish is a GREAT name for a
+  service." I eventually chose "Daily Messenger," but I still like "Gefilte Fish."
+</p>
+
+<br>
+
+<p class='bold'>
+  Q: What happens to the original Daily Messages?
+</p>
+
+<p>
+  Absolutely nothing. I can't overtly stop the college from sending those emails,
+  so you'll receive both the Daily Messenger's content-tailed emails as well as
+  the original daily messages. You know, just in case you want to see everything.
+</p>
+
+<br>
+
+<p class='bold'>
+  Q: So I'll get an extra email on top of Daily Messages?
+</p>
+
+<p>
+  Yep! Every weekday there's a daily message, the Daily Messenger will send you
+  an extra email filtered for just the things you're interested in. If you ever
+  want these emails to stop, you can either just clear your Daily Messenger
+  preferences, email me at rynkwn@gmail.com or text at 214-773-2856
+  and I'll personally take care of it for you!
+</p>
+
+<br>
+
+<p class='bold'>
+  Q: How much is this going to cost me?
+</p>
+
+<p>
+  Nothing. Like all great college products, it's so free it actually is free.
+  I'll always appreciate donations, 
+  but for normal users this service will remain free indefinitely. Or at 
+  least until my server explodes. Whichever comes first.
+</p>
+
+<br>
+
+<p class='bold'>
+  Q: What do you mean by "normal users?"
+</p>
+
+<p>
+  In the future, I may allow some people to do promotions through the Daily
+  Messenger, but I'll make every possible effort to be sure it's ONLY promotions
+  you might be interested in. For example: MASS MoCA surveying Williams students
+  about new exhibits and you list a passion for the contemporary arts, 
+  developer meetups taking place in North Adams when
+  you say you're interested about professional coders in the area,
+  or Psychology students offering free cake to
+  perform an experiment and, you being a human being, say you're interested in cake.
+</p>
+
+<br>
+
+<p class='bold'>
+  Q: Why do you keep saying "I?" Don't you mean "We?"
+</p>
+
+<p>
+  I don't remember hiring you ._.
+</p>
+
+<br>
+
+<p class='bold'>
+  Q: Did anyone actually ask these questions?
+</p>
+
+<p>
+  I spend a lot of time alone.
+</p>
