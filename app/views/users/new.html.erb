@@ -1,5 +1,7 @@
 <h1 class="secondary">Sign Up</h1>
 
+<%= render 'error_messages' %>
+
 <%= form_for(@user, html: {class: 'form'})do |f| %>
   <div class="form-group">
     <%= f.label :email %>
@@ -15,6 +17,8 @@
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation, class: 'form-control' %>
   </div>
+  
+  <%= hidden_field_tag 'intended_route', params[:intended_route] %>
   
   <%= f.submit "Sign up!", class: "btn-primary" %>
 <% end %>
