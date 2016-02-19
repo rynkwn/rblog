@@ -200,7 +200,7 @@ class MainPagesController < ApplicationController
         
         
         # Assume that Daily Messenger is empty.
-        subject = filtered_content.blank? ? "Daily Messenger: Nothing Interesting Going on" :
+        subject = filtered_content.blank? ? "Daily Messenger: Nothing Interesting Going On" :
                                             'Your Daily Messenger for ' + Date.current.in_time_zone.strftime("%a, %b %d")
         
         header = "----------------------------------------------------" + "\n" +
