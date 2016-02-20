@@ -105,15 +105,17 @@ class UsersController < ApplicationController
     "bugs (the insect kind), " +
     "space, AI, or just how your day has been. " +
     "I'm not really a huge fan of bugs (the insect kind) though, so try to restrain " +
-    "yourself when you send me giant popping 3D closeups of insects.\n\n" +
+    "yourself when you send me giant popping 3D closeups.\n\n" +
     
     "The only serious service I currently have running is the Daily Messenger, " +
-    "and if there's anything that could make the service better for you, just drop " +
+    "which can be found here: http://www.arg.press/my_daily_messenger (and also " +
+    "under the Account tab once you log in!) " +
+    "If there's anything that could make the service better for you, just drop " +
     "me an email. (You can reply to this email, any Daily Messenger email, or drop a message " + 
     "directly to rynkwn@gmail.com) " +
     "If you'd rather be anonymous, there's also this form: http://goo.gl/forms/ZNrt8NCPk9\n\n" + 
     
-    "Cheers,\n\n"+
+    "Enjoy,\n\n"+
     "Ryan"
     
     ServiceMailer::email(
