@@ -120,7 +120,8 @@ class MainPagesController < ApplicationController
       
       mymessage = ""
       if(params[:mymessage] && ! params[:mymessage].empty?)
-        mymessage =       "----------------------------------------------------" + "\n" +
+        mymessage =       "\n\n\n" + 
+                          "----------------------------------------------------" + "\n" +
                           "\t" + "Message from Ryan" + "\n" +
                           "----------------------------------------------------" + "\n"
         mymessage = mymessage + params[:mymessage]
@@ -181,7 +182,7 @@ class MainPagesController < ApplicationController
         email = dm.user.email
         dm_keys = dm.key_words.concat(dm.sender)
         
-        filtered_content = mymessage.empty? ? "" : mymessage + "\n\n"
+        filtered_content = mymessage.empty? ? " " : mymessage + "\n"
         
         dm_keys.each do |key|
           content_header = "\n\n\n" +
@@ -199,17 +200,14 @@ class MainPagesController < ApplicationController
         
         
         # Assume that Daily Messenger is empty.
-        subject = "Daily Messenger: Nothing Interested Going on Right Now!"
+        subject = filtered_content.blank? ? "Daily Messenger: Nothing Interesting Going On" :
+                                            'Your Daily Messenger for ' + Date.current.in_time_zone.strftime("%a, %b %d")
         
-        if !filtered_content.empty?
-          header = "----------------------------------------------------" + "\n" +
-                   "Change preferences at http://www.arg.press/my_daily_messenger" + "\n" +
-                   "----------------------------------------------------"
+        header = "----------------------------------------------------" + "\n" +
+                 "Change preferences at http://www.arg.press/my_daily_messenger" + "\n" +
+                 "----------------------------------------------------"
           
-          filtered_content = header + filtered_content
-          
-          subject = 'Your Daily Messenger for ' + Date.current.in_time_zone.strftime("%a, %b %d")
-        end
+        filtered_content = header + filtered_content
         
         ServiceMailer::daily_messenger(email, subject, filtered_content).deliver
       }
