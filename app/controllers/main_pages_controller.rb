@@ -133,29 +133,17 @@ class MainPagesController < ApplicationController
       msg.save
       
       # Messages stores the original messages (with my date modification)
-      # ms_temp will be used for filtering and comparison of message bodies.
-      # ms_raw will be used for the "All" category_mapping.
-      # Senders will be used for comparison.
       messages = []
-      ms_temp = []
-      ms_raw = []
-      senders = []
       
       DailyMessage.all.reverse.each {|ms|
-        ms_split_by_chunk = ms.content.split("\r\n\r\n")
-        days_messages = ms_split_by_chunk.reject{|line| line.include?("===")}
         date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
         
-        ms_raw = ms_raw.concat(days_messages.map{|x| x = x.downcase.strip})
-        
-        temp_days_messages = ms_split_by_chunk.map{|x| x = x.downcase.strip}
-        ms_temp = ms_temp.concat(temp_days_messages)
-        
-        days_messages = days_messages.map {|x| x = date_created + "\n" + x }
-        days_senders = days_messages.map {|x| x = x.split("\r\n")[-1] }
+        days_messages = ms.content.split("\r\n\r\n").map do |x|
+          x = (!x.include? "===") ? date_created + "\n" + x :
+                                    x
+        end
         
         messages = messages.concat(days_messages)
-        senders = senders.concat(days_senders)
       }
       
       # Downcase senders.
