@@ -94,38 +94,47 @@ module Arrayutils
   #
   #############################################################
   
-  # Return all elements (as indices) of array one that contain any elements in array two.
-  # I work under the assumption that both arrays contain Strings. Unsure about
-  # broader circumstances.
-  # @param arrayOne is the array we're filtering with our array of conditions.
-  # @param arrayTwo is our array of conditions.
-  # @return An array of indices representing elements in arrayOne that satisfy
-  # the conditions array.
-  def Arrayutils.string_overlaps(arrayOne, arrayTwo)
-    indices = []
+  # Build up a String array from messages that
+  # contain at least one member of filters.
+  # @param messages Is the space we're filtering over.
+  # @param filters An array of key_words we're filtering for.
+  def Arrayutils.filter(messages, filters)
+    filtered = []
     
-    for i in 0..(arrayOne.length - 1)
-      if Arrayutils::contains_string(arrayOne[i], arrayTwo)
-        indices << i
+    for i in 0..(messages.length - 1)
+      if contains_string(messages[i], filters)
+        filtered << messages[i]
       end
     end
     
-    return indices
+    return filtered
   end
   
   # Figure out if a body of text contains at least one element of a String array
   # efficiently
-  # @param bodytext
+  # @param bodytext. We downcase it in the function.
   # @param array is the String array which we're comparing on bodytext.
+  # We assume each word in array is downcased.
   def Arrayutils.contains_string(bodytext, array)
     array.each do |word|
-      if(bodytext.include? word)
+      if(bodytext.downcase.include? word)
         return true
       end
     end
     
     return false
   end
+  
+  # Reduce an array of messages to contain only unique
+  # daily messages.
+  # @param messages The messages we're reducing.
+  
+  
+  #############################################################
+  #
+  # Arrays and Hashes
+  #
+  #############################################################
   
   # You pass in a hash and an array containing some concat-ed values.
   # @param hash is the hash that generated the concat-ed values.
