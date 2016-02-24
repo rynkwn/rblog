@@ -156,6 +156,7 @@ class MainPagesController < ApplicationController
       # Downcased messages and senders.
       messagesComp = tempmessages
       senders = senders.map{|x| x = x.downcase.strip}
+
       
       # TODO: Increase robustness. Currently useless.
       # Check for repeated messages and remove them.
