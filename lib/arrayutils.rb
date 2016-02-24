@@ -1,5 +1,11 @@
 module Arrayutils
   
+  #############################################################
+  #
+  # General Array Manipulation
+  #
+  #############################################################
+  
   # @param array is an array you want to select from.
   # @param indices is an array of numeric indices that you wish to select from
   # array.
@@ -26,55 +32,6 @@ module Arrayutils
     return temp
   end
   
-  # Return all elements (as indices) of array one that contain any elements in array two.
-  # I work under the assumption that both arrays contain Strings. Unsure about
-  # broader circumstances.
-  # @param arrayOne is the array we're filtering with our array of conditions.
-  # @param arrayTwo is our array of conditions.
-  # @return An array of indices representing elements in arrayOne that satisfy
-  # the conditions array.
-  def Arrayutils.string_overlaps(arrayOne, arrayTwo)
-    indices = []
-    
-    for i in 0..(arrayOne.length - 1)
-      if Arrayutils::contains_string(arrayOne[i], arrayTwo)
-        indices << i
-      end
-    end
-    
-    return indices
-  end
-  
-  # Figure out if a body of text contains at least one element of a String array
-  # efficiently
-  # @param bodytext
-  # @param array is the String array which we're comparing on bodytext.
-  def Arrayutils.contains_string(bodytext, array)
-    array.each do |word|
-      if(bodytext.include? word)
-        return true
-      end
-    end
-    
-    return false
-  end
-  
-  # You pass in a hash and an array containing some concat-ed values.
-  # @param hash is the hash that generated the concat-ed values.
-  # @param hash_values is the array of values we're going to retrieve unique keys from.
-  # @return All unique hash keys defined by the hash_values in an array.
-  def Arrayutils.get_keys(hash, hash_values)
-    keys = []
-    hash.each do |k, v|
-      v = v.split(",")
-      if (hash_values.length > (hash_values - v).length)
-        keys << k
-      end
-    end
-    
-    return keys
-  end
-  
   # Returns whether or not val exists in the array.
   def Arrayutils.include?(array, val)
     array.each do |x|
@@ -83,6 +40,29 @@ module Arrayutils
       end
     end
     return false
+  end
+  
+  # Create a hash grouping elements defined by some delimiting identity.
+  # Array must be well-structured. Category precedes elements it defines.
+  # @param array The original array
+  # @param categorize Some proc which identifies an element as a category or otherwise.
+  # @param downcase_keys A boolean option to determine whether keys are downcased
+  # @param strip_keys A boolean option for whether or not to strip keys.
+  def Arrayutils.group(array, categorize, downcase_keys, strip_keys)
+    grouped = Hash.new() { |h,k| h[k] = Array.new }  # Set default value as an empty list
+    category = ""
+  
+    for i in 0..(array.size - 1)
+      if categorize.call(array[i])
+        category = array[i]
+        category = downcase_keys ? category.downcase : category
+        category = strip_keys ? category.strip : category
+      else
+        grouped[category] = grouped[category] << array[i]
+      end
+    end
+    
+    return grouped
   end
   
   # A modified version of uniq. Returns an array of indices that reflect
@@ -109,5 +89,91 @@ module Arrayutils
   # Replaces instances of X with Y in the array.
   def Arrayutils.replace(array, x, y)
     array = array.map{|val| val == x ? y : val}
+  end
+  
+  
+  #############################################################
+  #
+  # Arrays with Strings
+  #
+  #############################################################
+  
+  # Build up a String array from messages that
+  # contain at least one member of filters.
+  # @param messages Is the space we're filtering over.
+  # @param filters An array of key_words we're filtering for.
+  def Arrayutils.filter(messages, filters)
+    filtered = []
+    
+    for i in 0..(messages.length - 1)
+      if contains_string(messages[i], filters)
+        filtered << messages[i]
+      end
+    end
+    
+    return filtered
+  end
+  
+  # Figure out if a body of text contains at least one element of a String array
+  # efficiently
+  # @param bodytext. We downcase it in the function.
+  # @param array is the String array which we're comparing on bodytext.
+  # We assume each word in array is downcased.
+  def Arrayutils.contains_string(bodytext, array)
+    array.each do |word|
+      if(bodytext.downcase.include? word)
+        return true
+      end
+    end
+    
+    return false
+  end
+  
+  ############################
+  #
+  # Daily Message Specific
+  #
+  ############################
+  
+  # Same as filter above, but an extra step is done to
+  # only compare the sender of the message.
+  def Arrayutils.filter_sender(messages, filters)
+    filtered = []
+    
+    for i in 0..(messages.length - 1)
+      if contains_string(Stringutils::get_sender(messages[i]), filters)
+        filtered << messages[i]
+      end
+    end
+    
+    return filtered
+  end
+  
+  # Reduce an array of messages to contain only unique
+  # daily messages.
+  # @param messages The messages we're reducing.
+  # TODO? CONSIDER LATER.
+  
+  
+  #############################################################
+  #
+  # Arrays and Hashes
+  #
+  #############################################################
+  
+  # You pass in a hash and an array containing some concat-ed values.
+  # @param hash is the hash that generated the concat-ed values.
+  # @param hash_values is the array of values we're going to retrieve unique keys from.
+  # @return All unique hash keys defined by the hash_values in an array.
+  def Arrayutils.get_keys(hash, hash_values)
+    keys = []
+    hash.each do |k, v|
+      v = v.split(",")
+      if (hash_values.length > (hash_values - v).length)
+        keys << k
+      end
+    end
+    
+    return keys
   end
 end

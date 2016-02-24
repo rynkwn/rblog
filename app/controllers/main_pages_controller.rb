@@ -133,29 +133,22 @@ class MainPagesController < ApplicationController
       msg.save
       
       # Messages stores the original messages (with my date modification)
-      # Tempmessages will be used for filtering and comparison of message bodies.
-      # Senders will be used for comparison.
       messages = []
-      tempmessages = []
-      senders = []
       
       DailyMessage.all.reverse.each {|ms|
-        days_messages = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
         date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
-        
-        temp_days_messages = days_messages.map{|x| x = x.downcase.strip}
-        tempmessages = tempmessages.concat(temp_days_messages)
-        
-        days_messages = days_messages.map {|x| x = date_created + "\n" + x }
-        days_senders = days_messages.map {|x| x = x.split("\r\n")[-1] }
+        days_messages = ms.content.split("\r\n\r\n").map do |x|
+          x = (!x.include? "===") ? date_created + "\r\n" + x :
+                                    x
+        end
         
         messages = messages.concat(days_messages)
-        senders = senders.concat(days_senders)
       }
       
-      # Downcased messages and senders.
-      messagesComp = tempmessages
-      senders = senders.map{|x| x = x.downcase.strip}
+      # Now I want to organize messages by category.
+      category_test = Proc.new {|x| x.include?("===")}
+      ms_categorized = Arrayutils::group(messages, category_test, true, true)
+      ms_categorized["all"] = messages.reject{|ms| ms.include?("===")}
       
       # TODO: Increase robustness. Currently useless.
       # Check for repeated messages and remove them.
@@ -168,11 +161,13 @@ class MainPagesController < ApplicationController
       mappings = {}
       
       DAILY_MESSENGER_KEYWORDS.each do |topic, keywords|
-        mappings[topic] = Arrayutils::string_overlaps(messagesComp, keywords.split(","))
+        category = DAILY_MESSENGER_CATEGORY_MAPS.fetch(topic, "all")
+        ms_map = ms_categorized[category]
+        mappings[topic] = Arrayutils::filter(ms_map, keywords.split(","))
       end
       
       DAILY_MESSENGER_SENDERS.each do |sender, sender_words|
-        mappings[sender] = Arrayutils::string_overlaps(senders, sender_words.split(","))
+        mappings[sender] = Arrayutils::filter_sender(ms_categorized["all"], sender_words.split(","))
       end
       
       # For each service daily, we get the correct messages,
@@ -190,7 +185,7 @@ class MainPagesController < ApplicationController
                           "\t" + key + "\n" +
                           "----------------------------------------------------" + "\n"
           
-          content = Arrayutils.values_at(messages, mappings[key]).join("\n\n")
+          content = mappings[key].join("\n\n")
           
           if(! content.empty?)
             filtered_content = filtered_content + content_header + content
