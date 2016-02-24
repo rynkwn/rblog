@@ -125,9 +125,30 @@ module Arrayutils
     return false
   end
   
+  ############################
+  #
+  # Daily Message Specific
+  #
+  ############################
+  
+  # Same as filter above, but an extra step is done to
+  # only compare the sender of the message.
+  def Arrayutils.filter_sender(messages, filters)
+    filtered = []
+    
+    for i in 0..(messages.length - 1)
+      if contains_string(Stringutils::get_sender(messages[i]), filters)
+        filtered << messages[i]
+      end
+    end
+    
+    return filtered
+  end
+  
   # Reduce an array of messages to contain only unique
   # daily messages.
   # @param messages The messages we're reducing.
+  # TODO? CONSIDER LATER.
   
   
   #############################################################

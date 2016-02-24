@@ -137,7 +137,6 @@ class MainPagesController < ApplicationController
       
       DailyMessage.all.reverse.each {|ms|
         date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
-        
         days_messages = ms.content.split("\r\n\r\n").map do |x|
           x = (!x.include? "===") ? date_created + "\r\n" + x :
                                     x
@@ -162,11 +161,13 @@ class MainPagesController < ApplicationController
       mappings = {}
       
       DAILY_MESSENGER_KEYWORDS.each do |topic, keywords|
-        mappings[topic] = Arrayutils::string_overlaps(messagesComp, keywords.split(","))
+        category = DAILY_MESSENGER_CATEGORY_MAPS.fetch(topic, "all")
+        ms_map = ms_categorized[category]
+        mappings[topic] = Arrayutils::filter(ms_map, keywords.split(","))
       end
       
       DAILY_MESSENGER_SENDERS.each do |sender, sender_words|
-        mappings[sender] = Arrayutils::string_overlaps(senders, sender_words.split(","))
+        mappings[sender] = Arrayutils::filter_sender(ms_categorized["all"], sender_words.split(","))
       end
       
       # For each service daily, we get the correct messages,
