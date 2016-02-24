@@ -147,7 +147,7 @@ class MainPagesController < ApplicationController
       
       # Now I want to organize messages by category.
       category_test = Proc.new {|x| x.include?("===")}
-      ms_categorized = Arrayutils::group(messages, category_test)
+      ms_categorized = Arrayutils::group(messages, category_test, true, true)
       ms_categorized["all"] = messages.reject{|ms| ms.include?("===")}
       
       # TODO: Increase robustness. Currently useless.
@@ -185,7 +185,7 @@ class MainPagesController < ApplicationController
                           "\t" + key + "\n" +
                           "----------------------------------------------------" + "\n"
           
-          content = Arrayutils.values_at(messages, mappings[key]).join("\n\n")
+          content = mappings[key].join("\n\n")
           
           if(! content.empty?)
             filtered_content = filtered_content + content_header + content

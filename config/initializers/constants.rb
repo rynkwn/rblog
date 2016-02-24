@@ -17,7 +17,7 @@ DAILY_MESSENGER_KEYWORDS = {
   "Music (Events, Auditions)" => "audition,composer,recital,musician",
   "Spiritual Events" => "worship",
   "Startups and Entrepreneurship" => "startup,entrepreneur",
-  "Talks (Economics and Politics)" => "test"
+  "Talks (Economics and Politics)" => "global studies,cde,poec,political economy,economics department seminar,equity,liberalism,inequality,welfare,economics"
 }
 
 DAILY_MESSENGER_SENDERS = {

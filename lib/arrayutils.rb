@@ -46,13 +46,17 @@ module Arrayutils
   # Array must be well-structured. Category precedes elements it defines.
   # @param array The original array
   # @param categorize Some proc which identifies an element as a category or otherwise.
-  def Arrayutils.group(array, categorize)
+  # @param downcase_keys A boolean option to determine whether keys are downcased
+  # @param strip_keys A boolean option for whether or not to strip keys.
+  def Arrayutils.group(array, categorize, downcase_keys, strip_keys)
     grouped = Hash.new() { |h,k| h[k] = Array.new }  # Set default value as an empty list
     category = ""
   
     for i in 0..(array.size - 1)
       if categorize.call(array[i])
         category = array[i]
+        category = downcase_keys ? category.downcase : category
+        category = strip_keys ? category.strip : category
       else
         grouped[category] = grouped[category] << array[i]
       end
