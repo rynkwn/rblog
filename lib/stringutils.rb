@@ -14,8 +14,16 @@ module Stringutils
   #############################################################
   
   # From a normal Daily Message, strip out the sender.
+  # (This should be the last line.)
   def Stringutils.get_sender(message)
     message.split("\r\n")[-1]
+  end
+  
+  # From a normal Daily Message, strip out the title.
+  # (This should be the line immediately after my date
+  #  addition.)
+  def Stringutils.get_title(message)
+    message.split("\r\n")[1]
   end
   
 end

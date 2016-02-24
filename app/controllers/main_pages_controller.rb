@@ -139,20 +139,17 @@ class MainPagesController < ApplicationController
         date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
         
         days_messages = ms.content.split("\r\n\r\n").map do |x|
-          x = (!x.include? "===") ? date_created + "\n" + x :
+          x = (!x.include? "===") ? date_created + "\r\n" + x :
                                     x
         end
         
         messages = messages.concat(days_messages)
       }
       
-      # Downcase senders.
-      senders = senders.map{|x| x = x.downcase.strip}
-      
       # Now I want to organize messages by category.
       category_test = Proc.new {|x| x.include?("===")}
-      ms_categorized = Arrayutils::group(ms_temp, category_test)
-      ms_categorized["all"] = ms_raw
+      ms_categorized = Arrayutils::group(messages, category_test)
+      ms_categorized["all"] = messages.reject{|ms| ms.include?("===")}
       
       # TODO: Increase robustness. Currently useless.
       # Check for repeated messages and remove them.
