@@ -17,7 +17,8 @@ DAILY_MESSENGER_KEYWORDS = {
   "Music (Events, Auditions)" => "audition,composer,recital,musician",
   "Spiritual Events" => "worship",
   "Startups and Entrepreneurship" => "startup,entrepreneur",
-  "Talks (Economics and Politics)" => "global studies,cde,poec,political economy,economics department seminar,equity,liberalism,inequality,welfare,economics"
+  "Talks (Economics and Politics)" => "global studies,cde,poec,political economy,economics department seminar,equity,liberalism,inequality,welfare,economics",
+  "Talks (Philosophy)" => "philosophy"
 }
 
 DAILY_MESSENGER_SENDERS = {
@@ -37,5 +38,6 @@ DAILY_MESSENGER_SENDERS = {
 
 # For a given topic or sender, do we want it to only check a specific category?
 DAILY_MESSENGER_CATEGORY_MAPS = {
-  "Talks (Economics and Politics)" => "=== lectures/films/readings/panels ==="
+  "Talks (Economics and Politics)" => "=== lectures/films/readings/panels ===",
+  "Talks (Philosophy)" => "=== lectures/films/readings/panels ==="
 }
