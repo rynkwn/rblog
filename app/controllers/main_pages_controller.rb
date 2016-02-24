@@ -133,18 +133,23 @@ class MainPagesController < ApplicationController
       msg.save
       
       # Messages stores the original messages (with my date modification)
-      # Tempmessages will be used for filtering and comparison of message bodies.
+      # ms_temp will be used for filtering and comparison of message bodies.
+      # ms_raw will be used for the "All" category_mapping.
       # Senders will be used for comparison.
       messages = []
-      tempmessages = []
+      ms_temp = []
+      ms_raw = []
       senders = []
       
       DailyMessage.all.reverse.each {|ms|
-        days_messages = ms.content.split("\r\n\r\n").reject{|line| line.include?("===")}
+        ms_split_by_chunk = ms.content.split("\r\n\r\n")
+        days_messages = ms_split_by_chunk.reject{|line| line.include?("===")}
         date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
         
-        temp_days_messages = days_messages.map{|x| x = x.downcase.strip}
-        tempmessages = tempmessages.concat(temp_days_messages)
+        ms_raw = ms_raw.concat(days_messages.map{|x| x = x.downcase.strip})
+        
+        temp_days_messages = ms_split_by_chunk.map{|x| x = x.downcase.strip}
+        ms_temp = ms_temp.concat(temp_days_messages)
         
         days_messages = days_messages.map {|x| x = date_created + "\n" + x }
         days_senders = days_messages.map {|x| x = x.split("\r\n")[-1] }
@@ -153,10 +158,13 @@ class MainPagesController < ApplicationController
         senders = senders.concat(days_senders)
       }
       
-      # Downcased messages and senders.
-      messagesComp = tempmessages
+      # Downcase senders.
       senders = senders.map{|x| x = x.downcase.strip}
-
+      
+      # Now I want to organize messages by category.
+      category_test = Proc.new {|x| x.include?("===")}
+      ms_categorized = Arrayutils::group(tempmessages, category_test)
+      ms_categorized["all"] = ms_raw
       
       # TODO: Increase robustness. Currently useless.
       # Check for repeated messages and remove them.
