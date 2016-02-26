@@ -22,7 +22,7 @@
 
 <!----------------------------------------------->
 
-<% path = logged_in? ? my_daily_messenger_path : login_path(intended_route: my_daily_messenger_path) %>
+<% path = logged_in? ? my_daily_messenger_path : new_user_path(intended_route: my_daily_messenger_path) %>
 <% dm_button_text = logged_in? ? "Go to My Daily Messenger" : "Sign Me Up!" %>
 
 <div class='center'>
