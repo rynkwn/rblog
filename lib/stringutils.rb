@@ -1,4 +1,5 @@
 module Stringutils
+  require 'chronic'
   
   # Check to see how closely two strings are to each other.
   # Returns a pct representing how closely str2 is a
@@ -11,7 +12,7 @@ module Stringutils
   # future.
   # @param text The body of text for which we want to find the last date.
   # @param date_of_text Is the date the text was relevant. 
-  def Stringutils.parse_date(text, date_of_text)
+  def Stringutils.parse_latest_date(text, date_of_text)
     last_date = date_of_text
     words = text.split(" ")
     
@@ -32,20 +33,20 @@ module Stringutils
         candidate1 = (candidate1.class == Chronic::Span) ? candidate1.begin :
                                                            candidate1
         last_date = (last_date < candidate1) ? 
-                                              candidate1.strftime("%a, %b %d") :
+                                              candidate1 :
                                               last_date
       elsif (! candidate2.nil?)
         candidate2 = (candidate2.class == Chronic::Span) ? candidate2.begin :
                                                            candidate2
         last_date = (last_date < candidate2) ? 
-                                              candidate2.strftime("%a, %b %d") :
+                                              candidate2 :
                                               last_date
       
       elsif(! candidate3.nil?)
         candidate3 = (candidate3.class == Chronic::Span) ? candidate3.begin :
                                                            candidate3
         last_date = (last_date < candidate3) ? 
-                                              candidate3.strftime("%a, %b %d") :
+                                              candidate3 :
                                               last_date
       end
     end
@@ -85,8 +86,8 @@ module Stringutils
   # From a Daily Message, grab date in the natural message, if possible.
   # Otherwise, default to my provided date.
   def Stringutils.get_dm_date(message)
-    msg = msg.downcase.gsub(/[^a-z0-9\s]/i, '')
-    return parse_date(msg, Chronic.parse(get_my_date(x)))
+    msg = message.downcase.gsub(/[^a-z0-9\s]/i, '')
+    return parse_latest_date(msg, Chronic.parse(get_my_date(msg)))
   end
   
 end
