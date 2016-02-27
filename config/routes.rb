@@ -36,6 +36,14 @@ Rails.application.routes.draw do
   
   #################################
   #
+  # User Routes
+  #
+  #################################
+  get 'user_delete' => 'users#destroy'
+  delete 'user_delete' => 'users#destroy'
+  
+  #################################
+  #
   # Blogs and Subject Routes
   #
   #################################
