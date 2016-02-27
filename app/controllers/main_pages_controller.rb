@@ -145,6 +145,8 @@ class MainPagesController < ApplicationController
         messages = messages.concat(days_messages)
       }
       
+      msg_dates = messages.map{|x| Chronic.parse(x)}
+      
       # Now I want to organize messages by category.
       category_test = Proc.new {|x| x.include?("===")}
       ms_categorized = Arrayutils::group(messages, category_test, true, true)
