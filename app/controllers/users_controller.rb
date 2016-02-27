@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
   
-  before_action :logged_in_user?, 
-                :only => [
-                          :my_daily_messenger,
-                          :daily_messenger_edit
-                         ]
+  before_action :logged_in_user?, :only => [
+                                            :my_daily_messenger,
+                                            :daily_messenger_edit
+                                           ]
+  before_action :correct_user, :only => [
+                                         :destroy
+                                        ]
     
   def new
     @user = User.new
@@ -24,6 +26,14 @@ class UsersController < ApplicationController
       end
     else
       render 'new'
+    end
+  end
+  
+  def destroy
+    if(params[:confirm] == 'yes')
+      User.find(params[:id]).destroy
+      redirect_to root_path
+      flash[:success] = "We'll always have Paris"
     end
   end
   
@@ -123,5 +133,10 @@ class UsersController < ApplicationController
                           receiver,
                           content
                           ).deliver
+  end
+  
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_path) unless @user == current_user
   end
 end
