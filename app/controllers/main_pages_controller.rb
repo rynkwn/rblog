@@ -135,15 +135,19 @@ class MainPagesController < ApplicationController
       # Messages stores the original messages (with my date modification)
       messages = []
       
-      DailyMessage.all.reverse.each {|ms|
-        date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
-        days_messages = ms.content.split("\r\n\r\n").map do |x|
-          x = (!x.include? "===") ? date_created + "\r\n" + x :
-                                    x
-        end
+      #DailyMessage.all.reverse.each {|ms|
+      #  date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
+      #  days_messages = ms.content.split("\r\n\r\n").map do |x|
+      #    x = (!x.include? "===") ? date_created + "\r\n" + x :
+      #                              x
+      #  end
         
-        messages = messages.concat(days_messages)
-      }
+      #  messages = messages.concat(days_messages)
+      #}
+      
+      days_messages = DailyMessage.last.content.split("\r\n\r\n")
+      
+      messages = messages.concat(days_messages)
       
       # Now I want to organize messages by category.
       category_test = Proc.new {|x| x.include?("===")}
