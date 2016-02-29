@@ -23,7 +23,7 @@ module Stringutils
   # (This should be the line immediately after my date
   #  addition.)
   def Stringutils.get_title(message)
-    message.split("\r\n")[1]
+    message.split("\r\n")[0]
   end
   
 end
