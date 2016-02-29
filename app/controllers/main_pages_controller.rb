@@ -181,7 +181,16 @@ class MainPagesController < ApplicationController
         email = dm.user.email
         dm_keys = dm.key_words.concat(dm.sender)
         
-        filtered_content = mymessage.empty? ? " " : mymessage + "\n"
+        filtered_content = mymessage.empty? ? "\r\n" : mymessage + "\r\n"
+        
+        dm_keys.each do |key|
+          content_header = "\t=== " + key + " ===\r\n"
+          content = mappings[key].map{|x| Stringutils::get_title(x)}.join("\n")
+          
+          if(! content.empty?)
+            filtered_content = filtered_content + content_header + content + "\r\n\r\n"
+          end
+        end
         
         dm_keys.each do |key|
           content_header = "\n\n\n" +
