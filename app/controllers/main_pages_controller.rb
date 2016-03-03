@@ -181,7 +181,8 @@ class MainPagesController < ApplicationController
         email = dm.user.email
         dm_keys = dm.key_words.concat(dm.sender)
         
-        filtered_content = mymessage.empty? ? "\r\n" : mymessage + "\r\n"
+        filtered_content = mymessage.empty? ? "\r\n" : mymessage + "\r\n\r\n"
+        filtered_content = Stringutils::to_html(filtered_content)
         
         # Populate the DM with content.
         filtered_content = filtered_content + dm_preview(dm_keys, mappings)
@@ -194,7 +195,8 @@ class MainPagesController < ApplicationController
         header = "----------------------------------------------------" + "\n" +
                  "Change preferences at http://www.arg.press/my_daily_messenger" + "\n" +
                  "----------------------------------------------------"
-          
+        header = Stringutils::to_html(header)
+        
         filtered_content = header + filtered_content
         
         ServiceMailer::daily_messenger(email, subject, filtered_content).deliver
@@ -273,7 +275,7 @@ class MainPagesController < ApplicationController
       content = mappings[key].map{|x| Stringutils::get_title(x)}.join("\n")
       
       if(! content.empty?)
-        preview = preview + content_header + content + "\r\n\r\n"
+        preview = preview + Stringutils::to_html(content_header + content + "\r\n\r\n")
       end
     end
     
@@ -293,7 +295,7 @@ class MainPagesController < ApplicationController
       content = mappings[key].join("\n\n")
       
       if(! content.empty?)
-        body = body + content_header + content
+        body = body + Stringutils::to_html(content_header + content)
       end
     end
     

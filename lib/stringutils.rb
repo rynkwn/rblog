@@ -7,6 +7,14 @@ module Stringutils
     #return 0.0
   #end
   
+  # Given a normal String, convert it to an HTML-friendly format.
+  # @param str The string we're converting.
+  # @param email If true, we assume it's normal text to be rendered into an email.
+  def Stringutils.to_html(str, email=true)
+    str = email ? "<pre style=\"font-family:verdana; font-size:100%;\">" + str + "</pre": 
+                  "<pre>" + str + "</pre>"
+  end
+  
   #############################################################
   #
   # Daily Messenger Specific String Functions
