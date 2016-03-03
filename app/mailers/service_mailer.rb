@@ -2,13 +2,13 @@ class ServiceMailer < ApplicationMailer
   
   # For anytime I want to send a typical email.
   def email(subject, receiver, content)
-    mail(
+    
+    client = Postmark::ApiClient.new(POSTMARK_API_KEY)
+    client.deliver(
       :subject => subject,
       :to      => receiver,
       :from    => SENDER_SIGNATURE,
-      :text_body => "Needed for Heroku",
-      :body => content
-    )
+      :html_body => "<h1>test</h1>")
   end
   
   # A daily messenger email.

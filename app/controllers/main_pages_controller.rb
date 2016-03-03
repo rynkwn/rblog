@@ -288,5 +288,24 @@ class MainPagesController < ApplicationController
     return final_url
   end
   
+  # Generates an appropriately formatted datetime string
+  # for use in generate_calendar_link
+  # Requires a date param.
+  # @param date The date the event takes place on. We assume it ends the same day.
+  # @param time If possible, the time the event takes place. If we don't have it
+  # we make do.
+  def generate_calendar_datetime(date, time)
+    date = ""
+    
+    start_date = date.strftime("%Y%m%d")
+    end_date = (date + 1).strftime("%Y%m%d")
+    
+    if time
+      start_date = start_date + "T" + time.strftime("%H%M")
+      end_date = end_date + "T" + (time + 1).strftime("%H%M")
+    end
+    
+    return start_date + "//" + end_date
+  end
   
 end
