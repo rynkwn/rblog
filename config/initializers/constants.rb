@@ -25,6 +25,7 @@ DAILY_MESSENGER_KEYWORDS = {
 # regardless of what else it contains.
 DAILY_MESSENGER_ANTI_KEYWORDS = {
   "Competitions" => "basketball,golf",
+  "Literature/Magazines" => "magazines",
   "Music (Events, Auditions)" => "dance",
   "Talks (Economics and Politics)" => "screening"
 }
