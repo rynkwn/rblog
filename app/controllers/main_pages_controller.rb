@@ -210,6 +210,7 @@ class MainPagesController < ApplicationController
     message = params[:message]
     
     if(subject && !subject.empty? && message && !message.empty?)
+      message = Stringutils::to_html(message)
       ServiceDaily.all.each do |dm|
         user = dm.user
         ServiceMailer::email(subject, user.email, message).deliver
