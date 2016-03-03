@@ -278,10 +278,10 @@ class MainPagesController < ApplicationController
   end
   
   # Generates the URL to create a google calendar event.
-  def generate_calendar_link(title, dates, location)
+  def generate_calendar_link(title, dates=DateTime.current.in_time_zone, time=nil, location=nil)
     base_url = "https://calendar.google.com/calendar/render?action=TEMPLATE"
     title_add = title ? "&text=" + title : ""
-    dates_add = dates ? "&dates=" + dates : ""
+    dates_add = "&dates=" + generate_calendar_datetime(dates, time)
     location_add = location ? "&location=" + location : ""
     
     final_url = base_url + title_add + dates_add + location_add
@@ -294,9 +294,7 @@ class MainPagesController < ApplicationController
   # @param date The date the event takes place on. We assume it ends the same day.
   # @param time If possible, the time the event takes place. If we don't have it
   # we make do.
-  def generate_calendar_datetime(date, time)
-    date = ""
-    
+  def generate_calendar_datetime(date, time=nil)
     start_date = date.strftime("%Y%m%d")
     end_date = (date + 1).strftime("%Y%m%d")
     
