@@ -183,22 +183,9 @@ class MainPagesController < ApplicationController
         
         filtered_content = mymessage.empty? ? "\r\n" : mymessage + "\r\n"
         
+        # Populate the DM with content.
         filtered_content = filtered_content + dm_preview(dm_keys, mappings)
-        
-        dm_keys.each do |key|
-          content_header = "\n\n\n" +
-                          "----------------------------------------------------" + "\n" +
-                          "\t" + key + "\n" +
-                          "----------------------------------------------------" + "\n"
-          
-          content = mappings[key].join("\n\n")
-          
-          if(! content.empty?)
-            filtered_content = filtered_content + content_header + content
-          end
-          
-        end
-        
+        filtered_content = filtered_content + dm_body(dm_keys, mappings)
         
         # Assume that Daily Messenger is empty.
         subject = filtered_content.blank? ? "Daily Messenger: Nothing Interesting Going On" :
@@ -270,6 +257,12 @@ class MainPagesController < ApplicationController
     return summary
   end
   
+  #############################################################
+  #
+  # Daily Messenger Private functions
+  #
+  #############################################################
+  
   # Generate Daily Messenger Preview section.
   def dm_preview(keys, map)
     preview = ""
@@ -284,6 +277,24 @@ class MainPagesController < ApplicationController
     end
     
     return preview
+  end
+  
+  def dm_body(keys, map)
+    body = ""
+    
+    keys.each do |key|
+      content_header = "\n\n\n" +
+                          "----------------------------------------------------" + "\n" +
+                          "\t" + key + "\n" +
+                          "----------------------------------------------------" + "\n"
+      content = map[key].join("\n\n")
+      
+      if(! content.empty?)
+        body = body + content_header + content
+      end
+    end
+    
+    return body
   end
   
   # Generates the URL to create a google calendar event.
