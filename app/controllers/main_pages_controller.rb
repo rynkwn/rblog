@@ -167,7 +167,12 @@ class MainPagesController < ApplicationController
       DAILY_MESSENGER_KEYWORDS.each do |topic, keywords|
         category = DAILY_MESSENGER_CATEGORY_MAPS.fetch(topic, "all")
         ms_map = ms_categorized[category]
-        mappings[topic] = Arrayutils::filter(ms_map, keywords.split(","))
+        
+        anti_keywords = DAILY_MESSENGER_ANTI_KEYWORDS.fetch(topic, nil)
+        if anti_keywords
+          anti_keywords = anti_keywords.split(",")
+        end
+        mappings[topic] = Arrayutils::filter(ms_map, keywords.split(","), anti_keywords)
       end
       
       DAILY_MESSENGER_SENDERS.each do |sender, sender_words|
