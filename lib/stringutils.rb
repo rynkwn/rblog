@@ -43,4 +43,13 @@ module Stringutils
     message.split("\r\n")[0]
   end
   
+  # From a normal Daily Message, strip out the title,
+  # and then strip out the order number.
+  def Stringutils.get_nice_title(message)
+    msg = get_title(message)
+    msg = msg.split(" ")
+    msg.shift
+    return msg.join(" ")
+  end
+  
 end

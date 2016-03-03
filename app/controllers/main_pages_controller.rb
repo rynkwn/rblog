@@ -293,7 +293,9 @@ class MainPagesController < ApplicationController
                           "----------------------------------------------------" + "\n" +
                           "\t" + key + "\n" +
                           "----------------------------------------------------" + "\n"
-      content = mappings[key].join("\n\n")
+      content = mappings[key]
+      content = content.map{|msg| msg + "\r\n" + generate_calendar_link(Stringutils::get_nice_title(msg))}
+      content = content.join("\n\n")
       
       if(! content.empty?)
         body = body + Stringutils::to_html(content_header + content)
@@ -303,15 +305,26 @@ class MainPagesController < ApplicationController
     return body
   end
   
-  # Generates the URL to create a google calendar event.
-  def generate_calendar_link(title, dates=DateTime.current.in_time_zone, time=nil, location=nil)
+  # Generates the URL + button to create a google calendar event.
+  def generate_calendar_link(title, date=DateTime.current.in_time_zone, time=nil, location=nil)
     base_url = "https://calendar.google.com/calendar/render?action=TEMPLATE"
     title_add = title ? "&text=" + title : ""
-    dates_add = "&dates=" + generate_calendar_datetime(dates, time)
+    date_add = "&dates=" + generate_calendar_datetime(date, time)
     location_add = location ? "&location=" + location : ""
     
-    final_url = base_url + title_add + dates_add + location_add
-    return final_url
+    final_url = base_url + title_add + date_add + location_add
+    
+    button_text = "Add to Calendar!"
+    button_code = '<table cellspacing="0" cellpadding="0">' +
+                  '<tr>' +
+                  '<td align="center" width="70" height="30" bgcolor="#449D44" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; color: #ffffff; display: block;">' +
+                  '<a href="' + final_url +  '" style="font-size:12px; font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-decoration: none; width:100%; display:inline-block">' +
+                  '<span style="color: #FFFFFF">' + button_text + '</span></a>' +
+                  '</td>' +
+                  '</tr>' +
+                  '</table>'
+    
+    return button_code
   end
   
   # Generates an appropriately formatted datetime string
@@ -329,7 +342,7 @@ class MainPagesController < ApplicationController
       end_date = end_date + "T" + (time + 1).strftime("%H%M")
     end
     
-    return start_date + "//" + end_date
+    return start_date + '/' + end_date
   end
   
 end
