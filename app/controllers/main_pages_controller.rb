@@ -277,5 +277,16 @@ class MainPagesController < ApplicationController
     return summary
   end
   
+  # Generates the URL to create a google calendar event.
+  def generate_calendar_link(title, dates, location)
+    base_url = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    title_add = title ? "&text=" + title : ""
+    dates_add = dates ? "&dates=" + dates : ""
+    location_add = location ? "&location=" + location : ""
+    
+    final_url = base_url + title_add + dates_add + location_add
+    return final_url
+  end
+  
   
 end
