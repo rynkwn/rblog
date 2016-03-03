@@ -183,14 +183,7 @@ class MainPagesController < ApplicationController
         
         filtered_content = mymessage.empty? ? "\r\n" : mymessage + "\r\n"
         
-        dm_keys.each do |key|
-          content_header = "\t=== " + key + " ===\r\n"
-          content = mappings[key].map{|x| Stringutils::get_title(x)}.join("\n")
-          
-          if(! content.empty?)
-            filtered_content = filtered_content + content_header + content + "\r\n\r\n"
-          end
-        end
+        filtered_content = filtered_content + dm_preview(dm_keys, mappings)
         
         dm_keys.each do |key|
           content_header = "\n\n\n" +
@@ -275,6 +268,22 @@ class MainPagesController < ApplicationController
       dm.sender.each {|sender| summary[sender] += 1}
     end
     return summary
+  end
+  
+  # Generate Daily Messenger Preview section.
+  def dm_preview(keys, map)
+    preview = ""
+    
+    keys.each do |key|
+      content_header = "\t=== " + key + " ===\r\n"
+      content = mappings[key].map{|x| Stringutils::get_title(x)}.join("\n")
+      
+      if(! content.empty?)
+        preview = preview + content_header + content + "\r\n\r\n"
+      end
+    end
+    
+    return preview
   end
   
   # Generates the URL to create a google calendar event.
