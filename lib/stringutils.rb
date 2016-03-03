@@ -79,6 +79,12 @@ module Stringutils
   # Otherwise, default to my provided date.
   def Stringutils.get_dm_date(message)
     msg = message.downcase.gsub(/[^a-z0-9\s]/i, '')
+    contemporary_date = Chronic.parse(get_my_date(msg))
+    #date = parse_latest_date(get_title(msg), contemporary_date)
+    #if date != contemporary_date
+    #  return date
+    #end
+    
     return parse_latest_date(msg, Chronic.parse(get_my_date(msg)))
   end
   
