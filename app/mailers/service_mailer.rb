@@ -6,7 +6,8 @@ class ServiceMailer < ApplicationMailer
       :subject => subject,
       :to      => receiver,
       :from    => SENDER_SIGNATURE,
-      :html_body => content
+      :html_body => content,
+      :track_opens => true
       )
   end
   
@@ -16,7 +17,8 @@ class ServiceMailer < ApplicationMailer
       :subject => subject,
       :to      => receiver,
       :from    => SENDER_SIGNATURE,
-      :html_body => content
+      :html_body => content,
+      :track_opens => true
       )
   end
 end
