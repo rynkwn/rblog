@@ -263,8 +263,9 @@ class MainPagesController < ApplicationController
   #
   #############################################################
   
-  # Generate Daily Messenger Preview section.
-  def dm_preview(keys, map)
+  # Generate Daily Messenger Preview section given a list of keys
+  # and a mapping that maps keys to daily messages.
+  def dm_preview(keys, mappings)
     preview = ""
     
     keys.each do |key|
@@ -279,7 +280,9 @@ class MainPagesController < ApplicationController
     return preview
   end
   
-  def dm_body(keys, map)
+  # Generate Daily Messenger body given a list of keys and a mapping
+  # that maps keys to daily messages.
+  def dm_body(keys, mappings)
     body = ""
     
     keys.each do |key|
@@ -287,7 +290,7 @@ class MainPagesController < ApplicationController
                           "----------------------------------------------------" + "\n" +
                           "\t" + key + "\n" +
                           "----------------------------------------------------" + "\n"
-      content = map[key].join("\n\n")
+      content = mappings[key].join("\n\n")
       
       if(! content.empty?)
         body = body + content_header + content
