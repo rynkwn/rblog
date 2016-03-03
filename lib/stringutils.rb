@@ -19,23 +19,15 @@ module Stringutils
     for i in 2..(words.length - 1)
       # From a cursory search, it seems as if the length of a date in natural
       # language is between 0 and 3
-      phr1 = words[i-2..i].join(" ")
       phr2 = words[i-1..i].join(" ")
       phr3 = words[i]
       
       evalProc = Proc.new {|phrase| Chronic.parse(phrase, :guess => false, :now => date_of_text)}
-      candidate1 = Rubyutils::try_return(evalProc, phr1, ArgumentError)
       candidate2 = Rubyutils::try_return(evalProc, phr2, ArgumentError)
       candidate3 = Rubyutils::try_return(evalProc, phr3, ArgumentError)
       
       # In reverse order, if a candidate is not nil, we assign it to last_date
-      if (! candidate1.nil?)
-        candidate1 = (candidate1.class == Chronic::Span) ? candidate1.begin :
-                                                           candidate1
-        last_date = (last_date < candidate1) ? 
-                                              candidate1 :
-                                              last_date
-      elsif (! candidate2.nil?)
+      if (! candidate2.nil?)
         candidate2 = (candidate2.class == Chronic::Span) ? candidate2.begin :
                                                            candidate2
         last_date = (last_date < candidate2) ? 
