@@ -294,7 +294,10 @@ class MainPagesController < ApplicationController
                           "\t" + key + "\n" +
                           "----------------------------------------------------" + "\n"
       content = mappings[key]
-      content = content.map{|msg| msg + "\r\n" + generate_calendar_link(Stringutils::get_nice_title(msg))}
+      content = content.map{|msg|
+        title = Stringutils::get_nice_title(msg).gsub("\"", "'").gsub("&", 'and')
+        msg + "\r\n" + generate_calendar_link(title)
+      }
       content = content.join("\n\n")
       
       if(! content.empty?)
@@ -317,8 +320,8 @@ class MainPagesController < ApplicationController
     button_text = "Add to Calendar!"
     button_code = '<table cellspacing="0" cellpadding="0">' +
                   '<tr>' +
-                  '<td align="center" width="70" height="30" bgcolor="#449D44" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; color: #ffffff; display: block;">' +
-                  '<a href="' + final_url +  '" style="font-size:12px; font-weight: bold; font-family: Helvetica, Arial, sans-serif; text-decoration: none; width:100%; display:inline-block">' +
+                  '<td align="center" width="130" height="30" bgcolor="#449D44" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; color: #ffffff; display: block;">' +
+                  '<a href="' + final_url +  '" style="font-size:12px; font-weight: bold; font-family: verdana; text-decoration: none; width:100%; display:inline-block">' +
                   '<span style="color: #FFFFFF">' + button_text + '</span></a>' +
                   '</td>' +
                   '</tr>' +
