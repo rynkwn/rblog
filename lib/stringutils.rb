@@ -16,7 +16,7 @@ module Stringutils
     last_date = date_of_text
     words = text.split(" ")
     
-    for i in 2..(words.length - 1)
+    for i in 1..(words.length - 1)
       # From a cursory search, it seems as if the length of a date in natural
       # language is between 0 and 3
       phr2 = words[i-1..i].join(" ")
@@ -86,6 +86,78 @@ module Stringutils
     #end
     
     return parse_latest_date(msg, Chronic.parse(get_my_date(msg)))
+  end
+  
+  def Stringutils.dm_date_def(msg)
+    
+  end
+  
+  # Looks at str and tries to see if it refers to a date. If it is a date
+  # we return the appropriate date, formatted.
+  # otherwise we 
+  # We automatically downcase the string and strip out any punctuation.
+  # @param str is a 1-2 word String.
+  # @param released is the date the message was initially sent out.
+  def dm_get_date?(str, released=Date.current.in_time_zone)
+    str = str.downcase.gsub(/[^a-z0-9\s]/i, ' ')
+    str = str.split(" ").map{|x| x.strip}
+    
+    if str.size == 1
+      # If the string is size 1, we assume it refers to a day of the week.
+      days = ['mon', 'tue', 'wed', 'thur', 'fri', 'sat', 'sun',
+              'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
+              'sunday',
+              'tues']
+      relative_days = ['today', 'tomorrow', 'tonight']
+      if days.include? str
+        proposed_date = Date.parse(str)
+        tentative_day = proposed_date.day
+        current_day = released.day
+        
+        # If the tentative_day is less than the current day, we assume it takes
+        # place next week.
+        num_sec_in_week = 604800
+        proposed_date = (tentative_day < current_day) ? proposed_date + num_sec_in_week :
+                                                        proposed_date
+        
+        return proposed_date
+      end
+      
+      if relative_days.include? str
+        if str == 'today' || str == 'tonight'
+          return released
+        else
+          num_sec_in_days = 86400
+          return released + num_sec_in_days
+        end
+      end
+      
+    elsif str.size == 2
+      # Now we assume it refers to a month day, or MON ## combination.
+      month = ['jan', 'feb', 'mar', 'may', 'june', 'july', 'aug', 'sept', 'oct',
+               'nov', 'dec',
+               'january', 'february', 'march', 'april', 'august', 'september',
+               'october', 'november', 'december']
+      day = [('1'..'31').to_a, 
+             '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th',
+             '11th', '12th', '13th'].flatten
+      
+      return month.include?(str[0]) && day.include?(str[1])
+    end
+  end
+  
+  # Looks at str and tries to determine if it's a time.
+  def dm_is_time(str)
+    # Cases to handle.
+    # 1:10
+    # 6 PM
+    # 1:10-2:00 pm
+    # 6-7pm
+    # 1-1:45 pm
+    # 8 p.m.
+    
+    str = str.downcase.gsub(/[^a-z0-9\s]/i, '')
+    str.split(" ")
   end
   
 end
