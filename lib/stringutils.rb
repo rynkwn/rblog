@@ -98,7 +98,7 @@ module Stringutils
   # We automatically downcase the string and strip out any punctuation.
   # @param str is a 1-2 word String.
   # @param released is the date the message was initially sent out.
-  def dm_get_date?(str, released=Date.current.in_time_zone)
+  def dm_get_date(str, released=Date.current.in_time_zone)
     str = str.downcase.gsub(/[^a-z0-9\s]/i, ' ')
     str = str.split(" ").map{|x| x.strip}
     
@@ -142,12 +142,16 @@ module Stringutils
              '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th',
              '11th', '12th', '13th'].flatten
       
-      return month.include?(str[0]) && day.include?(str[1])
+      if month.include?(str[0]) && day.include?(str[1])
+        return Date.parse(str.join(" "))
+      end
     end
+    
+    return nil
   end
   
   # Looks at str and tries to determine if it's a time.
-  def dm_is_time(str)
+  #def dm_get_time(str)
     # Cases to handle.
     # 1:10
     # 6 PM
@@ -156,8 +160,8 @@ module Stringutils
     # 1-1:45 pm
     # 8 p.m.
     
-    str = str.downcase.gsub(/[^a-z0-9\s]/i, '')
-    str.split(" ")
-  end
+  #  str = str.downcase.gsub(/[^a-z0-9\s]/i, '')
+  #  str.split(" ")
+  #end
   
 end
