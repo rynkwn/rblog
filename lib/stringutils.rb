@@ -79,29 +79,50 @@ module Stringutils
   # Otherwise, default to my provided date.
   def Stringutils.get_dm_date(message)
     msg = message.downcase.gsub(/[^a-z0-9\s]/i, '')
-    contemporary_date = Chronic.parse(get_my_date(msg))
+    
+    date_parse = Proc.new{|x| Date.parse(x)}
+    contemporary_date = Rubyutils::try_return(get_my_date(msg), date_parse, ArgumentError)
     #date = parse_latest_date(get_title(msg), contemporary_date)
     #if date != contemporary_date
     #  return date
     #end
-    
-    return parse_latest_date(msg, Chronic.parse(get_my_date(msg)))
+    if !contemporary_date.nil?
+      return dm_interpret_date(get_natural_message(msg), contemporary_date)
+    else
+      return dm_interpret_date(get_natural_message(msg))
+    end
   end
   
-  def Stringutils.dm_date_def(msg)
+  # Gets an array of possible dates for a message, and then returns one
+  # if reasonable.
+  # @param released is the date the message was initially sent out.
+  def Stringutils.dm_interpret_date(msg, released=Date.current.in_time_zone)
+    possible_dates = []
+    msg = msg.split(" ").map{|x| x.strip}
+    for i in 1..(msg.length - 1)
+      proposed_date_1 = dm_interpret_phrase_as_date(msg[(i-1)..i], released)
+      proposed_date_2 = dm_interpret_phrase_as_date([msg[i]], released)
+      
+      if !proposed_date_1.nil?
+        possible_dates << proposed_date_1
+      end
+      
+      if !proposed_date_2.nil?
+        possible_dates << proposed_date_2
+      end
+    end
     
+    return possible_dates
   end
   
-  # Looks at str and tries to see if it refers to a date. If it is a date
+  # Looks at a small phrase and tries to see if it refers to a date. If it is a date
   # we return the appropriate date, formatted.
   # otherwise we 
-  # We automatically downcase the string and strip out any punctuation.
-  # @param str is a 1-2 word String.
+  # We assume the string is downcased, stripped of any punctuation, and in an array
+  # split by spaces.
+  # @param str is an array containing 1-2 strings.
   # @param released is the date the message was initially sent out.
-  def dm_get_date(str, released=Date.current.in_time_zone)
-    str = str.downcase.gsub(/[^a-z0-9\s]/i, ' ')
-    str = str.split(" ").map{|x| x.strip}
-    
+  def Stringutils.dm_interpret_phrase_as_date(str, released=Date.current.in_time_zone)
     if str.size == 1
       # If the string is size 1, we assume it refers to a day of the week.
       days = ['mon', 'tue', 'wed', 'thur', 'fri', 'sat', 'sun',
@@ -109,16 +130,16 @@ module Stringutils
               'sunday',
               'tues']
       relative_days = ['today', 'tomorrow', 'tonight']
+      str = str[0]  # We need to unwrap the singleton array.
       if days.include? str
         proposed_date = Date.parse(str)
         tentative_day = proposed_date.day
-        current_day = released.day
         
         # If the tentative_day is less than the current day, we assume it takes
         # place next week.
         num_sec_in_week = 604800
-        proposed_date = (tentative_day < current_day) ? proposed_date + num_sec_in_week :
-                                                        proposed_date
+        proposed_date = (tentative_day < released.day) ? proposed_date + num_sec_in_week :
+                                                         proposed_date
         
         return proposed_date
       end
