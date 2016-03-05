@@ -81,16 +81,22 @@ module Stringutils
     msg = message.downcase.gsub(/[^a-z0-9\s]/i, '')
     
     date_parse = Proc.new{|x| Date.parse(x)}
-    contemporary_date = Rubyutils::try_return(get_my_date(msg), date_parse, ArgumentError)
-    #date = parse_latest_date(get_title(msg), contemporary_date)
-    #if date != contemporary_date
-    #  return date
-    #end
+    contemporary_date = Rubyutils::try_return(date_parse, get_my_date(msg), ArgumentError)
+    
     if !contemporary_date.nil?
-      return dm_interpret_date(get_natural_message(msg), contemporary_date)
-    else
-      return dm_interpret_date(get_natural_message(msg))
+      possible_dates =  dm_interpret_date(get_natural_message(msg), contemporary_date)
+      possible_dates = possible_dates.uniq
+      last_mentioned_date = possible_dates.last
+      if(last_mentioned_date.nil?)
+        return contemporary_date
+      else
+        return last_mentioned_date
+      end
     end
+    
+    # We return this iff it's not a normally formatted message. In which case
+    # it's most likely a category. I.e., === SOMETHING ===
+    return []
   end
   
   # Gets an array of possible dates for a message, and then returns one
@@ -137,8 +143,8 @@ module Stringutils
         
         # If the tentative_day is less than the current day, we assume it takes
         # place next week.
-        num_sec_in_week = 604800
-        proposed_date = (tentative_day < released.day) ? proposed_date + num_sec_in_week :
+        days_in_week = 7
+        proposed_date = (tentative_day < released.day) ? proposed_date + days_in_week :
                                                          proposed_date
         
         return proposed_date
@@ -148,8 +154,8 @@ module Stringutils
         if str == 'today' || str == 'tonight'
           return released
         else
-          num_sec_in_days = 86400
-          return released + num_sec_in_days
+          tomorrow = 1
+          return released + tomorrow
         end
       end
       
@@ -161,7 +167,9 @@ module Stringutils
                'october', 'november', 'december']
       day = [('1'..'31').to_a, 
              '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th',
-             '11th', '12th', '13th'].flatten
+             '11th', '12th', '13th', '14th', '15th', '16th', '17th', '18th',
+             '19th', '20th', '21st', '22nd', '23rd','24th', '25th', '26th',
+             '27th', '28th', '29th', '30th', '31st'].flatten
       
       if month.include?(str[0]) && day.include?(str[1])
         return Date.parse(str.join(" "))

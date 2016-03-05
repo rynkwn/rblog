@@ -148,7 +148,7 @@ class MainPagesController < ApplicationController
       current_date = Date.current.in_time_zone
       messages = messages.reject {|ms| 
         last_relevant_date = Stringutils::get_dm_date(ms)
-        (!last_relevant_date.nil?) && (last_relevant_date < current_date)
+        (last_relevant_date != []) && (last_relevant_date < current_date)
       }
       
       # Now I want to organize messages by category.
