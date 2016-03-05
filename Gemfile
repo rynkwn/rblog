@@ -36,13 +36,6 @@ gem 'google-search'
 gem 'redcarpet'
 gem 'coderay'
 
-######################
-#
-# Daily Messenger Related Gems
-#
-######################
-gem 'chronic'  # Allows natural language data processing
-
 # Use Unicorn as the app server
 # gem 'unicorn'
 
