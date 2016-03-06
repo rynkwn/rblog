@@ -151,8 +151,8 @@ class MainPagesController < ApplicationController
       
       current_date = Date.current.in_time_zone
       messages = messages.reject {|ms| 
-        last_relevant_date = Stringutils::get_dm_date(ms)
-        (last_relevant_date != []) && (last_relevant_date < current_date)
+        last_relevant_date = Stringutils::get_dm_date(ms, current_date)
+        last_relevant_date != [] && last_relevant_date < current_date
       }
       
       # Now I want to organize messages by category.
@@ -307,7 +307,7 @@ class MainPagesController < ApplicationController
       content = mappings[key]
       content = content.map{|msg|
         title = Stringutils::get_nice_title(msg).gsub("\"", "'").gsub("&", 'and')
-        msg + "\r\n\t" + generate_calendar_link(title)
+        msg + "\r\n\t" + generate_calendar_link(title, Stringutils::get_dm_date(msg, Date.current.in_time_zone))
       }
       content = content.join("\n\n")
       
@@ -350,7 +350,12 @@ class MainPagesController < ApplicationController
   # we make do.
   def generate_calendar_datetime(date, time=nil)
     start_date = date.strftime("%Y%m%d")
-    end_date = (date + 86400).strftime("%Y%m%d")  # 86400 is number of seconds in a day.
+    current_date = Date.current.in_time_zone
+    
+    seconds_in_day = 86400
+    
+    end_date = date == current_date ? (date + seconds_in_day).strftime("%Y%m%d") :
+                                      (date + 1).strftime("%Y%m%d")
     
     if time
       start_date = start_date + "T" + time.strftime("%H%M")
