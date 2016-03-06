@@ -33,22 +33,26 @@ module ApplicationHelper
   
   class CodeRayify < Redcarpet::Render::HTML
     def block_code(code, language)
-      CodeRay.scan(code, language).div
+      begin
+        CodeRay.scan(code, language).div
+      rescue ArgumentError  # Triggers when no language specified.
+        CodeRay.scan(code, "ruby").div
+      end
     end
   end
   
   # Renders markdown text into HTML
   def markdown(text)
-    #coderayified = CodeRayify.new(:filter_html => true, 
-                                  #:hard_wrap => true)
+    coderayified = CodeRayify.new(:filter_html => true, 
+                                  :hard_wrap => true,
+                                  :coderay_default_lang => 'ruby')
     options = {
       :fenced_code_blocks => true,
       :no_intra_emphasis => true,
       :autolink => true,
     }
-    #markdown_to_html = Redcarpet::Markdown.new(coderayified, options)
-    #markdown_to_html.render(text).html_safe
-    text
+    markdown_to_html = Redcarpet::Markdown.new(coderayified, options)
+    markdown_to_html.render(text).html_safe
   end
   
   private
