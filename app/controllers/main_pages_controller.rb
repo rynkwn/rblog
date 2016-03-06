@@ -149,6 +149,12 @@ class MainPagesController < ApplicationController
       
       messages = messages.concat(days_messages)
       
+      current_date = Date.current.in_time_zone
+      messages = messages.reject {|ms| 
+        last_relevant_date = Stringutils::get_dm_date(ms)
+        (last_relevant_date != []) && (last_relevant_date < current_date)
+      }
+      
       # Now I want to organize messages by category.
       category_test = Proc.new {|x| x.include?("===")}
       ms_categorized = Arrayutils::group(messages, category_test, true, true)
@@ -167,7 +173,12 @@ class MainPagesController < ApplicationController
       DAILY_MESSENGER_KEYWORDS.each do |topic, keywords|
         category = DAILY_MESSENGER_CATEGORY_MAPS.fetch(topic, "all")
         ms_map = ms_categorized[category]
-        mappings[topic] = Arrayutils::filter(ms_map, keywords.split(","))
+        
+        anti_keywords = DAILY_MESSENGER_ANTI_KEYWORDS.fetch(topic, nil)
+        if anti_keywords
+          anti_keywords = anti_keywords.split(",")
+        end
+        mappings[topic] = Arrayutils::filter(ms_map, keywords.split(","), anti_keywords)
       end
       
       DAILY_MESSENGER_SENDERS.each do |sender, sender_words|

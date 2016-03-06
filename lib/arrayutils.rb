@@ -102,11 +102,12 @@ module Arrayutils
   # contain at least one member of filters.
   # @param messages Is the space we're filtering over.
   # @param filters An array of key_words we're filtering for.
-  def Arrayutils.filter(messages, filters)
+  # @param antifilters An array of key_words that would cause us to reject a message.
+  def Arrayutils.filter(messages, filters, antifilters=nil)
     filtered = []
     
     for i in 0..(messages.length - 1)
-      if contains_string(messages[i], filters)
+      if contains_string(messages[i], filters) && !contains_string(messages[i], antifilters)
         filtered << messages[i]
       end
     end
@@ -118,11 +119,13 @@ module Arrayutils
   # efficiently
   # @param bodytext. We downcase it in the function.
   # @param array is the String array which we're comparing on bodytext.
-  # We assume each word in array is downcased.
+  # We assume each word in array is downcased. Array may be nil.
   def Arrayutils.contains_string(bodytext, array)
-    array.each do |word|
-      if(bodytext.downcase.include? word)
-        return true
+    if array
+      array.each do |word|
+        if(bodytext.downcase.include? word)
+          return true
+        end
       end
     end
     
