@@ -57,11 +57,12 @@ module Stringutils
   
   # From a Daily Message, grab date in the natural message, if possible.
   # Otherwise, default to my provided date.
-  def Stringutils.get_dm_date(message)
+  def Stringutils.get_dm_date(message, contemporary_date=nil)
     msg = message.downcase.gsub(/[^a-z0-9\s]/i, '')
     
     date_parse = Proc.new{|x| Date.parse(x)}
-    contemporary_date = Rubyutils::try_return(date_parse, get_my_date(msg), ArgumentError)
+    contemporary_date = contemporary_date.nil? ? Rubyutils::try_return(date_parse, get_my_date(msg), ArgumentError)
+                                               : contemporary_date
     
     if !contemporary_date.nil?
       possible_dates =  dm_interpret_date(get_natural_message(msg), contemporary_date)
