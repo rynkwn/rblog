@@ -151,8 +151,8 @@ class MainPagesController < ApplicationController
       
       current_date = Date.current.in_time_zone
       messages = messages.reject {|ms| 
-        last_relevant_date = Stringutils::get_dm_date(ms)
-        (last_relevant_date != []) && (last_relevant_date < current_date)
+        last_relevant_date = Stringutils::get_dm_date(ms, current_date)
+        last_relevant_date != [] && last_relevant_date < current_date
       }
       
       # Now I want to organize messages by category.
@@ -192,31 +192,12 @@ class MainPagesController < ApplicationController
         email = dm.user.email
         dm_keys = dm.key_words.concat(dm.sender)
         
-        filtered_content = mymessage.empty? ? "\r\n" : mymessage + "\r\n"
+        filtered_content = mymessage.empty? ? "\r\n" : mymessage + "\r\n\r\n"
+        filtered_content = Stringutils::to_html(filtered_content)
         
-        dm_keys.each do |key|
-          content_header = "\t=== " + key + " ===\r\n"
-          content = mappings[key].map{|x| Stringutils::get_title(x)}.join("\n")
-          
-          if(! content.empty?)
-            filtered_content = filtered_content + content_header + content + "\r\n\r\n"
-          end
-        end
-        
-        dm_keys.each do |key|
-          content_header = "\n\n\n" +
-                          "----------------------------------------------------" + "\n" +
-                          "\t" + key + "\n" +
-                          "----------------------------------------------------" + "\n"
-          
-          content = mappings[key].join("\n\n")
-          
-          if(! content.empty?)
-            filtered_content = filtered_content + content_header + content
-          end
-          
-        end
-        
+        # Populate the DM with content.
+        filtered_content = filtered_content + dm_preview(dm_keys, mappings)
+        filtered_content = filtered_content + dm_body(dm_keys, mappings)
         
         # Assume that Daily Messenger is empty.
         subject = filtered_content.blank? ? "Daily Messenger: Nothing Interesting Going On" :
@@ -225,7 +206,8 @@ class MainPagesController < ApplicationController
         header = "----------------------------------------------------" + "\n" +
                  "Change preferences at http://www.arg.press/my_daily_messenger" + "\n" +
                  "----------------------------------------------------"
-          
+        header = Stringutils::to_html(header)
+        
         filtered_content = header + filtered_content
         
         ServiceMailer::daily_messenger(email, subject, filtered_content).deliver
@@ -239,6 +221,7 @@ class MainPagesController < ApplicationController
     message = params[:message]
     
     if(subject && !subject.empty? && message && !message.empty?)
+      message = Stringutils::to_html(message)
       ServiceDaily.all.each do |dm|
         user = dm.user
         ServiceMailer::email(subject, user.email, message).deliver
@@ -288,5 +271,98 @@ class MainPagesController < ApplicationController
     return summary
   end
   
+  #############################################################
+  #
+  # Daily Messenger Private functions
+  #
+  #############################################################
+  
+  # Generate Daily Messenger Preview section given a list of keys
+  # and a mapping that maps keys to daily messages.
+  def dm_preview(keys, mappings)
+    preview = ""
+    
+    keys.each do |key|
+      content_header = "\t=== " + key + " ===\r\n"
+      content = mappings[key].map{|x| Stringutils::get_title(x)}.join("\n")
+      
+      if(! content.empty?)
+        preview = preview + Stringutils::to_html(content_header + content + "\r\n\r\n")
+      end
+    end
+    
+    return preview
+  end
+  
+  # Generate Daily Messenger body given a list of keys and a mapping
+  # that maps keys to daily messages.
+  def dm_body(keys, mappings)
+    body = ""
+    
+    keys.each do |key|
+      content_header = "\n\n\n" +
+                          "----------------------------------------------------" + "\n" +
+                          "\t" + key + "\n" +
+                          "----------------------------------------------------" + "\n"
+      content = mappings[key]
+      content = content.map{|msg|
+        title = Stringutils::get_nice_title(msg).gsub("\"", "'").gsub("&", 'and')
+        msg + "\r\n\t" + generate_calendar_link(title, Stringutils::get_dm_date(msg, Date.current.in_time_zone))
+      }
+      content = content.join("\n\n")
+      
+      if(! content.empty?)
+        body = body + Stringutils::to_html(content_header + content)
+      end
+    end
+    
+    return body
+  end
+  
+  # Generates the URL + button to create a google calendar event.
+  def generate_calendar_link(title, date=DateTime.current.in_time_zone, time=nil, location=nil)
+    base_url = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+    title_add = title ? "&text=" + title : ""
+    date_add = "&dates=" + generate_calendar_datetime(date, time)
+    location_add = location ? "&location=" + location : ""
+    
+    final_url = base_url + title_add + date_add + location_add
+    
+    button_text = "Add to Calendar!"
+    button_code = '<table cellspacing="0" cellpadding="0">' +
+                  '<tr>' +
+                  '<td align="center" width="130" height="20" bgcolor="#449D44" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; color: #ffffff; display: block;">' +
+                  '<a href="' + final_url +  '" style="font-size:12px; font-weight: bold; font-family: verdana; text-decoration: none; width:100%; display:inline-block">' +
+                  '<span style="color: #FFFFFF">' + button_text + '</span></a>' +
+                  '</td>' +
+                  '</tr>' +
+                  '</table>'
+    
+    
+    return button_code
+  end
+  
+  # Generates an appropriately formatted datetime string
+  # for use in generate_calendar_link
+  # Requires a date param.
+  # @param date The date the event takes place on. We assume it ends the same day.
+  # @param time If possible, the time the event takes place. If we don't have it
+  # we make do.
+  def generate_calendar_datetime(date, time=nil)
+    start_date = date.strftime("%Y%m%d")
+    current_date = Date.current.in_time_zone
+    
+    seconds_in_day = 86400
+    
+    end_date = date == current_date ? (date + seconds_in_day).strftime("%Y%m%d") :
+                                      (date + 1).strftime("%Y%m%d")
+    
+    if time
+      start_date = start_date + "T" + time.strftime("%H%M")
+      end_date = end_date + "T" + (time + 1).strftime("%H%M")
+    end
+    
+    return start_date + '/' + end_date
+  end
   
 end
