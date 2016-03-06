@@ -331,7 +331,7 @@ class MainPagesController < ApplicationController
     button_text = "Add to Calendar!"
     button_code = '<table cellspacing="0" cellpadding="0">' +
                   '<tr>' +
-                  '<td align="center" width="130" height="28" bgcolor="#449D44" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; color: #ffffff; display: block;">' +
+                  '<td align="center" width="130" height="20" bgcolor="#449D44" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; color: #ffffff; display: block;">' +
                   '<a href="' + final_url +  '" style="font-size:12px; font-weight: bold; font-family: verdana; text-decoration: none; width:100%; display:inline-block">' +
                   '<span style="color: #FFFFFF">' + button_text + '</span></a>' +
                   '</td>' +
