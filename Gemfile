@@ -26,7 +26,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt'
 
 # For emails
-gem 'postmark-rails'
+gem 'postmark'
 # Trying to do Google Searches
 gem 'google-search'
 
