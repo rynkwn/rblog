@@ -4,7 +4,7 @@ module Stringutils
   # @param str The string we're converting.
   # @param email If true, we assume it's normal text to be rendered into an email.
   def Stringutils.to_html(str, email=true)
-    str = email ? "<pre style=\"font-family:verdana; font-size:100%;\">" + str + "</pre": 
+    str = email ? "<pre style=\"font-family:verdana; font-size:100%; font-color:#000000;\">" + str + "</pre": 
                   "<pre>" + str + "</pre>"
   end
   
