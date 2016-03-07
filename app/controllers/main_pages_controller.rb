@@ -221,7 +221,7 @@ class MainPagesController < ApplicationController
     message = params[:message]
     
     if(subject && !subject.empty? && message && !message.empty?)
-      message = Stringutils::to_html(message)
+      message = Stringutils::markdown_to_html(message)
       ServiceDaily.all.each do |dm|
         user = dm.user
         ServiceMailer::email(subject, user.email, message).deliver
@@ -307,7 +307,8 @@ class MainPagesController < ApplicationController
       content = mappings[key]
       content = content.map{|msg|
         title = Stringutils::get_nice_title(msg).gsub("\"", "'").gsub("&", 'and')
-        msg + "\r\n\t" + generate_calendar_link(title, Stringutils::get_dm_date(msg, Date.current.in_time_zone))
+        #msg + "\r\n\t" + generate_calendar_link(title, Stringutils::get_dm_date(msg, Date.current.in_time_zone))
+        msg
       }
       content = content.join("\n\n")
       

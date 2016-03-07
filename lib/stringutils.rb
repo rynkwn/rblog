@@ -8,6 +8,16 @@ module Stringutils
                   "<pre>" + str + "</pre>"
   end
   
+  # Given a normal String in markdown like format, convert it to HTML.
+  def Stringutils.markdown_to_html(str)
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
+                                      no_intra_emphasis: true, 
+                                      fenced_code_blocks: true,   
+                                      disable_indented_code_blocks: true,
+                                      autolink: true)
+    return markdown.render(str).html_safe
+  end
+  
   #############################################################
   #
   # Daily Messenger Specific String Functions
