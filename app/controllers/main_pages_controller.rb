@@ -125,7 +125,6 @@ class MainPagesController < ApplicationController
                           "\t" + "Message from Ryan" + "\n" +
                           "----------------------------------------------------" + "\n"
         mymessage = mymessage + params[:mymessage]
-        mymessage = Stringutils::markdown_to_html(mymessage)
       end
       
       # These two lines of code will probably case some heartache for me
@@ -197,12 +196,14 @@ class MainPagesController < ApplicationController
         filtered_content = Stringutils::to_html(filtered_content)
         
         # Populate the DM with content.
-        filtered_content = filtered_content + dm_preview(dm_keys, mappings)
-        filtered_content = filtered_content + dm_body(dm_keys, mappings)
+        preview = dm_preview(dm_keys, mappings)
+        body = dm_body(dm_keys, mappings)
+        
+        filtered_content = filtered_content + preview + body
         
         # Assume that Daily Messenger is empty.
-        subject = filtered_content.blank? ? "Daily Messenger: Nothing Interesting Going On" :
-                                            'Your Daily Messenger for ' + Date.current.in_time_zone.strftime("%a, %b %d")
+        subject = preview.blank? ? "Daily Messenger: Nothing Interesting Going On" :
+                                   'Your Daily Messenger for ' + Date.current.in_time_zone.strftime("%a, %b %d")
         
         header = "----------------------------------------------------" + "\n" +
                  "Change preferences at http://www.arg.press/my_daily_messenger" + "\n" +
