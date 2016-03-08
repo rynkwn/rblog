@@ -150,10 +150,10 @@ class MainPagesController < ApplicationController
       messages = messages.concat(days_messages)
       
       current_date = Date.current.in_time_zone
-      messages = messages.reject {|ms| 
-        last_relevant_date = Stringutils::get_dm_date(ms, current_date)
-        last_relevant_date != [] && last_relevant_date < current_date
-      }
+      #messages = messages.reject {|ms| 
+      #  last_relevant_date = Stringutils::get_dm_date(ms, current_date)
+      #  last_relevant_date != [] && last_relevant_date < current_date
+      #}
       
       # Now I want to organize messages by category.
       category_test = Proc.new {|x| x.include?("===")}
