@@ -125,6 +125,7 @@ class MainPagesController < ApplicationController
                           "\t" + "Message from Ryan" + "\n" +
                           "----------------------------------------------------" + "\n"
         mymessage = mymessage + params[:mymessage]
+        mymessage = Stringutils::markdown_to_html(mymessage)
       end
       
       # These two lines of code will probably case some heartache for me
