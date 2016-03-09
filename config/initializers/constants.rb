@@ -28,7 +28,8 @@ DAILY_MESSENGER_ANTI_KEYWORDS = {
   "Competitions" => "basketball,golf,hockey",
   "Literature/Magazines" => "magazines",
   "Music (Events, Auditions)" => "dance",
-  "Talks (Economics and Politics)" => "screening"
+  "Talks (Economics and Politics)" => "screening",
+  "Spritual Events" => 'prize,competition'
 }
 
 DAILY_MESSENGER_SENDERS = {
