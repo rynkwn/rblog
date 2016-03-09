@@ -16,7 +16,7 @@ DAILY_MESSENGER_KEYWORDS = {
   "Finance + Consulting Internships" => "investment banking,investment management,consulting firm,consultant internship,strategy consulting,jp morgan,j.p morgan, j.p. morgan,jp. morgan,barclays,goldman sachs",
   "Literature/Magazines" => "magazine,prose,short stories,poetry,literary,literary magazine",
   "Music (Events, Auditions)" => "audition,composer,recital,musician,pianist,cellist",
-  "Spiritual Events" => "worship,spirituality",
+  "Spiritual Events" => "worship,faith",
   "Startups and Entrepreneurship" => "startup,entrepreneur",
   "Talks (Economics and Politics)" => "global studies,cde,poec,political economy,economics department seminar,inequality,welfare,economics",
   "Talks (Philosophy)" => "philosophy"
@@ -28,7 +28,8 @@ DAILY_MESSENGER_ANTI_KEYWORDS = {
   "Competitions" => "basketball,golf,hockey",
   "Literature/Magazines" => "magazines",
   "Music (Events, Auditions)" => "dance",
-  "Talks (Economics and Politics)" => "screening"
+  "Talks (Economics and Politics)" => "screening",
+  "Spritual Events" => 'prize,competition'
 }
 
 DAILY_MESSENGER_SENDERS = {
