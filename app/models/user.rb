@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   
   has_secure_password
   
-  after_save :ryanize
+  after_create :ryanize
   
   ####################################################
   #
@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   
   def ryanize
     self.ryan = self.email == 'rynkwn@gmail.com' ? 1 : 0
+    self.save
   end
   
   def ryan?
