@@ -128,6 +128,8 @@ class UsersController < ApplicationController
     "Enjoy,\n\n"+
     "Ryan"
     
+    content = Stringutils::to_html(content)
+    
     ServiceMailer::email(
                           subject,
                           receiver,
