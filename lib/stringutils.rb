@@ -32,7 +32,7 @@ module Stringutils
   # From a Daily Message, grab date in the natural message, if possible.
   # Otherwise, default to my provided date.
   def Stringutils.get_dm_date(message)
-    msg = message.downcase.gsub(/[^a-z0-9\s]/i, '')
+    msg = message.downcase.gsub(/[^a-z0-9\s\/]/i, '')
     
     date_parse = Proc.new{|x| Date.parse(x)}
     contemporary_date = Rubyutils::try_return(date_parse, get_my_date(msg), ArgumentError)
