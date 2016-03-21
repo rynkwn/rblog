@@ -118,7 +118,13 @@ module Stringutils
       end
       
       if str.include? '/'
-        nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
+        # In this case, we assume the string is of the form XX/XX
+        samp = str.split('/')
+        month = samp[0].to_i
+        
+        if month > 0 && month <= 12
+          return Date.parse(str)
+        end
       end
       
     elsif str.size == 2
