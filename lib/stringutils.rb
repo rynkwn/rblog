@@ -2,6 +2,24 @@ module Stringutils
   
   #############################################################
   #
+  # Generic Functions
+  #
+  #############################################################
+  
+  # Returns true if String contains any digit.
+  def has_digit(str)
+    nums = ('0'..'9').to_a
+    for num in nums
+      if str.include? num
+        return true
+      end
+    end
+    
+    return false
+  end
+  
+  #############################################################
+  #
   # Daily Messenger Specific String Functions
   #
   #############################################################
@@ -52,9 +70,9 @@ module Stringutils
     return []
   end
   
-  # Gets an array of possible dates for a message, and then returns one
-  # if reasonable.
+  # Gets an array of possible dates for a message
   # @param released is the date the message was initially sent out.
+  # @param unique is a flag that signals whether we want to return unique dates only
   def Stringutils.dm_interpret_date(msg, released=Date.current.in_time_zone, unique=true)
     possible_dates = []
     msg = msg.split(" ").map{|x| x.strip}
@@ -145,6 +163,48 @@ module Stringutils
     end
     
     return nil
+  end
+  
+  # For a given message, return what time (or range of times) the message refers to.
+  # @param message a daily message.
+  def dm_get_time(message)
+    
+    if message.include? "==="
+      msg = message.downcase.gsub(/[^a-z0-9\s\/]/i, '')
+    
+      if msg.include?
+        possible_dates =  dm_interpret_date(get_natural_message(msg), contemporary_date, true)
+        last_mentioned_date = possible_dates.last
+        if(last_mentioned_date.nil?)
+          return contemporary_date
+        else
+          return last_mentioned_date
+        end
+      end
+    end
+    
+    # We return this if it's a category, which we determine by the presence of "==="
+    return []
+  end
+  
+  # For a given message, remove all words that either do not contain a number,
+  # or are not preceded by a number.
+  # @return An array of words that satisfy the above conditions.
+  def dm_trim_for_time(msg)
+    msg = msg.split(" ")
+    
+    words_of_interest = []
+    
+    for i in 1..(msg.length - 1)
+      if has_digit(msg[i]) || has_digit(msg[i-1])
+        words_of_interest << msg[i]
+      end
+    end
+    
+    return words_of_interest
+  end
+  
+  def dm_interpret_time
   end
   
   # Looks at str and tries to determine if it's a time.
