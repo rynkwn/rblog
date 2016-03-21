@@ -38,8 +38,7 @@ module Stringutils
     contemporary_date = Rubyutils::try_return(date_parse, get_my_date(msg), ArgumentError)
     
     if !contemporary_date.nil?
-      possible_dates =  dm_interpret_date(get_natural_message(msg), contemporary_date)
-      possible_dates = possible_dates.uniq
+      possible_dates =  dm_interpret_date(get_natural_message(msg), contemporary_date, true)
       last_mentioned_date = possible_dates.last
       if(last_mentioned_date.nil?)
         return contemporary_date
@@ -56,7 +55,7 @@ module Stringutils
   # Gets an array of possible dates for a message, and then returns one
   # if reasonable.
   # @param released is the date the message was initially sent out.
-  def Stringutils.dm_interpret_date(msg, released=Date.current.in_time_zone)
+  def Stringutils.dm_interpret_date(msg, released=Date.current.in_time_zone, unique=true)
     possible_dates = []
     msg = msg.split(" ").map{|x| x.strip}
     for i in 1..(msg.length - 1)
@@ -72,6 +71,10 @@ module Stringutils
       end
     end
     
+    if unique
+      possible_dates = possible_dates.uniq
+    end
+    
     return possible_dates
   end
   
@@ -84,7 +87,8 @@ module Stringutils
   # @param released is the date the message was initially sent out.
   def Stringutils.dm_interpret_phrase_as_date(str, released=Date.current.in_time_zone)
     if str.size == 1
-      # If the string is size 1, we assume it refers to a day of the week.
+      # If the string is size 1, we assume it refers to a day of the week, or
+      # something of the form XX/XX
       days = ['mon', 'tue', 'wed', 'thur', 'fri', 'sat', 'sun',
               'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
               'sunday',
@@ -111,6 +115,10 @@ module Stringutils
           tomorrow = 1
           return released + tomorrow
         end
+      end
+      
+      if str.include? '/'
+        nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']
       end
       
     elsif str.size == 2
