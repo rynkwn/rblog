@@ -7,7 +7,7 @@ module Stringutils
   #############################################################
   
   # Returns true if String contains any digit.
-  def has_digit(str)
+  def Stringutils.has_digit(str)
     nums = ('0'..'9').to_a
     for num in nums
       if str.include? num
@@ -139,8 +139,9 @@ module Stringutils
         # In this case, we assume the string is of the form XX/XX
         samp = str.split('/')
         month = samp[0].to_i
+        day = samp[1].to_i
         
-        if month > 0 && month <= 12
+        if month > 0 && month <= 12 && day > 0 && day <= 31
           return Date.parse(str)
         end
       end
@@ -167,20 +168,11 @@ module Stringutils
   
   # For a given message, return what time (or range of times) the message refers to.
   # @param message a daily message.
-  def dm_get_time(message)
+  def Stringutils.dm_get_time(message)
     
-    if message.include? "==="
-      msg = message.downcase.gsub(/[^a-z0-9\s\/]/i, '')
-    
-      if msg.include?
-        possible_dates =  dm_interpret_date(get_natural_message(msg), contemporary_date, true)
-        last_mentioned_date = possible_dates.last
-        if(last_mentioned_date.nil?)
-          return contemporary_date
-        else
-          return last_mentioned_date
-        end
-      end
+    if !message.include? "==="
+      msg = message.downcase.gsub(/[^a-z0-9\s\/:-]/i, '')
+      msg = dm_trim_for_time(msg)
     end
     
     # We return this if it's a category, which we determine by the presence of "==="
@@ -190,32 +182,51 @@ module Stringutils
   # For a given message, remove all words that either do not contain a number,
   # or are not preceded by a number.
   # @return An array of words that satisfy the above conditions.
-  def dm_trim_for_time(msg)
+  def Stringutils.dm_trim_for_time(msg)
     msg = msg.split(" ")
     
     words_of_interest = []
+    max_expected_valid_chars = 14  # Ex: 12:20-12:45pm
     
     for i in 1..(msg.length - 1)
-      if has_digit(msg[i]) || has_digit(msg[i-1])
-        words_of_interest << msg[i]
+      if has_digit(msg[i]) && msg[i].length < max_expected_valid_chars
+        word = msg[i]
+        
+        # If word is of the pattern "1-2pm", we want to only catch "1"
+        if word.include? "-"
+          if word.include? "am"
+            word = word.slice(0..(word.index("-") - 1))
+            word = word + "am"
+          else  # We generally assume events occur in the afternoon.
+            word = word.slice(0..(word.index("-") - 1))
+            word = word + "pm"
+          end
+        end
+        
+        words_of_interest << word
+        
+        if i < msg.length - 1
+          words_of_interest << (word + " " + msg[i+1])
+        end
       end
     end
     
     return words_of_interest
   end
   
-  def dm_interpret_time
-  end
-  
   # Looks at str and tries to determine if it's a time.
-  #def dm_get_time(str)
-    # Cases to handle.
+  def dm_get_time(trimmed_str)
+    # Cases to handle:
     # 1:10
     # 6 PM
     # 1:10-2:00 pm
     # 6-7pm
     # 1-1:45 pm
     # 8 p.m.
+    # 12:20-12:45pm
+    
+  end
+    
     
   #  str = str.downcase.gsub(/[^a-z0-9\s]/i, '')
   #  str.split(" ")
