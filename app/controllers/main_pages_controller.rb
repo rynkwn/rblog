@@ -310,6 +310,14 @@ class MainPagesController < ApplicationController
       content = content.map{|msg|
         title = Stringutils::get_nice_title(msg).gsub("\"", "'").gsub("&", 'and')
         #msg + "\r\n\t" + generate_calendar_link(title, Stringutils::get_dm_date(msg, Date.current.in_time_zone))
+        times = Stringutils::dm_get_time(msg)
+        if times.size == 1
+          msg = msg + "\r\n\t" + generate_calendar_link(title, Date.current.in_time_zone, times[0])
+        elsif times.size == 2
+          msg = msg + "\r\n\t" + generate_calendar_link(title, Date.current.in_time_zone, times[0], times[1])
+        else
+          msg = msg + "\r\n\t" + generate_calendar_link(title, Date.current.in_time_zone)
+        end
         msg
       }
       content = content.join("\n\n")
@@ -323,10 +331,10 @@ class MainPagesController < ApplicationController
   end
   
   # Generates the URL + button to create a google calendar event.
-  def generate_calendar_link(title, date=DateTime.current.in_time_zone, time=nil, location=nil)
+  def generate_calendar_link(title, date=DateTime.current.in_time_zone, start_t=nil, end_t=nil, location=nil)
     base_url = "https://calendar.google.com/calendar/render?action=TEMPLATE"
     title_add = title ? "&text=" + title : ""
-    date_add = "&dates=" + generate_calendar_datetime(date, time)
+    date_add = "&dates=" + generate_calendar_datetime(date, start_t, end_t)
     location_add = location ? "&location=" + location : ""
     
     final_url = base_url + title_add + date_add + location_add
@@ -349,9 +357,9 @@ class MainPagesController < ApplicationController
   # for use in generate_calendar_link
   # Requires a date param.
   # @param date The date the event takes place on. We assume it ends the same day.
-  # @param time If possible, the time the event takes place. If we don't have it
-  # we make do.
-  def generate_calendar_datetime(date, time=nil)
+  # @param start_time The start time of the event. We make do if not available.
+  # @param end_time The end time of the event. Only valid if we have the start time.
+  def generate_calendar_datetime(date=Date.current.in_time_zone, start_time=nil, end_time=nil)
     start_date = date.strftime("%Y%m%d")
     current_date = Date.current.in_time_zone
     
@@ -360,9 +368,10 @@ class MainPagesController < ApplicationController
     end_date = date == current_date ? (date + seconds_in_day).strftime("%Y%m%d") :
                                       (date + 1).strftime("%Y%m%d")
     
-    if time
-      start_date = start_date + "T" + time.strftime("%H%M")
-      end_date = end_date + "T" + (time + 1).strftime("%H%M")
+    if start_time
+      start_date = start_date + "T" + start_time.strftime("%H%M%S")
+      end_date = end_time ? end_date + "T" + end_time.strftime("%H%M%S") :
+                            end_date + "T" + (start_time + 1).strftime("%H%M%S")
     end
     
     return start_date + '/' + end_date
