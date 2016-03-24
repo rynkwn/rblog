@@ -216,7 +216,7 @@ module Stringutils
       msg = msg.split("-").map{|x| x.strip}.join("-")  # Cleans up instances like '11 -12'
       
       msg = dm_trim_for_time(msg)
-      return dm_filter_times(msg)
+      return dm_filter_times(msg, true)
     end
     
     # We return this if it's a category, which we determine by the presence of "==="
@@ -293,7 +293,12 @@ module Stringutils
   # 1-1:45 pm
   # 8 p.m.
   # 12:20-12:45pm
-  def Stringutils.dm_filter_times(trimmed_str)
+  # @param trimmed_str A trimmed array of words.
+  # @param start_end If true, returns a start and end time if reasonably certain.
+  # In practice, we check to see if we find only two times.
+  # @param all If true, return all filtered times.
+  # @return An array of Time objects.
+  def Stringutils.dm_parse_times(trimmed_str, start_end=false, all=false)
     times = trimmed_str.map{|time|
       begin
         Time.parse(time, Time.current.in_time_zone.midnight())
@@ -304,6 +309,11 @@ module Stringutils
     times = times.reject{|time| time.nil? || Date.current > time || (Date.current + 1) < time }
     times = times.uniq
     times = times.sort
+    if start_end && times.size == 2
+        return times
+    end
+    
+    times = all ? times : [times[0]]
     return times
   end
     
