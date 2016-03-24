@@ -364,14 +364,15 @@ class MainPagesController < ApplicationController
     current_date = Date.current.in_time_zone
     
     seconds_in_day = 86400
+    seconds_in_half_hour = 1800
     
     end_date = date == current_date ? (date + seconds_in_day).strftime("%Y%m%d") :
                                       (date + 1).strftime("%Y%m%d")
     
     if start_time
       start_date = start_date + "T" + start_time.strftime("%H%M%S")
-      end_date = end_time ? end_date + "T" + end_time.strftime("%H%M%S") :
-                            end_date + "T" + (start_time + 1).strftime("%H%M%S")
+      end_date = end_time ? date.strftime("&Y%m%d") + "T" + end_time.strftime("%H%M%S") :
+                            date.strftime("%Y%m%d") + "T" + (start_time + seconds_in_half_hour).strftime("%H%M%S")
     end
     
     return start_date + '/' + end_date
