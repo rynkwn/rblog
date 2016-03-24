@@ -24,12 +24,14 @@ module Stringutils
     
     # If the time is just a string representation of an integer,
     # the below must be true.
-    hour_test = Proc.new {|time| 
+    hour_test = Proc.new {|time|
+      time = time.gsub(/[(pm)|(am)]/, '')  # Strip out am or pm.
       time_int = time.to_i
       time.length <= 2 && time_int > 0 && time_int < 13
     }
     
     minute_test = Proc.new {|time|
+      time = time.gsub(/[(pm)|(am)]/, '')  # Strip out am or pm.
       time_int = time.to_i
       time.length <= 2 && time_int >= 0 && time_int <= 59
     }
@@ -40,8 +42,10 @@ module Stringutils
       substr = str.split(":")
       if hour_test.call(substr[0]) && minute_test.call(substr[1])
         return true
+      else
+        return false
       end
-    elsif hour_test.call(str)  # If above conditions don't hold, we assume it represents an hour.
+    elsif hour_test.call(str)  # Assume it represents an hour
       return true
     else
       return false
@@ -63,6 +67,12 @@ module Stringutils
   # Strip out my date addition to the Daily Message.
   def Stringutils.get_natural_message(message)
     message.split("\r\n")[1..-1].join
+  end
+  
+  # Get message body from Daily Message.
+  def Stringutils.get_body(message)
+    message = message.split("\r\n")[2..-1]
+    message.join
   end
   
   # Get my date addition to the Daily Message.
@@ -201,10 +211,12 @@ module Stringutils
   def Stringutils.dm_get_time(message)
     
     if !message.include? "==="
-      msg = message.downcase.gsub(/[^a-z0-9\s\/:-]/i, '')
+      msg = get_body(message)
+      msg = msg.downcase.gsub(/[^a-z0-9\s\/:-]/i, '')
       msg = msg.split("-").map{|x| x.strip}.join("-")  # Cleans up instances like '11 -12'
       
       msg = dm_trim_for_time(msg)
+      return dm_filter_times(msg)
     end
     
     # We return this if it's a category, which we determine by the presence of "==="
@@ -281,7 +293,7 @@ module Stringutils
   # 1-1:45 pm
   # 8 p.m.
   # 12:20-12:45pm
-  def dm_get_time(trimmed_str)
+  def Stringutils.dm_filter_times(trimmed_str)
     times = trimmed_str.map{|time|
       begin
         Time.parse(time, Time.current.in_time_zone.midnight())
@@ -289,7 +301,7 @@ module Stringutils
       end
     }
     
-    times.reject{|time| time.nil? || Date.current > time || (Date.current + 1) < time}
+    times = times.reject{|time| time.nil? || Date.current > time || (Date.current + 1) < time }
     times = times.uniq
     times = times.sort
     return times
