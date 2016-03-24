@@ -1,0 +1,5 @@
+<h1>Delete my Account</h1>
+
+<div class='center'>
+  <%= button_to "Are you sure?", user_delete_path, :params => {id: current_user, confirm: 'yes'}, :method => "get", :class => "btn-default btn-lg" %>
+</div>

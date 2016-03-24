@@ -1,5 +1,23 @@
 module Stringutils
   
+  # Given a normal String, convert it to an HTML-friendly format.
+  # @param str The string we're converting.
+  # @param email If true, we assume it's normal text to be rendered into an email.
+  def Stringutils.to_html(str, email=true)
+    str = email ? "<pre style=\"font-family:verdana; font-size:100%; font-color:#000000;\">" + str + "</pre": 
+                  "<pre>" + str + "</pre>"
+  end
+  
+  # Given a normal String in markdown like format, convert it to HTML.
+  def Stringutils.markdown_to_html(str)
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML,
+                                      no_intra_emphasis: true, 
+                                      fenced_code_blocks: true,   
+                                      disable_indented_code_blocks: true,
+                                      autolink: true)
+    return markdown.render(str).html_safe
+  end
+  
   #############################################################
   #
   # Generic Functions
@@ -58,6 +76,15 @@ module Stringutils
   #
   #############################################################
   
+  # Given a string, extracts a date.
+  def Stringutils.extract_date(str, start_date=nil)
+    date_words = ["today", "tonight", "tomorrow", 
+                  "monday", "tuesday", "wednesday", "thursday", "friday",
+                  "mon", "tues", "wed", "thur", "fri"]
+                  
+    
+  end
+  
   # From a normal Daily Message, strip out the sender.
   # (This should be the last line.)
   def Stringutils.get_sender(message)
@@ -84,7 +111,16 @@ module Stringutils
   # (This should be the line immediately after my date
   #  addition.)
   def Stringutils.get_title(message)
-    message.split("\r\n")[1]
+    message.split("\r\n")[0]
+  end
+  
+  # From a normal Daily Message, strip out the title,
+  # and then strip out the order number.
+  def Stringutils.get_nice_title(message)
+    msg = get_title(message)
+    msg = msg.split(" ")
+    msg.shift
+    return msg.join(" ")
   end
   
   # From a Daily Message, grab date in the natural message, if possible.
@@ -93,7 +129,8 @@ module Stringutils
     msg = message.downcase.gsub(/[^a-z0-9\s\/]/i, '')
     
     date_parse = Proc.new{|x| Date.parse(x)}
-    contemporary_date = Rubyutils::try_return(date_parse, get_my_date(msg), ArgumentError)
+    contemporary_date = contemporary_date.nil? ? Rubyutils::try_return(date_parse, get_my_date(msg), ArgumentError)
+                                               : contemporary_date
     
     if !contemporary_date.nil?
       possible_dates =  dm_interpret_date(get_natural_message(msg), contemporary_date, true)
@@ -321,5 +358,4 @@ module Stringutils
   #  str = str.downcase.gsub(/[^a-z0-9\s]/i, '')
   #  str.split(" ")
   #end
-  
 end
