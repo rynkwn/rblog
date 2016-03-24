@@ -18,6 +18,36 @@ module Stringutils
     return false
   end
   
+  # Checks to see if str can be reasonably interpreted to be a time.
+  # Does not take military time into account.
+  def Stringutils.is_time(str)
+    
+    # If the time is just a string representation of an integer,
+    # the below must be true.
+    hour_test = Proc.new {|time| 
+      time_int = time.to_i
+      time.length <= 2 && time_int > 0 && time_int < 13
+    }
+    
+    minute_test = Proc.new {|time|
+      time_int = time.to_i
+      time.length <= 2 && time_int >= 0 && time_int <= 59
+    }
+    
+    if str.nil?
+      return false
+    elsif str.include? ":"
+      substr = str.split(":")
+      if hour_test.call(substr[0]) && minute_test.call(substr[1])
+        return true
+      end
+    elsif hour_test.call(str)  # If above conditions don't hold, we assume it represents an hour.
+      return true
+    else
+      return false
+    end
+  end
+  
   #############################################################
   #
   # Daily Messenger Specific String Functions
@@ -172,6 +202,8 @@ module Stringutils
     
     if !message.include? "==="
       msg = message.downcase.gsub(/[^a-z0-9\s\/:-]/i, '')
+      msg = msg.split("-").map{|x| x.strip}.join("-")  # Cleans up instances like '11 -12'
+      
       msg = dm_trim_for_time(msg)
     end
     
@@ -188,18 +220,43 @@ module Stringutils
     words_of_interest = []
     max_expected_valid_chars = 14  # Ex: 12:20-12:45pm
     
+    # Try to get the hour from some String, and convert to int.
+    # We assume that it makes sense whenever we do this.
+    determine_hour = Proc.new {|time|
+      if time.include? ":"
+        time.split(":")[0].to_i  # With a format like 2:20, get the first half.
+      else
+        time.to_i
+      end
+    }
+    
+    # Determine whether a time should be PM or AM.
+    determine_suffix = Proc.new {|time|
+      if (time.include? "am") || (time.include? "pm")
+        time
+      else
+        guessed_hour = determine_hour.call(time)
+        if guessed_hour <= 8 || guessed_hour == 12
+          # At certain hours, we can usually assume it takes place in the
+          # afternoon or evening.
+          time + "pm"
+        else
+          time + "am"
+        end
+      end
+    }
+    
     for i in 1..(msg.length - 1)
       if has_digit(msg[i]) && msg[i].length < max_expected_valid_chars
         word = msg[i]
         
         # If word is of the pattern "1-2pm", we want to only catch "1"
         if word.include? "-"
-          if word.include? "am"
-            word = word.slice(0..(word.index("-") - 1))
-            word = word + "am"
-          else  # We generally assume events occur in the afternoon.
-            word = word.slice(0..(word.index("-") - 1))
-            word = word + "pm"
+          puts word
+          substrings = word.split("-")
+          if is_time(substrings[0]) && is_time(substrings[1])
+            word = determine_suffix.call(substrings[0])
+            words_of_interest << determine_suffix.call(substrings[1])
           end
         end
         
@@ -214,17 +271,28 @@ module Stringutils
     return words_of_interest
   end
   
+  
   # Looks at str and tries to determine if it's a time.
+  # Cases to handle:
+  # 1:10
+  # 6 PM
+  # 1:10-2:00 pm
+  # 6-7pm
+  # 1-1:45 pm
+  # 8 p.m.
+  # 12:20-12:45pm
   def dm_get_time(trimmed_str)
-    # Cases to handle:
-    # 1:10
-    # 6 PM
-    # 1:10-2:00 pm
-    # 6-7pm
-    # 1-1:45 pm
-    # 8 p.m.
-    # 12:20-12:45pm
+    times = trimmed_str.map{|time|
+      begin
+        Time.parse(time, Time.current.in_time_zone.midnight())
+      rescue ArgumentError  # Usually "argument out of range" or "no time information"
+      end
+    }
     
+    times.reject{|time| time.nil? || Date.current > time || (Date.current + 1) < time}
+    times = times.uniq
+    times = times.sort
+    return times
   end
     
     
