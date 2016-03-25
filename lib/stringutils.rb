@@ -4,7 +4,7 @@ module Stringutils
   # @param str The string we're converting.
   # @param email If true, we assume it's normal text to be rendered into an email.
   def Stringutils.to_html(str, email=true)
-    str = email ? "<pre style=\"font-family:verdana; font-size:100%; font-color:#000000;\">" + str + "</pre": 
+    str = email ? "<pre style=\"font-family:verdana; font-size:100%; font-color:#000000;\">" + str + "</pre>": 
                   "<pre>" + str + "</pre>"
   end
   
@@ -125,7 +125,7 @@ module Stringutils
   
   # From a Daily Message, grab date in the natural message, if possible.
   # Otherwise, default to my provided date.
-  def Stringutils.get_dm_date(message)
+  def Stringutils.get_dm_date(message, contemporary_date)
     msg = message.downcase.gsub(/[^a-z0-9\s\/]/i, '')
     
     date_parse = Proc.new{|x| Date.parse(x)}
@@ -248,12 +248,12 @@ module Stringutils
   def Stringutils.dm_get_time(message)
     
     if !message.include? "==="
-      msg = get_body(message)
-      msg = msg.downcase.gsub(/[^a-z0-9\s\/:-]/i, '')
+      #msg = get_body(message)
+      msg = message.downcase.gsub(/[^a-z0-9\s\/:-]/i, '')
       msg = msg.split("-").map{|x| x.strip}.join("-")  # Cleans up instances like '11 -12'
       
       msg = dm_trim_for_time(msg)
-      return dm_filter_times(msg, true)
+      return dm_parse_times(msg, true)
     end
     
     # We return this if it's a category, which we determine by the presence of "==="
@@ -285,12 +285,14 @@ module Stringutils
         time
       else
         guessed_hour = determine_hour.call(time)
-        if guessed_hour <= 8 || guessed_hour == 12
+        if guessed_hour <= 9 || guessed_hour == 12
           # At certain hours, we can usually assume it takes place in the
           # afternoon or evening.
           time + "pm"
-        else
+        elsif guessed_hour <= 12  # Should be a non-military hour.
           time + "am"
+        else
+          time
         end
       end
     }
@@ -304,11 +306,12 @@ module Stringutils
           puts word
           substrings = word.split("-")
           if is_time(substrings[0]) && is_time(substrings[1])
-            word = determine_suffix.call(substrings[0])
+            word = substrings[0]
             words_of_interest << determine_suffix.call(substrings[1])
           end
         end
         
+        word = determine_suffix.call(word)
         words_of_interest << word
         
         if i < msg.length - 1
