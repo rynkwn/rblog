@@ -310,13 +310,14 @@ class MainPagesController < ApplicationController
       content = content.map{|msg|
         title = Stringutils::get_nice_title(msg).gsub("\"", "'").gsub("&", 'and')
         #msg + "\r\n\t" + generate_calendar_link(title, Stringutils::get_dm_date(msg, Date.current.in_time_zone))
+        date = Stringutils::get_dm_date(msg, Date.current.in_time_zone)
         times = Stringutils::dm_get_time(msg)
         if times.size == 1
-          msg = msg + "\r\n\t" + generate_calendar_link(title, Date.current.in_time_zone, times[0])
+          msg = msg + "\r\n\t" + generate_calendar_link(title, date, times[0])
         elsif times.size == 2
-          msg = msg + "\r\n\t" + generate_calendar_link(title, Date.current.in_time_zone, times[0], times[1])
+          msg = msg + "\r\n\t" + generate_calendar_link(title, date, times[0], times[1])
         else
-          msg = msg + "\r\n\t" + generate_calendar_link(title, Date.current.in_time_zone)
+          msg = msg + "\r\n\t" + generate_calendar_link(title, date)
         end
         msg
       }
