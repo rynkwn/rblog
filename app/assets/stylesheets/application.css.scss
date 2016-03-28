@@ -27,6 +27,18 @@ $black: #000000;
 $background-pic: "footer_lodyas.png";
 
 @font-face {
+    font-family: 'callunaregular';
+    src: url('Calluna-Regular-webfont.eot');
+    src: url('Calluna-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Calluna-Regular-webfont.woff2') format('woff2'),
+         url('Calluna-Regular-webfont.woff') format('woff'),
+         url('Calluna-Regular-webfont.ttf') format('truetype'),
+         url('Calluna-Regular-webfont.svg#callunaregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
   font-family: 'Garamond';    
   src: url('/assets/fonts/garamond.ttf') format('truetype');
   font-weight: normal;
@@ -98,8 +110,12 @@ textarea {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'HelveticaNeue', Georgia, Times, serif;
+  font-family: 'callunaregular', Georgia, Times, serif;
   line-height: 1;
+}
+
+p, div {
+  font-family: 'verdana', Geneva, Arial, sans-serif;
 }
 
 h1 {
@@ -126,7 +142,6 @@ p {
   text-indent: 2em;
   text-align: justify;
   margin-top: 10px;
-  font-family: 'Verdana', Times, "Times New Roman", serif;
 }
 
 .bold {
@@ -135,7 +150,6 @@ p {
 
 .byline {
   color: $light_grey;
-  font-family: Georgia, Times, "Times New Roman", serif;
   font-style: italic;
   margin-bottom: 18px;
 }
