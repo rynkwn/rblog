@@ -1,22 +1,21 @@
 <h1>Selection Edits</h1>
 
-<table border="1" style="width:100%">
-  <tr align="CENTER">
-    <th>Key</th>
-    <th>Value</th>
-  </tr>
-  <% @users.each do |user| %>
-    <tr>
-      <td><%= user.email %></td>
-      <td>
-        <%= text_area_tag user.email, @selection[user.email], cols: 60, rows: 4, class: "span2 center" %>
-      </td>
-    </tr>
-  <% end %>
-</table>
-    
 <%= form_tag(daily_messenger_keyword_change_path, :method => "post", class: "navbar-form center") do %>
-  <%= hidden_field_tag :new_selection , @selection %>
+  <table border="1" style="width:100%">
+    <tr align="CENTER">
+      <th>Email</th>
+      <th>DM Information</th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td>
+          <%= text_area_tag "new_selections[]", @selection[user.email], cols: 60, rows: 4, class: "span2 center" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+    
   <div class="input-append">
     <button class="btn btn-success btn-sm" type="submit"> Update </button>
   </div>

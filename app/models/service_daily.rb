@@ -3,5 +3,4 @@ class ServiceDaily < ActiveRecord::Base
   serialize :sender, Array
   
   belongs_to :user
-  
 end

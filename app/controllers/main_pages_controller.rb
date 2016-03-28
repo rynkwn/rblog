@@ -234,26 +234,30 @@ class MainPagesController < ApplicationController
   # Use to convert users by changing all instances of @from to @to in their
   # ServiceDaily keywords.
   def daily_messenger_keyword_change
+    no_service_flag = "NA"
+    
+    if params["new_selections"]
+      params["new_selections"].each do |service|
+        if service != no_service_flag  # Is a DM user.
+          service = eval(service)  # Needed to parse the String as a hash. Beware.
+          dm = ServiceDaily.find(service[:id])
+          dm.key_words = service[:key_words]
+          dm.sender = service[:sender]
+          dm.save
+        end
+      end
+    end
     
     @users = User.all
     @selection = {}
     @users.each do |user|
       if ! user.service_daily.nil?
         dm = user.service_daily
-        @selection[user.email] = dm.to_h
+        @selection[user.email] = dm.to_json(:only => [:id, :key_words, :sender])
       else
-        @selection[user.email] = "Not a Daily Messenger User."
+        @selection[user.email] = no_service_flag
       end
     end
-    
-    #from = params[:from]
-    #to = params[:to]
-    #if(from && !from.empty? && to && !to.empty?)
-    #  ServiceDaily.all.each do |dm|
-    #    dm.key_words = Arrayutils::replace(dm.key_words, from, to)
-    #    dm.save
-    #  end
-    #end
   end
 
   private
