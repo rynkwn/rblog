@@ -76,15 +76,6 @@ module Stringutils
   #
   #############################################################
   
-  # Given a string, extracts a date.
-  def Stringutils.extract_date(str, start_date=nil)
-    date_words = ["today", "tonight", "tomorrow", 
-                  "monday", "tuesday", "wednesday", "thursday", "friday",
-                  "mon", "tues", "wed", "thur", "fri"]
-                  
-    
-  end
-  
   # From a normal Daily Message, strip out the sender.
   # (This should be the last line.)
   def Stringutils.get_sender(message)

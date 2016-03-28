@@ -1,15 +1,23 @@
-<h1>Keyword to change for all DM users?</h1>
+<h1>Selection Edits</h1>
 
+<table border="1" style="width:100%">
+  <tr align="CENTER">
+    <th>Key</th>
+    <th>Value</th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.email %></td>
+      <td>
+        <%= text_area_tag user.email, @selection[user.email], cols: 60, rows: 4, class: "span2 center" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+    
 <%= form_tag(daily_messenger_keyword_change_path, :method => "post", class: "navbar-form center") do %>
-  <h3>From?</h3>
+  <%= hidden_field_tag :new_selection , @selection %>
   <div class="input-append">
-    <%= text_area_tag :from, params[:from], cols: 100, rows: 1, class: "span2 center" %>
+    <button class="btn btn-success btn-sm" type="submit"> Update </button>
   </div>
-  
-  <h3>To</h3>
-  <div class="input-append">
-    <%= text_area_tag :to, params[:to], cols: 100, rows: 1, class: "span2 center" %>
-  </div>
-  
-  <button class="btn btn-success btn-sm" type="submit"> Submit </button>
 <% end %>
