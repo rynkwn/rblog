@@ -59,8 +59,6 @@ $secondary: $black;
 /* Taken from Hartl/Universal */
 body {
   margin: auto;
-  padding-top: 60px;
-  max-width: 950px;
   background: image-url($background-pic) repeat 0 0;
 }
 
@@ -82,6 +80,7 @@ textarea {
 }
 
 /* Setup for screen layout. */
+
 .left {
   position: relative;
   left: 0;
@@ -92,11 +91,12 @@ textarea {
   
 .main {
   position: relative;
-  margin: 20px;
+  margin: auto;
   padding-top: 72px;
   padding-left: 30px;
   padding-right: 30px;
   padding-bottom: 30px;
+  max-width: 950px;
   background: $pearly_white;
 }
 
