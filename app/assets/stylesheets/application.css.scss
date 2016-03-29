@@ -25,6 +25,7 @@ $light_grey: #9799A7;
 $black: #000000;
 
 $background-pic: "mochaGrunge.png";
+$transparent-background: "partiallytransp.png";
 
 @font-face {
     font-family: 'callunaregular';
@@ -91,18 +92,12 @@ textarea {
 .main {
   position: relative;
   margin: auto;
-  padding-top: 72px;
+  padding-top: 60px;
   padding-left: 30px;
   padding-right: 30px;
   padding-bottom: 30px;
   max-width: 70%;
-  background: $pearly_white;
-}
-
-/* Elements */
-
-.box {
-  background: image-url($background-pic) repeat 0 0;
+  background: image-url($transparent-background) repeat 0 0;
 }
 
 /* typography */
@@ -154,13 +149,23 @@ p {
 }
 
 .byline {
-  color: $light_grey;
+  color: $black;
   font-style: italic;
   margin-bottom: 18px;
 }
 
 .text-left {
   text-align: left;
+}
+
+/* unvisited link */
+a:link {
+    color: blue;
+}
+
+/* visited link */
+a:visited {
+    color: blue;
 }
 
 /* Colors */
