@@ -22,7 +22,13 @@
       </div>
     <% end %>
     <%= yield %>
+    
   </div>
   
+  <script>
+    $(document).ready(function() {
+      $.backstretch("<%= asset_path 'snowymountain.jpg' %>");
+    });
+  </script>
 </body>
 </html>

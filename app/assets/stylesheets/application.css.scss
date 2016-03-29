@@ -80,7 +80,6 @@ textarea {
 }
 
 /* Setup for screen layout. */
-
 .left {
   position: relative;
   left: 0;
@@ -96,8 +95,14 @@ textarea {
   padding-left: 30px;
   padding-right: 30px;
   padding-bottom: 30px;
-  max-width: 950px;
+  max-width: 70%;
   background: $pearly_white;
+}
+
+/* Elements */
+
+.box {
+  background: image-url($background-pic) repeat 0 0;
 }
 
 /* typography */
