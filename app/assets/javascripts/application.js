@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require jquery.backstretch
 //= require_tree .
 
 // require_tree seems to recursively compile other javascript files in the 
