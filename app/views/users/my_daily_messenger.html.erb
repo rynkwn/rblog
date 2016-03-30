@@ -1,5 +1,14 @@
 <h1>My Daily Messenger</h1>
 
+<table class="center">
+  <tr>
+    <td><%= radio_button_tag :option, "basic" %> Basic </td>
+    <td><%= radio_button_tag :option, "advanced" %> Advanced </td>
+  </tr>
+</table>
+
+<br>
+
 <%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
     
