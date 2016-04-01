@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210151447) do
+ActiveRecord::Schema.define(version: 20160401044357) do
 
   create_table "blogs", force: :cascade do |t|
     t.text     "name"
@@ -24,13 +24,6 @@ ActiveRecord::Schema.define(version: 20160210151447) do
   end
 
   add_index "blogs", ["subject_id"], name: "index_blogs_on_subject_id"
-
-  create_table "crushes", force: :cascade do |t|
-    t.text     "name"
-    t.integer  "fans"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "daily_messages", force: :cascade do |t|
     t.text     "content"
@@ -49,8 +42,9 @@ ActiveRecord::Schema.define(version: 20160210151447) do
     t.text     "key_words"
     t.text     "sender"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "anti",       default: 0
   end
 
   create_table "subjects", force: :cascade do |t|

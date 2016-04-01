@@ -1,16 +1,17 @@
 <h1>My Daily Messenger</h1>
 
-<table class="center">
-  <tr>
-    <td><%= radio_button_tag :option, "basic" %> Basic </td>
-    <td><%= radio_button_tag :option, "advanced" %> Advanced </td>
-  </tr>
-</table>
-
-<br>
-
 <%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
+    
+    <table class="center">
+      <tr>
+        <% value = (@dm.anti == 0) ? true : false %>
+        <td><%= radio_button_tag :option, "basic", checked: value %> Normal </td>
+        <td><%= radio_button_tag :option, "advanced" %> Advanced </td>
+      </tr>
+    </table>
+    
+    <br>
     
     <%= f.label :key_words, "What topics are you interested in?"%>
     
