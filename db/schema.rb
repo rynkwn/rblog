@@ -42,9 +42,13 @@ ActiveRecord::Schema.define(version: 20160401044357) do
     t.text     "key_words"
     t.text     "sender"
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "anti",       default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "adv",            default: 0
+    t.integer  "anti",           default: 0
+    t.text     "adv_keywords"
+    t.text     "adv_senders"
+    t.text     "adv_categories"
   end
 
   create_table "subjects", force: :cascade do |t|
