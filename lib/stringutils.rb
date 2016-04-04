@@ -124,7 +124,7 @@ module Stringutils
                                                : contemporary_date
     
     if !contemporary_date.nil?
-      possible_dates =  dm_interpret_date(get_natural_message(msg), contemporary_date, true)
+      possible_dates =  dm_interpret_date(msg, contemporary_date, true)
       last_mentioned_date = possible_dates.last
       if(last_mentioned_date.nil?)
         return contemporary_date
