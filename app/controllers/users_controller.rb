@@ -44,15 +44,21 @@ class UsersController < ApplicationController
   #####################################
   
   def my_daily_messenger
-    user = current_user
+    respond_to do |format|
+      format.html {
+        user = current_user
     
-    if(! user.service_daily)
-      @dm = ServiceDaily.new
-      @dm.user = user
-      @dm.save!
-    else
-      @dm = user.service_daily
+        if(! user.service_daily)
+          @dm = ServiceDaily.new
+          @dm.user = user
+          @dm.save!
+        else
+          @dm = user.service_daily
+        end
+      }
+      format.js {}
     end
+    
   end
   
   def daily_messenger_edit

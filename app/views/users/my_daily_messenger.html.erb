@@ -1,9 +1,24 @@
 <h1>My Daily Messenger</h1>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+  /*
+  $(document).ready(function(){
+    alert("loaded!");
+  });
+  */
+  $(document).ready(function() {
+    
+  });
+  function test() {
+    alert("Test");
+    return false;
+  }
+</script>
 
 <table class="center">
   <tr>
-    <td><%= radio_button_tag :option, "basic", checked: true %> Normal </td>
-    <td><%= radio_button_tag :option, "advanced" %> Advanced </td>
+    <td><%= radio_button_tag :option, "basic", true, {remote: true, onClick: "test();"} %> Normal </td>
+    <td><%= radio_button_tag :option, "advanced", false, {remote: true} %> Advanced </td>
   </tr>
 </table>
 
