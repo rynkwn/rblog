@@ -1,12 +1,31 @@
 <h1>My Daily Messenger</h1>
-<%= javascript_include_tag "my_daily_messenger.js.erb" %>
+
+<script>
+  function test() {
+    alert("Test");
+  }
+
+  function render_partial(type) {
+    $('#form-partial').html('<%= render "users/dailymessenger/basic_form" %>');
+    
+    /*
+    if (type == "basic"){
+      $('#form-partial').html('<%= render "users/dailymessenger/basic_form" %>')
+    } else if (type == "advanced" {
+      $('#form-partial').html('<%=j render "users/dailymessenger/advanced_form" %>')
+    }
+    */
+  }
+</script>
 
 <table class="center">
   <tr>
     <td><%= radio_button_tag :option, "basic", true, {remote: true, onClick: "test();"} %> Normal </td>
-    <td><%= radio_button_tag :option, "advanced", false, {remote: true, onClick: "test();"} %> Advanced </td>
+    <td><%= radio_button_tag :option, "advanced", false, {remote: true, onClick: "render_partial('advanced');"} %> Advanced </td>
   </tr>
 </table>
+
+<div id="form-partial"></div>
 
 <p>
   Tips for Daily Messenger:

@@ -55,6 +55,12 @@ class UsersController < ApplicationController
     end
   end
   
+  def my_daily_messenger_change
+    respond_to do |format|
+      format.js {}
+    end
+  end
+  
   def daily_messenger_edit
     user = current_user
     
