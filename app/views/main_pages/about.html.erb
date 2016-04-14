@@ -1,41 +1,41 @@
 <% provide(:page_desc, "About") %>
 
-<h1>Who I am and Why I built <%= NAME_OF_SITE %></h1>
+<h1>About Me</h1>
 
-<div class="center">
-  <%= link_to image_tag("mypic.jpg", alt: "Don't worry about not seeing this, I'm pretty notoriously unphotogenic.",
-                      size: "250x250") %>
+<!-- Picture and Blurb -->
+<div class="container-fixed">
+  <div class="row">
+    <div class="col-lg-12">
+      <%= link_to image_tag("mypic.jpg", alt: "Don't worry about not seeing this, I'm pretty notoriously unphotogenic.",
+                        size: "250x250",
+                        class: "img-responsive",
+                        style: "float:left; margin-right:25px; margin-left: 15%") %>
+      <p>
+        I'm a software developer 
+      </p>
+      
+      <p>Contact me at <%= mail_to "rynkwn@gmail.com" %></p>
+      
+      <!-- Links -->
+      <p>
+        <%= link_to 'https://github.com/rynkwn' do %>
+          <%= image_tag('icons/GitHub-Mark-32px.png') %> GitHub
+        <% end %>
+        
+        <%= link_to 'https://github.com/rynkwn' do %>
+          <%= image_tag('icons/GitHub-Mark-32px.png') %> GitHub
+        <% end %>
+      </p>
+
+    </div>
+  </div>
 </div>
 
+<h2>Work Experience</h2>
+
+<h2>Programming Languages</h2>
+test
+
+
+
 <br>
-<p>
-  Hello! I'm Ryan Kwon. I'm the creator, maintainer, and sole content contributor to 
-  <%= NAME_OF_SITE %>.
-  I've been part of two (technically three) startups: the first as an intern
-  software developer coding with Python/Kivy, the second as a CTO and co-founder
-  directing product development over web (Ruby on Rails) and mobile (primarily
-  Android) platforms.
-</p>
-
-<p>
-  I created aRg after leaving the second startup. This was motivated in part 
-  to provide a platform for blogging as well as a publishing medium for several
-  of my projects, but was largely instantiated in order to give me free rein 
-  to experiment with a variety of languages and technologies.
-</p>
-
-<p>
-  If you're interested in the source code, the github repo is  
-  <%= link_to "here", 'https://github.com/rynkwn/rblog' %>.
-  The markdown document also records my early thoughts while creating the site in
-  sequential order, and covers things from design decisions to thoughts on structure.
-  Admittedly however, it's become somewhat out of date and I've made changes to some of my
-  initial decisions.
-</p>
-
-<p>
-  If you want to contact me for whatever reason (I am a fan of other people doing
-  startups. I also enjoy answering questions and writing emails, on top of just
-  hearing about cool things related to space development, energy research, 
-  AI, or technology in general): rynkwn@gmail.com
-</p>
