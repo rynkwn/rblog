@@ -6,22 +6,27 @@
 <div class="container-fixed">
   <div class="row">
     <div class="col-lg-12">
-      <%= link_to image_tag("mypic.jpg", alt: "Don't worry about not seeing this, I'm pretty notoriously unphotogenic.",
+      <%= link_to image_tag("mypic.jpg", alt: "A picture of me.",
                         size: "250x250",
                         class: "img-responsive",
                         style: "float:left; margin-right:25px; margin-left: 15%") %>
-      <p>
-        I'm a software developer 
+                        
+      <p class="text-block">
+        I'm a software developer. I enjoy building things, solving problems,
+        and providing services or products of value to the people who use them.
+        By coincidence, I also happen to be an avid fan of projects that put people
+        into space and AI.
       </p>
+        
       
-      <p>Contact me at <%= mail_to "rynkwn@gmail.com" %></p>
+      <p class="text-block"> Contact me at <%= mail_to "rynkwn@gmail.com" %> </p>
       
       <!-- Links -->
       <p>
         <%= link_to 'https://github.com/rynkwn' do %>
           <%= image_tag('icons/GitHub-Mark-32px.png') %> GitHub
         <% end %>
-        
+        &nbsp;
         <%= link_to 'https://www.linkedin.com/in/ryan-kwon-5b636b73' do %>
           <%= image_tag('icons/In-2C-34px-R.png') %> LinkedIn
         <% end %>
@@ -30,12 +35,3 @@
     </div>
   </div>
 </div>
-
-<h2>Work Experience</h2>
-
-<h2>Programming Languages</h2>
-test
-
-
-
-<br>
