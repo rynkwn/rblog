@@ -11,7 +11,7 @@
     
     <%= hidden_field_tag :option, "advanced" %>
     
-    <%= f.label :key_words, "What topics are you interested in?"%>
+    <%= f.label :key_words, "What topics are you interested in? (Separate keywords by commas)"%>
     
     <table>
       <% DAILY_MESSENGER_KEYWORDS.each do |key, value| %>
@@ -28,18 +28,20 @@
           <td></td>
         </tr>
         
+        <!-- We need to do some prettying for human parsing. -->
+        <% if !@dm.adv_keywords.empty? %>
+          <% value = @dm.adv_keywords[key].gsub(',', ', ') %>
+        <% else %>
+          <% value = value.gsub(',', ', ') %>
+        <% end %>
+        
         <tr>
-          <% if @dm.adv_keywords %>
-            <td colspan="3"><%= text_field_tag "advkeys", @dm.adv_keywords[key], placeholder: 'Enter keywords to filter for', size: 40 %> </td>
-          <% else %>
-            <td colspan="3"><%= text_field_tag "advkeys", value, placeholder: 'Enter keywords to filter for', size: 40 %> </td>
-          <% end %>
+          <td colspan="3"><%= text_field_tag "advkeys[]", value, placeholder: 'Enter keywords to filter for', size: 40 %> </td>
         </tr>
         
-        <!-- Empty row for spacing -->
-        <tr>
-          <td></td>
-        </tr>
+        <!-- 2 empty rows for spacing -->
+        <tr><td></td></tr>
+        <tr><td></td></tr>
       <% end %>
     </table>
     
