@@ -9,4 +9,8 @@ class ServiceDaily < ActiveRecord::Base
   serialize :adv_categories, Hash  # Default value "all"
   
   belongs_to :user
+  
+  def advanced?
+    self.adv == 1
+  end
 end
