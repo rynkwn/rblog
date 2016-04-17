@@ -64,21 +64,24 @@ class UsersController < ApplicationController
   def daily_messenger_edit
     user = current_user
     
-    words = params[:words]
-    senders = params[:senders]
-    
-    @dm = user.service_daily
-    
-    modified_params = {}
-    modified_params[:key_words] = words
-    modified_params[:sender] = senders
-    
-    if @dm.update_attributes(modified_params)
-      redirect_to my_daily_messenger_path
-      flash[:success] = "Daily Messenger Preferences updated!"
-    else
-      redirect_to my_daily_messenger_path
-      flash[:danger] = "Snap. Something went wrong."
+    if params["option"] = "basic"
+      words = params[:words]
+      senders = params[:senders]
+      
+      @dm = user.service_daily
+      
+      modified_params = {}
+      modified_params[:key_words] = words
+      modified_params[:sender] = senders
+      
+      if @dm.update_attributes(modified_params)
+        redirect_to my_daily_messenger_path
+        flash[:success] = "Daily Messenger Preferences updated!"
+      else
+        redirect_to my_daily_messenger_path
+        flash[:danger] = "Snap. Something went wrong."
+      end
+    elsif params["option"] = "advanced"
     end
   end
   
