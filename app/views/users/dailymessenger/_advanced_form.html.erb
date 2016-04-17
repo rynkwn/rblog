@@ -1,1 +1,57 @@
-TEST
+<%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
+  <div class="form-group">
+    
+    <br>
+    
+    <%= f.label :key_words, "What topics are you interested in?"%>
+    
+    <table class="center">
+      <% DAILY_MESSENGER_KEYWORDS.keys.in_groups_of(2, '&nbsp;') {|group| %>
+        <tr>
+          <table>
+            <tr>
+              <td><%= check_box_tag "words[]", group[0], checked = Arrayutils::include?(@dm.key_words, group[0]) %></td>
+              <td class="text-left"><%= group[0] %></td>
+              <td></td>
+            </tr>
+          </table>
+            <td><%= check_box_tag "words[]", group[0], checked = Arrayutils::include?(@dm.key_words, group[0]) %></td>
+            <td class="text-left"><%= group[0] %></td>
+            
+            <% if group[1] == '&nbsp;' %>
+              <td> </td>
+              <td> </td>
+            <% else %>
+              <td><%= check_box_tag "words[]", group[1], checked = Arrayutils::include?(@dm.key_words, group[1]) %></td>
+            <td class="text-left"><%= group[1] %></td>
+            <% end %>
+        </tr>
+      <% } %>
+    </table>
+    
+    <%= f.label 'What groups do you always want to receive daily messages from?' %>
+    
+    <table class="center">
+      <% DAILY_MESSENGER_SENDERS.keys.in_groups_of(2, '&nbsp;') {|group| %>
+        <tr>
+            <td><%= check_box_tag "senders[]", group[0], checked = Arrayutils::include?(@dm.sender, group[0]) %></td>
+            <td class="text-left"><%= group[0] %></td>
+            
+            <% if group[1] == '&nbsp;' %>
+              <td> </td>
+              <td> </td>
+            <% else %>
+              <td><%= check_box_tag "senders[]", group[1], checked = Arrayutils::include?(@dm.sender, group[1]) %></td>
+            <td class="text-left"><%= group[1] %></td>
+            <% end %>
+        </tr>
+      <% } %>
+    </table>
+    
+  </div>
+  
+<div class="center">
+  <%= f.submit "Save!", class: "btn-primary btn-lg" %>
+</div>
+  
+<% end %>
