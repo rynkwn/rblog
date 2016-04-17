@@ -7,6 +7,6 @@ module DailyMessengerUtils
   # @return if antiwords are associated with that key, return it. Else
   # return nil.
   def DailyMessengerUtils.get_antiwords(key)
-    DAILY_MESSENGER_ANTI_KEYWORDS.fetch(topic, nil)
+    DAILY_MESSENGER_ANTI_KEYWORDS.fetch(key, nil)
   end
 end

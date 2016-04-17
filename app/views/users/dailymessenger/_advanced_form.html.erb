@@ -17,7 +17,7 @@
       <% DAILY_MESSENGER_KEYWORDS.each do |key, value| %>
         <tr>
             <td><%= check_box_tag "words[]", key, checked = Arrayutils::include?(@dm.key_words, key) %></td>
-            <td class="text-left"><%= key %></td>
+            <td class="text-left bold"><%= key %></td>
             <td></td>
         </tr>
         
@@ -35,12 +35,12 @@
         <!-- Anti-keywords -->
         <tr>
           <td></td>
-          <td>When we see these words, we auto-reject the message</td>
+          <td>When we see any of these words, we ALWAYS reject the message</td>
           <td></td>
         </tr>
         
         <tr>
-          <td colspan="3"><%= text_field_tag "antiwords[]", grab_keyword_values(key, value), placeholder: 'Enter keywords to filter for', size: 40 %> </td>
+          <td colspan="3"><%= text_field_tag "antiwords[]", grab_antiword_values(key), placeholder: 'Enter antiwords to filter for', size: 40 %> </td>
         </tr>
         
         <!-- 2 empty rows for spacing -->
