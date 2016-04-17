@@ -6,6 +6,7 @@ class AddAdvOptionDm < ActiveRecord::Migration
     # Keys will be shared, and will denote topic/heading.
     # Note. Each column below is internally represented and used as a hash.
     add_column :service_dailies, :adv_keywords, :text
+    add_column :service_dailies, :adv_antiwords, :text
     add_column :service_dailies, :adv_senders, :text
     add_column :service_dailies, :adv_categories, :text
   end

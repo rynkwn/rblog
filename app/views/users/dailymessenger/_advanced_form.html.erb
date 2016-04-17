@@ -3,49 +3,48 @@
     
     <br>
     
+    <%= hidden_field_tag :option, "advanced" %>
+    
     <%= f.label :key_words, "What topics are you interested in?"%>
     
-    <table class="center">
-      <% DAILY_MESSENGER_KEYWORDS.keys.in_groups_of(2, '&nbsp;') {|group| %>
+    # Keys will be shared, and will denote topic/heading.
+    # Note. Each column below is internally represented and used as a hash.
+    add_column :service_dailies, :adv_keywords, :text
+    add_column :service_dailies, :adv_senders, :text
+    add_column :service_dailies, :adv_categories, :text
+    
+    <table>
+      <% DAILY_MESSENGER_KEYWORDS.each do |key, value| %>
         <tr>
-          <table>
-            <tr>
-              <td><%= check_box_tag "words[]", group[0], checked = Arrayutils::include?(@dm.key_words, group[0]) %></td>
-              <td class="text-left"><%= group[0] %></td>
-              <td></td>
-            </tr>
-          </table>
-            <td><%= check_box_tag "words[]", group[0], checked = Arrayutils::include?(@dm.key_words, group[0]) %></td>
-            <td class="text-left"><%= group[0] %></td>
-            
-            <% if group[1] == '&nbsp;' %>
-              <td> </td>
-              <td> </td>
-            <% else %>
-              <td><%= check_box_tag "words[]", group[1], checked = Arrayutils::include?(@dm.key_words, group[1]) %></td>
-            <td class="text-left"><%= group[1] %></td>
-            <% end %>
+            <td><%= check_box_tag "words[]", key, checked = Arrayutils::include?(@dm.key_words, key) %></td>
+            <td class="text-left"><%= key %></td>
         </tr>
-      <% } %>
+        
+        <!-- Keyword specification -->
+        <tr>
+          <% if @dm.adv_keywords %>
+            <td colspan="2"><%= text_field_tag "advkeys", @dm.adv_keywords[key], placeholder: 'Enter keywords to filter for' %> </td>
+          <% else %>
+            <td colspan="2"><%= text_field_tag "advkeys", value, placeholder: 'Enter keywords to filter for' %> </td>
+          <% end %>
+        </tr>
+        
+        <!-- Empty row for spacing -->
+        <tr>
+          <td></td>
+        </tr>
+      <% end %>
     </table>
     
     <%= f.label 'What groups do you always want to receive daily messages from?' %>
     
-    <table class="center">
-      <% DAILY_MESSENGER_SENDERS.keys.in_groups_of(2, '&nbsp;') {|group| %>
+    <table>
+      <% DAILY_MESSENGER_KEYWORDS.each do |key, value| %>
         <tr>
-            <td><%= check_box_tag "senders[]", group[0], checked = Arrayutils::include?(@dm.sender, group[0]) %></td>
-            <td class="text-left"><%= group[0] %></td>
-            
-            <% if group[1] == '&nbsp;' %>
-              <td> </td>
-              <td> </td>
-            <% else %>
-              <td><%= check_box_tag "senders[]", group[1], checked = Arrayutils::include?(@dm.sender, group[1]) %></td>
-            <td class="text-left"><%= group[1] %></td>
-            <% end %>
+            <td><%= check_box_tag "senders[]", key, checked = Arrayutils::include?(@dm.key_words, key) %></td>
+            <td class="text-left"><%= key %></td>
         </tr>
-      <% } %>
+      <% end %>
     </table>
     
   </div>

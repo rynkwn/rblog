@@ -4,6 +4,7 @@ class ServiceDaily < ActiveRecord::Base
   
   # Key denotes topic/heading name. E.g., "Mathematics and Statistics"
   serialize :adv_keywords, Hash
+  serialize :adv_antiwords, Hash
   serialize :adv_senders, Hash  # Default value "any"
   serialize :adv_categories, Hash  # Default value "all"
   
