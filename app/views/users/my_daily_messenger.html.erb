@@ -1,31 +1,21 @@
 <h1>My Daily Messenger</h1>
 
-<script>
-  function test() {
-    alert("Test");
-  }
-
-  function render_partial(type) {
-    $('#form-partial').html('<%= render "users/dailymessenger/basic_form" %>');
-    
-    /*
-    if (type == "basic"){
-      $('#form-partial').html('<%= render "users/dailymessenger/basic_form" %>')
-    } else if (type == "advanced" {
-      $('#form-partial').html('<%=j render "users/dailymessenger/advanced_form" %>')
-    }
-    */
-  }
-</script>
-
 <table class="center">
   <tr>
-    <td><%= radio_button_tag :option, "basic", true, {remote: true, onClick: "test();"} %> Normal </td>
-    <td><%= radio_button_tag :option, "advanced", false, {remote: true, onClick: "render_partial('advanced');"} %> Advanced </td>
+    <td><%= button_to "Basic", my_daily_messenger_path(option: "basic"), 
+                      :method => "get", params: {option: "basic"} %> </td>
+    <td><%= button_to "Advanced", my_daily_messenger_path(option: "advanced"), 
+                      :method => "get", params: {option: "advanced"} %> </td>
   </tr>
 </table>
 
-<div id="form-partial"></div>
+<div id="form-partial">
+  <% if params["option"].nil? || params["option"] == "basic" %>
+    <%= render "users/dailymessenger/basic_form" %>
+  <% else %>
+    <%= render "users/dailymessenger/advanced_form" %>
+  <% end %>
+</div>
 
 <p>
   Tips for Daily Messenger:
