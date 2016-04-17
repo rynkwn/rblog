@@ -2,10 +2,20 @@
 
 <table class="center">
   <tr>
-    <td><%= button_to "Basic", my_daily_messenger_path(option: "basic"), 
-                      :method => "get", params: {option: "basic"} %> </td>
-    <td><%= button_to "Advanced", my_daily_messenger_path(option: "advanced"), 
-                      :method => "get", params: {option: "advanced"} %> </td>
+    <td><%= button_to "Basic", 
+                      my_daily_messenger_path(option: "basic"),
+                      class: "btn-primary",
+                      :method => "get", 
+                      params: {option: "basic"} 
+                      %> 
+                      </td>
+    <td><%= button_to "Advanced", 
+                      my_daily_messenger_path(option: "advanced"),
+                      class: "btn-primary",
+                      :method => "get", 
+                      params: {option: "advanced"} 
+                      %> 
+                      </td>
   </tr>
 </table>
 
