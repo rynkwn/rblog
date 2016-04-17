@@ -1,3 +1,9 @@
+# Keys will be shared, and will denote topic/heading.
+    # Note. Each column below is internally represented and used as a hash.
+    add_column :service_dailies, :adv_keywords, :text
+    add_column :service_dailies, :adv_senders, :text
+    add_column :service_dailies, :adv_categories, :text
+
 <%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
     
@@ -7,25 +13,26 @@
     
     <%= f.label :key_words, "What topics are you interested in?"%>
     
-    # Keys will be shared, and will denote topic/heading.
-    # Note. Each column below is internally represented and used as a hash.
-    add_column :service_dailies, :adv_keywords, :text
-    add_column :service_dailies, :adv_senders, :text
-    add_column :service_dailies, :adv_categories, :text
-    
     <table>
       <% DAILY_MESSENGER_KEYWORDS.each do |key, value| %>
         <tr>
             <td><%= check_box_tag "words[]", key, checked = Arrayutils::include?(@dm.key_words, key) %></td>
             <td class="text-left"><%= key %></td>
+            <td></td>
         </tr>
         
         <!-- Keyword specification -->
         <tr>
+          <td></td>
+          <td>Keywords to filter for:</td>
+          <td></td>
+        </tr>
+        
+        <tr>
           <% if @dm.adv_keywords %>
-            <td colspan="2"><%= text_field_tag "advkeys", @dm.adv_keywords[key], placeholder: 'Enter keywords to filter for' %> </td>
+            <td colspan="3"><%= text_field_tag "advkeys", @dm.adv_keywords[key], placeholder: 'Enter keywords to filter for', size: 40 %> </td>
           <% else %>
-            <td colspan="2"><%= text_field_tag "advkeys", value, placeholder: 'Enter keywords to filter for' %> </td>
+            <td colspan="3"><%= text_field_tag "advkeys", value, placeholder: 'Enter keywords to filter for', size: 40 %> </td>
           <% end %>
         </tr>
         
