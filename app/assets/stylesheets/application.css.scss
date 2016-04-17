@@ -109,6 +109,10 @@ textarea {
   color: $secondary;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color: $secondary;
+}
+
 h1, h2, h3, h4 {
   font-family: 'callunaregular', Georgia, Times, serif;
   line-height: 1;
@@ -123,7 +127,6 @@ h1 {
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
-  color: $secondary;
 }
 
 h2 {
@@ -132,7 +135,6 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $secondary;
 }
 
 p {
@@ -142,6 +144,10 @@ p {
   text-indent: 2em;
   text-align: justify;
   margin-top: 10px;
+}
+
+.text-block {
+  text-indent: 0;
 }
 
 .bold {

@@ -324,7 +324,10 @@ class MainPagesController < ApplicationController
                           "----------------------------------------------------" + "\n"
       content = mappings[key]
       content = content.map{|msg|
-        title = Stringutils::get_nice_title(msg).gsub("\"", "'").gsub("&", 'and')
+        # We need to do a lot of cleaning to make sure the title allows for a
+        # valid link.
+        title = Stringutils::get_nice_title(msg)
+        title = title.gsub("\"", "'").gsub("&", 'and').gsub(/[^A-Za-z0-9\s-]/i, ' ')
         #msg + "\r\n\t" + generate_calendar_link(title, Stringutils::get_dm_date(msg, Date.current.in_time_zone))
         date = Stringutils::get_dm_date(msg, Date.current.in_time_zone)
         times = Stringutils::dm_get_time(msg)
@@ -388,7 +391,7 @@ class MainPagesController < ApplicationController
     
     if start_time
       start_date = start_date + "T" + start_time.strftime("%H%M%S")
-      end_date = end_time ? date.strftime("&Y%m%d") + "T" + end_time.strftime("%H%M%S") :
+      end_date = end_time ? date.strftime("%Y%m%d") + "T" + end_time.strftime("%H%M%S") :
                             date.strftime("%Y%m%d") + "T" + (start_time + seconds_in_half_hour).strftime("%H%M%S")
     end
     
