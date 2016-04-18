@@ -7,13 +7,20 @@ module UsersHelper
   #############################################################
   
   # If the user is an advanced user, get the keywords specified by the user.
+  # Key may be associated with either DAILY_MESSENGER_KEYWORDS or
+  # DAILY_MESSENGER_SENDERS.
   # @param key The key associated with the keywords
-  # @param value The default value associated with the keyword.
-  def grab_keyword_values(key, value)
+  def grab_keyword_or_sender_values(key)
     if @dm.advanced?
       value = @dm.adv_keywords[key].gsub(',', ', ')
     else
-      value = value.gsub(',', ', ')
+      val1 = DAILY_MESSENGER_KEYWORDS[key]
+      val2 = DAILY_MESSENGER_SENDERS[key]
+      if val1
+        value = val1.gsub(',', ', ')
+      else
+        value = val2.gsub(',', ', ')
+      end
     end
     return value
   end

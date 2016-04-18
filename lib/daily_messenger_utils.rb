@@ -1,6 +1,5 @@
 module DailyMessengerUtils
   
-  
   # Try to get the antiwords associated with a key.
   # Antiwords are deal breakers when we filter for this key.
   # @param 
