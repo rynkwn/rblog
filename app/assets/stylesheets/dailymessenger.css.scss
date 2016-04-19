@@ -1,8 +1,11 @@
+/* Variables and Resources */
+$downarrow: "icons/arrows.png";  // Credit to http://www.flaticon.com/authors/lucy-g
+
 /* Advanced Form Stylings */
 .dm-form-collapsible-button {
   width: 80px;
   height: 30px;
   border: none;
-  background: image-url("icons/arrows.png") no-repeat;
+  background: image-url($downarrow) no-repeat;
   background-position: center center; 
 }
