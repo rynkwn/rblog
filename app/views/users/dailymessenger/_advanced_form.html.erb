@@ -2,20 +2,22 @@
 
 <p>
   This section lets you further customize the filtering options available.
-  The filtering process has three major components:
+  The filtering process has three major <strong>(case-insensitive)</strong> components:
 </p>
 
 <ul>
   <li><p>Key Words: If a message contains one of these words, pass it through the filter.</p></li>
   <li><p>Antiwords: If a message contains one of these words, reject it. Even if it contains a keyword</p></li>
-  <li><p>Category: A specific part of the Daily Messages we look at.</p></li>
+  <li><p>Category: A specific part of the Daily Messages we look at. Examples Include:</p></li>
+  <ul>
+    <li>Lectures/Films/Readings/Panels</li>
+    <li>Announcements</li>
+    <li>Academics/Teaching/Research</li>
+    <li>Art/Music/Theatre/Dance</li>
+    <li>Religion & Spiritual Life</li>
+    <li>Campus Life & Student Organizations</li>
+  </ul>
 </ul>
-
-# Keys will be shared, and will denote topic/heading.
-    # Note. Each column below is internally represented and used as a hash.
-    add_column :service_dailies, :adv_keywords, :text
-    add_column :service_dailies, :adv_senders, :text
-    add_column :service_dailies, :adv_categories, :text
 
 <%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
@@ -45,7 +47,7 @@
         </tr>
         
         <tr>
-          <td colspan="3"><%= text_field_tag "advkeys[]", grab_keyword_or_sender_values(key), placeholder: 'Enter keywords to filter for', size: 40 %></td>
+          <td colspan="3"><%= text_field_tag "advkeys[]", grab_keywords(key), placeholder: 'Enter keywords to filter for', size: 60 %></td>
         </tr>
         
         <!-- Anti-keywords -->
@@ -56,18 +58,29 @@
         </tr>
         
         <tr>
-          <td colspan="3"><%= text_field_tag "antiwords[]", grab_antiword_values(key), placeholder: 'Enter antiwords to filter for', size: 40 %> </td>
+          <td colspan="3"><%= text_field_tag "antiwords[]", grab_antiwords(key), placeholder: 'Enter antiwords to filter for', size: 60 %> </td>
         </tr>
         
         <!-- Categories -->
         <tr>
           <td></td>
-          <td>What categories should we check? (If you're not sure what a category is, see explanation below)</td>
+          <td>What categories should we check? (If you're not sure what a category is, see examples above)</td>
           <td></td>
         </tr>
         
         <tr>
-          <td colspan="3"><%= text_field_tag "categories[]", grab_antiword_values(key), placeholder: 'Enter antiwords to filter for', size: 40 %> </td>
+          <td colspan="3"><%= text_field_tag "categories[]", grab_category(key), placeholder: 'Enter categories to look in', size: 60 %> </td>
+        </tr>
+        
+        <!-- Senders -->
+        <tr>
+          <td></td>
+          <td>Do we want to make sure we only look at messages sent by groups with these keywords in their name?</td>
+          <td></td>
+        </tr>
+        
+        <tr>
+          <td colspan="3"><%= text_field_tag "senders[]", grab_senders(key), placeholder: 'Enter sender keywords to filter for', size: 60 %> </td>
         </tr>
         
         <!-- 2 empty rows for spacing -->
@@ -75,27 +88,6 @@
         <tr><td></td></tr>
       <% end %>
     </table>
-    
-    <%= f.label 'What groups do you always want to receive daily messages from?' %>
-    
-    <table class="center">
-      <% DAILY_MESSENGER_SENDERS.keys.in_groups_of(2, '&nbsp;') {|group| %>
-        <tr>
-            <td><%= check_box_tag "senders[]", group[0], checked = Arrayutils::include?(@dm.sender, group[0]) %></td>
-            <td class="text-left"><%= group[0] %></td>
-            
-            <% if group[1] == '&nbsp;' %>
-              <td> </td>
-              <td> </td>
-            <% else %>
-              <td><%= check_box_tag "senders[]", group[1], checked = Arrayutils::include?(@dm.sender, group[1]) %></td>
-            <td class="text-left"><%= group[1] %></td>
-            <% end %>
-        </tr>
-      <% } %>
-    </table>
-    
-  </div>
   
 <div class="center">
   <%= f.submit "Save!", class: "btn-primary btn-lg" %>
