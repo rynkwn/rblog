@@ -31,63 +31,74 @@
     <!-- Check to see if the user has any defined advanced keys -->
     <% keys = DAILY_MESSENGER_KEYWORDS.keys + DAILY_MESSENGER_SENDERS.keys %>
     
-    <table>
-      <% keys.each do |key| %>
-        <tr>
-            <td><%= check_box_tag "words[]", key, checked = Arrayutils::include?(@dm.key_words, key) %></td>
-            <td class="text-left bold"><%= key %></td>
+    <% keys.each do |key| %>
+      <table>
+          
+          <% id = "row" + key.gsub(/[^0-9a-z]/i, '') %>
+          <tr>
+              <td><%= check_box_tag "words[]", key, checked = Arrayutils::include?(@dm.key_words, key) %></td>
+              <td class="text-left bold"><%= key %></td>
+              
+              <td><button data-toggle="collapse" type="button" data-target="#<%=id%>">Collapsible</button></td>
+          </tr>
+      </table>
+      
+      <div id="<%= id %>" class="collapse">
+        <table>
+        
+          <!-- Keyword specification -->
+          <tr>
             <td></td>
-        </tr>
+            <td>Keywords to filter for:</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td colspan="3"><%= text_field_tag "advkeys[" + key + "]", grab_keywords(key), placeholder: 'Enter keywords to filter for', size: 60 %></td>
+          </tr>
+          
+          <!-- Anti-keywords -->
+          <tr>
+            <td></td>
+            <td>When we see any of these words, we ALWAYS reject the message</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td colspan="3"><%= text_field_tag "antiwords[" + key + "]", grab_antiwords(key), placeholder: 'Enter antiwords to filter for', size: 60 %> </td>
+          </tr>
+          
+          <!-- Categories -->
+          <tr>
+            <td></td>
+            <td>What categories should we check? (If you're not sure what a category is, see examples above)</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td colspan="3"><%= text_field_tag "categories[" + key + "]", grab_category(key), placeholder: 'Enter categories to look in', size: 60 %> </td>
+          </tr>
+          
+          <!-- Senders -->
+          <tr>
+            <td></td>
+            <td>Do we want to make sure we only look at messages sent by groups with these keywords in their name?</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td colspan="3"><%= text_field_tag "senders[" + key + "]", grab_senders(key), placeholder: 'Enter sender keywords to filter for', size: 60 %> </td>
+          </tr>
+          
+          <!-- 2 empty rows for spacing -->
+          <tr><td></td></tr>
+          <tr><td></td></tr>
         
-        <!-- Keyword specification -->
-        <tr>
-          <td></td>
-          <td>Keywords to filter for:</td>
-          <td></td>
-        </tr>
+        </table>
+      </div>
         
-        <tr>
-          <td colspan="3"><%= text_field_tag "advkeys[" + key + "]", grab_keywords(key), placeholder: 'Enter keywords to filter for', size: 60 %></td>
-        </tr>
         
-        <!-- Anti-keywords -->
-        <tr>
-          <td></td>
-          <td>When we see any of these words, we ALWAYS reject the message</td>
-          <td></td>
-        </tr>
-        
-        <tr>
-          <td colspan="3"><%= text_field_tag "antiwords[" + key + "]", grab_antiwords(key), placeholder: 'Enter antiwords to filter for', size: 60 %> </td>
-        </tr>
-        
-        <!-- Categories -->
-        <tr>
-          <td></td>
-          <td>What categories should we check? (If you're not sure what a category is, see examples above)</td>
-          <td></td>
-        </tr>
-        
-        <tr>
-          <td colspan="3"><%= text_field_tag "categories[" + key + "]", grab_category(key), placeholder: 'Enter categories to look in', size: 60 %> </td>
-        </tr>
-        
-        <!-- Senders -->
-        <tr>
-          <td></td>
-          <td>Do we want to make sure we only look at messages sent by groups with these keywords in their name?</td>
-          <td></td>
-        </tr>
-        
-        <tr>
-          <td colspan="3"><%= text_field_tag "senders[" + key + "]", grab_senders(key), placeholder: 'Enter sender keywords to filter for', size: 60 %> </td>
-        </tr>
-        
-        <!-- 2 empty rows for spacing -->
-        <tr><td></td></tr>
-        <tr><td></td></tr>
-      <% end %>
-    </table>
+    <% end %>
   
 <div class="center">
   <%= f.submit "Save!", class: "btn-primary btn-lg" %>

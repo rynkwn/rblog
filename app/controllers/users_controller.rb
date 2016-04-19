@@ -82,7 +82,9 @@ class UsersController < ApplicationController
         flash[:danger] = "Snap. Something went wrong."
       end
     elsif params["option"] == "advanced"
-      redirect_to my_daily_messenger_path
+      words = params[:words]
+      
+      redirect_to my_daily_messenger_path(option: "advanced")
     end
   end
   
