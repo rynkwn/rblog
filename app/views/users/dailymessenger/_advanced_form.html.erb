@@ -32,20 +32,19 @@
     <% keys = DAILY_MESSENGER_KEYWORDS.keys + DAILY_MESSENGER_SENDERS.keys %>
     
     <% keys.each do |key| %>
-      <table>
+      <table width="80%">
           
           <% id = "row" + key.gsub(/[^0-9a-z]/i, '') %>
           <tr>
               <td><%= check_box_tag "words[]", key, checked = Arrayutils::include?(@dm.key_words, key) %></td>
               <td class="text-left bold"><%= key %></td>
               
-              <td><button data-toggle="collapse" type="button" data-target="#<%=id%>">Collapsible</button></td>
+              <td align="right"><button data-toggle="collapse" type="button" data-target="#<%=id%>">Collapsible</button></td>
           </tr>
       </table>
       
       <div id="<%= id %>" class="collapse">
         <table>
-        
           <!-- Keyword specification -->
           <tr>
             <td></td>
@@ -93,11 +92,8 @@
           <!-- 2 empty rows for spacing -->
           <tr><td></td></tr>
           <tr><td></td></tr>
-        
         </table>
       </div>
-        
-        
     <% end %>
   
 <div class="center">
