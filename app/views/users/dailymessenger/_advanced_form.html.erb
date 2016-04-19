@@ -39,7 +39,7 @@
               <td><%= check_box_tag "words[]", key, checked = Arrayutils::include?(@dm.key_words, key) %></td>
               <td class="text-left bold"><%= key %></td>
               
-              <td align="right"><button data-toggle="collapse" type="button" data-target="#<%=id%>">Collapsible</button></td>
+              <td align="right"><button data-toggle="collapse" type="button" data-target="#<%=id%>" class="dm-form-collapsible-button"></button></td>
           </tr>
       </table>
       
