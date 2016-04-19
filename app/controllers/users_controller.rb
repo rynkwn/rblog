@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   def daily_messenger_edit
     user = current_user
     
-    if params["option"] = "basic"
+    if params["option"] == "basic"
       words = params[:words]
       senders = params[:senders]
       
@@ -81,7 +81,8 @@ class UsersController < ApplicationController
         redirect_to my_daily_messenger_path
         flash[:danger] = "Snap. Something went wrong."
       end
-    elsif params["option"] = "advanced"
+    elsif params["option"] == "advanced"
+      redirect_to my_daily_messenger_path
     end
   end
   

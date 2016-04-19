@@ -47,7 +47,7 @@
         </tr>
         
         <tr>
-          <td colspan="3"><%= text_field_tag "advkeys[]", grab_keywords(key), placeholder: 'Enter keywords to filter for', size: 60 %></td>
+          <td colspan="3"><%= text_field_tag "advkeys[" + key + "]", grab_keywords(key), placeholder: 'Enter keywords to filter for', size: 60 %></td>
         </tr>
         
         <!-- Anti-keywords -->
@@ -58,7 +58,7 @@
         </tr>
         
         <tr>
-          <td colspan="3"><%= text_field_tag "antiwords[]", grab_antiwords(key), placeholder: 'Enter antiwords to filter for', size: 60 %> </td>
+          <td colspan="3"><%= text_field_tag "antiwords[" + key + "]", grab_antiwords(key), placeholder: 'Enter antiwords to filter for', size: 60 %> </td>
         </tr>
         
         <!-- Categories -->
@@ -69,7 +69,7 @@
         </tr>
         
         <tr>
-          <td colspan="3"><%= text_field_tag "categories[]", grab_category(key), placeholder: 'Enter categories to look in', size: 60 %> </td>
+          <td colspan="3"><%= text_field_tag "categories[" + key + "]", grab_category(key), placeholder: 'Enter categories to look in', size: 60 %> </td>
         </tr>
         
         <!-- Senders -->
@@ -80,7 +80,7 @@
         </tr>
         
         <tr>
-          <td colspan="3"><%= text_field_tag "senders[]", grab_senders(key), placeholder: 'Enter sender keywords to filter for', size: 60 %> </td>
+          <td colspan="3"><%= text_field_tag "senders[" + key + "]", grab_senders(key), placeholder: 'Enter sender keywords to filter for', size: 60 %> </td>
         </tr>
         
         <!-- 2 empty rows for spacing -->
