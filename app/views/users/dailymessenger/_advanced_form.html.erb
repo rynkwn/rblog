@@ -1,8 +1,9 @@
 <h2 class="text-left">What is this?</h2>
 
 <p>
-  This section lets you further customize the filtering options available.
-  The filtering process has three major <strong>(case-insensitive)</strong> components:
+  This section lets you further customize the filtering options available in a
+  <strong>case-insensitive and space-insensitive</strong> way.
+  The filtering process has three major components:
 </p>
 
 <ul>
@@ -26,7 +27,7 @@
     
     <%= hidden_field_tag :option, "advanced" %>
     
-    <%= f.label :key_words, "What topics are you interested in? (Separate by commas)"%>
+    <%= f.label :key_words, "What are you interested in? (Separate any inputs by commas)"%>
     
     <!-- Check to see if the user has any defined advanced keys -->
     <% keys = DAILY_MESSENGER_KEYWORDS.keys + DAILY_MESSENGER_SENDERS.keys %>
