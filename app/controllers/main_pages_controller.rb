@@ -253,7 +253,7 @@ class MainPagesController < ApplicationController
     @users.each do |user|
       if ! user.service_daily.nil?
         dm = user.service_daily
-        @selection[user.email] = dm.to_json(:only => [:id, :key_words, :sender])
+        @selection[user.email] = dm.to_json
       else
         @selection[user.email] = no_service_flag
       end

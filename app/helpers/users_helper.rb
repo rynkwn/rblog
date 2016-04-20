@@ -36,7 +36,7 @@ module UsersHelper
   
   def grab_category(key)
     if @dm.advanced?
-      value = @dm.adv_categories[key]
+      value = DailyMessengerUtils.unbox_category(@dm.adv_categories[key])
     else
       value = DailyMessengerUtils.get_category(key)
       if value.nil?

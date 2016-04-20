@@ -36,7 +36,7 @@
           
           <% id = "row" + key.gsub(/[^0-9a-z]/i, '') %>
           <tr>
-              <td><%= check_box_tag "words[]", key, checked = Arrayutils::include?(@dm.key_words, key) %></td>
+              <td><%= check_box_tag "words[]", key, checked = (Arrayutils::include?(@dm.adv_keys, key) || Arrayutils::include?(@dm.key_words, key)) %></td>
               <td class="text-left bold"><%= key %></td>
               
               <td align="right"><button data-toggle="collapse" type="button" data-target="#<%=id%>" class="dm-form-collapsible-button"></button></td>
