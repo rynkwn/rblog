@@ -73,6 +73,7 @@ class UsersController < ApplicationController
       modified_params = {}
       modified_params[:key_words] = words
       modified_params[:sender] = senders
+      modified_params[:adv] = 0
       
       if @dm.update_attributes(modified_params)
         redirect_to my_daily_messenger_path
@@ -83,8 +84,53 @@ class UsersController < ApplicationController
       end
     elsif params["option"] == "advanced"
       words = params[:words]
+      @dm = user.service_daily
       
-      redirect_to my_daily_messenger_path(option: "advanced")
+      advkeys = params["advkeys"]
+      antiwords = params["antiwords"]
+      senders = params["senders"]
+      categories = params["categories"]
+      
+      # Cleaning.
+      # WARNING. BE CAREFUL. WITH THE WRONG TINKERING, CAN LEAD TO UNDEFINED
+      # BEHAVIOR.
+      # http://stackoverflow.com/questions/812541/ruby-change-each-value-in-a-hash-with-something-like-collect-for-arrays
+      advkeys.each do |k, v|
+        val = v.split(',').map {|x| x.strip}
+        advkeys[k] = val.join(',')
+      end
+      
+      antiwords.each do |k, v|
+        val = v.split(',').map {|x| x.strip}
+        antiwords[k] = val.join(',')
+      end
+      
+      senders.each do |k, v|
+        val = v.split(',').map {|x| x.strip}
+        senders[k] = val.join(',')
+      end
+      
+      categories.each do |k, v|
+        val = v.split(',').map {|x| x.strip}
+        val = val.map {|x| DailyMessengerUtils.format_category(x)}
+        categories[k] = val.join(',')
+      end
+      
+      # Now we aggregate our formatted data to update our @dm object.
+      formatted_params = {}
+      formatted_params[:adv] = 1
+      formatted_params[:adv_keys] = words
+      formatted_params[:adv_keywords] = advkeys
+      formatted_params[:adv_senders] = senders
+      formatted_params[:adv_categories] = categories
+      
+      if @dm.update_attributes(formatted_params)
+        redirect_to my_daily_messenger_path
+        flash[:success] = "Daily Messenger Preferences updated!"
+      else
+        redirect_to my_daily_messenger_path
+        flash[:danger] = "Snap. Something went wrong."
+      end
     end
   end
   
@@ -104,7 +150,14 @@ class UsersController < ApplicationController
   
   def service_daily_params
     params.require(:service_daily).permit(:key_words,
-                                 :sender)
+                                          :sender,
+                                          :adv,
+                                          :anti,
+                                          :adv_keys,
+                                          :adv_keywords,
+                                          :adv_antiwords,
+                                          :adv_senders,
+                                          :adv_categories)
   end
   
   def user_signup_email(receiver)

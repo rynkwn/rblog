@@ -46,7 +46,9 @@ ActiveRecord::Schema.define(version: 20160401044357) do
     t.datetime "updated_at",                 null: false
     t.integer  "adv",            default: 0
     t.integer  "anti",           default: 0
+    t.text     "adv_keys"
     t.text     "adv_keywords"
+    t.text     "adv_antiwords"
     t.text     "adv_senders"
     t.text     "adv_categories"
   end
