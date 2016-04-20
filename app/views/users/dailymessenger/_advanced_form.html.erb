@@ -26,6 +26,14 @@
     
     <%= hidden_field_tag :option, "advanced" %>
     
+    <!-- Anti Option -->
+    <%= f.label :anti, "Flip the System: Everything you select below is what we filter OUT of the Daily Messages" %>
+    &nbsp;&nbsp;
+    <%= check_box_tag "anti", true, checked = @dm.anti?, class: "dm-form-checkbox" %>
+    
+    <br>
+    <br>
+    
     <%= f.label :key_words, "What are you interested in? (Separate any inputs by commas)"%>
     
     <!-- Check to see if the user has any defined advanced keys -->

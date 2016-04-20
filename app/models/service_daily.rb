@@ -15,4 +15,8 @@ class ServiceDaily < ActiveRecord::Base
   def advanced?
     self.adv == 1
   end
+  
+  def anti?
+    self.anti == 1
+  end
 end
