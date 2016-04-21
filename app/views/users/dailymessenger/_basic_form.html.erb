@@ -10,7 +10,7 @@
     <table class="center">
       <% DAILY_MESSENGER_KEYWORDS.keys.in_groups_of(2, '&nbsp;') {|group| %>
         <tr>
-            <td><%= check_box_tag "words[]", group[0], checked = Arrayutils::include?(@dm.key_words, group[0]) %></td>
+            <td><%= check_box_tag "words[]", group[0], checked = (Arrayutils::include?(@dm.key_words, group[0]) || Arrayutils::include?(@dm.adv_keys, group[0]))%></td>
             <td class="text-left"><%= group[0] %></td>
             
             <% if group[1] == '&nbsp;' %>
