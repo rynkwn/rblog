@@ -20,7 +20,9 @@
 </table>
 
 <div id="form-partial">
-  <% if @dm.advanced? || (!params["option"].nil? && params["option"] == "advanced")%>
+  <% if (!params["option"].nil? && params["option"] == "basic") %>
+    <%= render "users/dailymessenger/basic_form" %>
+  <% elsif @dm.advanced? || (!params["option"].nil? && params["option"] == "advanced")%>
     <%= render "users/dailymessenger/advanced_form" %>
   <% else %>
     <%= render "users/dailymessenger/basic_form" %>
