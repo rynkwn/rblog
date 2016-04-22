@@ -1,0 +1,111 @@
+<p>
+  This section lets you further customize the filtering options available in a
+  <strong>case-insensitive and space-insensitive</strong> way.
+  The filtering process has four major components:
+</p>
+
+<ul>
+  <li><p>Key Words: If a message contains one of these words, pass it through the filter.</p></li>
+  <li><p>Antiwords: If a message contains one of these words, reject it. Even if it contains a keyword</p></li>
+  <li><p>Senders: Look only at messages sent by these groups.</p></li>
+  <li><p>Category: A specific section of the Daily Messages we look at. Examples Include:</p></li>
+  <ul>
+    <li>Lectures/Films/Readings/Panels</li>
+    <li>Announcements</li>
+    <li>Academics/Teaching/Research</li>
+    <li>Art/Music/Theatre/Dance</li>
+    <li>Religion & Spiritual Life</li>
+    <li>Campus Life & Student Organizations</li>
+  </ul>
+</ul>
+
+<%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
+  <div class="form-group">
+    
+    <br>
+    
+    <%= hidden_field_tag :option, "advanced" %>
+    
+    <!-- Anti Option -->
+    <%= f.label :anti, "Flip the System: Everything you select below is what we filter OUT of the Daily Messages" %>
+    &nbsp;&nbsp;
+    <%= check_box_tag "anti", true, checked = @dm.anti?, class: "dm-form-checkbox" %>
+    
+    <br>
+    <br>
+    
+    <%= f.label :key_words, "What are you interested in? (Separate any inputs by commas)"%>
+    
+    <!-- Check to see if the user has any defined advanced keys -->
+    <% keys = DAILY_MESSENGER_KEYWORDS.keys + DAILY_MESSENGER_SENDERS.keys %>
+    
+    <% keys.each do |key| %>
+      <table width="90%">
+          
+          <% id = "row" + key.gsub(/[^0-9a-z]/i, '') %>
+          <tr>
+              <td width="35px"><%= check_box_tag "words[]", key, checked = (Arrayutils::include?(@dm.adv_keys, key) || Arrayutils::include?(@dm.key_words, key)) %></td>
+              <td class="text-left bold"><%= key %></td>
+              
+              <td align="right"><button data-toggle="collapse" type="button" data-target="#<%=id%>" class="dm-form-collapsible-button"></button></td>
+          </tr>
+      </table>
+      
+      <div id="<%= id %>" class="collapse">
+        <table>
+          <!-- Keyword specification -->
+          <tr>
+            <td></td>
+            <td>Keywords to filter for:</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td colspan="3"><%= text_field_tag "advkeys[" + key + "]", grab_keywords(key), placeholder: 'Enter keywords to filter for', size: 60 %></td>
+          </tr>
+          
+          <!-- Anti-keywords -->
+          <tr>
+            <td></td>
+            <td>When we see any of these words, we ALWAYS reject the message</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td colspan="3"><%= text_field_tag "antiwords[" + key + "]", grab_antiwords(key), placeholder: 'Enter antiwords to filter for', size: 60 %> </td>
+          </tr>
+          
+          <!-- Categories -->
+          <tr>
+            <td></td>
+            <td>What categories should we check? (If you're not sure what a category is, see examples above)</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td colspan="3"><%= text_field_tag "categories[" + key + "]", grab_category(key), placeholder: 'Enter categories to look in', size: 60 %> </td>
+          </tr>
+          
+          <!-- Senders -->
+          <tr>
+            <td></td>
+            <td>We only look at groups that have these keywords in the name/organization of the sender.</td>
+            <td></td>
+          </tr>
+          
+          <tr>
+            <td colspan="3"><%= text_field_tag "senders[" + key + "]", grab_senders(key), placeholder: 'Enter sender keywords to filter for', size: 60 %> </td>
+          </tr>
+          
+          <!-- 2 empty rows for spacing -->
+          <tr><td></td></tr>
+          <tr><td></td></tr>
+        </table>
+      </div>
+    <% end %>
+  
+<div class="center">
+  <%= f.submit "Save!", class: "btn-primary btn-lg" %>
+</div>
+  
+<% end %>

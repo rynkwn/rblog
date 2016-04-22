@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   
   def lucky
-    if params[:search]
+    if params[:search] && !params[:search].empty?
       @url = google(params[:search])
     end
   end

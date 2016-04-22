@@ -1,53 +1,35 @@
 <h1>My Daily Messenger</h1>
 
-<%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
-  <div class="form-group">
-    
-    <%= f.label :key_words, "What topics are you interested in?"%>
-    
-    <table class="center">
-      <% DAILY_MESSENGER_KEYWORDS.keys.in_groups_of(2, '&nbsp;') {|group| %>
-        <tr>
-            <td><%= check_box_tag "words[]", group[0], checked = Arrayutils::include?(@dm.key_words, group[0]) %></td>
-            <td class="text-left"><%= group[0] %></td>
-            
-            <% if group[1] == '&nbsp;' %>
-              <td> </td>
-              <td> </td>
-            <% else %>
-              <td><%= check_box_tag "words[]", group[1], checked = Arrayutils::include?(@dm.key_words, group[1]) %></td>
-            <td class="text-left"><%= group[1] %></td>
-            <% end %>
-        </tr>
-      <% } %>
-    </table>
-    
-    <%= f.label 'What groups do you always want to receive daily messages from?' %>
-    
-    <table class="center">
-      <% DAILY_MESSENGER_SENDERS.keys.in_groups_of(2, '&nbsp;') {|group| %>
-        <tr>
-            <td><%= check_box_tag "senders[]", group[0], checked = Arrayutils::include?(@dm.sender, group[0]) %></td>
-            <td class="text-left"><%= group[0] %></td>
-            
-            <% if group[1] == '&nbsp;' %>
-              <td> </td>
-              <td> </td>
-            <% else %>
-              <td><%= check_box_tag "senders[]", group[1], checked = Arrayutils::include?(@dm.sender, group[1]) %></td>
-            <td class="text-left"><%= group[1] %></td>
-            <% end %>
-        </tr>
-      <% } %>
-    </table>
-    
-  </div>
-  
-<div class="center">
-  <%= f.submit "Save!", class: "btn-success btn-lg" %>
+<!--
+<table class="center">
+  <tr>
+    <td><%= button_to "Basic", 
+                      my_daily_messenger_path(option: "basic"),
+                      class: "btn-primary",
+                      :method => "get", 
+                      params: {option: "basic"} 
+                      %> 
+                      </td>
+    <td><%= button_to "Advanced", 
+                      my_daily_messenger_path(option: "advanced"),
+                      class: "btn-primary",
+                      :method => "get", 
+                      params: {option: "advanced"} 
+                      %> 
+                      </td>
+  </tr>
+</table>
+-->
+
+<div id="form-partial">
+  <% if (!params["option"].nil? && params["option"] == "basic") %>
+    <%= render "users/dailymessenger/basic_form" %>
+  <% elsif @dm.advanced? || (!params["option"].nil? && params["option"] == "advanced")%>
+    <%= render "users/dailymessenger/advanced_form" %>
+  <% else %>
+    <%= render "users/dailymessenger/basic_form" %>
+  <% end %>
 </div>
-  
-<% end %>
 
 <p>
   Tips for Daily Messenger:

@@ -26,7 +26,7 @@
 <% dm_button_text = logged_in? ? "Go to My Daily Messenger" : "Sign Me Up!" %>
 
 <div class='center'>
-  <%= button_to dm_button_text, path, :params => {intended_route: my_daily_messenger_path}, :method => "get", :class => "btn-success btn-lg" %>  
+  <%= button_to dm_button_text, path, :params => {intended_route: my_daily_messenger_path}, :method => "get", :class => "btn-primary btn-lg" %>  
 </div>
 
 <!----------------------------------------------->
@@ -78,6 +78,32 @@
   Daily Messenger email on Wednesday. (I'll still do this even if they
   forget to put the job posting up again!)
 </p>
+
+<br>
+
+<p class='bold'>
+  Q: What other features do you offer?
+</p>
+
+<p>
+  I'm adding things as users request new features, but here's a few I've bolted
+  on so far:
+</p>
+
+<ul>
+  <li>
+    <p>
+      A button that lets you automatically add an event to your calendar, working off my
+      own experimental date-time parser.
+    </p>
+  </li>
+  <li>
+    <p>
+      An anti-Daily Messages option! Get everything in the daily messages BUT
+      some topics or groups you aren't interested in.
+    </p>
+  </li>
+</ul>
 
 <br>
 
