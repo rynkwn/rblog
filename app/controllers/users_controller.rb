@@ -74,6 +74,7 @@ class UsersController < ApplicationController
       modified_params[:key_words] = words
       modified_params[:sender] = senders
       modified_params[:adv] = 0
+      modified_params[:anti] = 0
       
       if @dm.update_attributes(modified_params)
         redirect_to my_daily_messenger_path
