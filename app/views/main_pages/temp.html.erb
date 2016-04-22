@@ -1,27 +1,65 @@
-<div class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle Navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Some Store</a>
-    </div> <!-- end div class="navbar-header" -->
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><%= link_to "Browse Products" %></li>
-        <li><%= link_to "Price List" %></li>
-        <li><%= link_to "Contact Us" %></li>
-        <li><%= link_to "Cart" %></li>
-      </ul>
-    </div> <!-- end div class="collapse navbar-collapse" -->
-  </div> <!-- end div class="container" -->
-</div> <!-- end div class="navbar navbar-default navbar-fixed-top" -->
+<%= markdown '```
+override def Bicentennial = "Every now and then"
+```' %>
 
-<button data-toggle="collapse" data-target="#demo">Collapsible</button>
+<h1>First Bicentennial aRg Coding Competition</h1>
+<h3 class="center">May 1st, 2016</h3>
 
-<div id="demo" class="collapse">
-Lorem ipsum dolor text....
-</div>
+<p class="center">
+  A coding competition with soda, music from Pandora, friends, a small
+  prize for first place, and interview-style questions.
+</p>
+
+<br>
+
+<h3>Interested?</h3>
+<p>Email rynkwn@gmail.com ASAP with your team name and members!</p>
+
+<br>
+
+<h3>Technical Details</h3>
+<ul class="">
+  <li><%= markdown '**Where:** Planned to be at TCL 202' %></li>
+  <li><%= markdown '**When:** May 1st, 2:00 - 4:00 PM' %></li>
+</ul>
+
+<br>
+
+<h3>Format of the Competition:</h3>
+<ul class="">
+  <li><p>15 interview-style questions arranged in order of difficulty.</p></li>
+  <ul>
+    <li>4 Easy Questions</li>
+    <li>8 Middling Questions</li>
+    <li>3 Difficult Questions</li>
+  </ul>
+  <li><p>Teams of (at most) 3 share one laptop, and attempt to submit solutions for as many problems as possible</p></li>
+  <li><p>Endless* amounts of soda and Pandora will occupy you.</p></li>
+  <li><p>Stackhalla awaits those who do well.</p></li>
+  <li><p>Open for both experienced programmers and those who are looking to get their feet wet.</p></li>
+</ul>
+
+<br>
+
+<h3>Rules of the Competition:</h3>
+<ul class="">
+  <li><p>No Internet. Not even for libraries.</p></li>
+  <li><p>Each problem will be worth an equal 6 points. Every incorrect submission will dock 1 point to a maximum of 5.</p></li>
+  <li><p>Ties will be broken by comparing "Average Time Spent Per Problem".</p></li>
+  <li><p>Creative attempts at disrupting my (the judge's) laptop will be received with clapping, as well as stern looks.</p></li>
+  <li><p>You may code in: <%= markdown '``` 
+  Java, Ruby, Python, C, Scala, SML, Lisp, R || Haskell 
+  ```' %></p></li>
+  <li><p>
+        Let me know in advance what languages you would strongly consider using, 
+        so you can be aware of our interface in advance. In most languages, you'll be
+        reading input through arguments passed to your file/code or reading from a txt file, 
+        but some languages may not easily allow that feature.
+        </p></li>
+</ul>
+
+<br>
+
+<h4>PS. If you want to help out. Also please email me. Helpers can't compete, however.</h4>
+
+<h4>Co-organized with <strong>Ben Drews '18</strong></h4>
