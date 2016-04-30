@@ -58,7 +58,7 @@
           
           <% id = "row" + key.gsub(/[^0-9a-z]/i, '') %>
           <tr>
-              <td width="35px"><%= check_box_tag "words[]", key, checked = (Arrayutils::include?(@dm.adv_keys, key) || Arrayutils::include?(@dm.key_words, key)) %></td>
+              <td width="35px"><%= check_box_tag "words[]", key, checked = (Arrayutils::include?(@dm.adv_keys, key) || Arrayutils::include?(@dm.key_words, key) || Arrayutils::include?(@dm.sender, key)) %></td>
               <td class="text-left bold"><%= key %></td>
               
               <td align="right"><button data-toggle="collapse" type="button" data-target="#<%=id%>" class="dm-form-collapsible-button"></button></td>
@@ -92,7 +92,7 @@
           <!-- Categories -->
           <tr>
             <td></td>
-            <td>What categories should we check? (If you're not sure what a category is, see examples above)</td>
+            <td>What categories should we check? (If you're not sure what a category is, see examples under "help")</td>
             <td></td>
           </tr>
           
