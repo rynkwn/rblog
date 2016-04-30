@@ -102,22 +102,22 @@ class UsersController < ApplicationController
       # BEHAVIOR.
       # http://stackoverflow.com/questions/812541/ruby-change-each-value-in-a-hash-with-something-like-collect-for-arrays
       advkeys.each do |k, v|
-        val = v.split(',').map {|x| x.strip}
+        val = v.split(',').map {|x| x.strip.downcase}
         advkeys[k] = val.join(',')
       end
       
       antiwords.each do |k, v|
-        val = v.split(',').map {|x| x.strip}
+        val = v.split(',').map {|x| x.strip.downcase}
         antiwords[k] = val.join(',')
       end
       
       senders.each do |k, v|
-        val = v.split(',').map {|x| x.strip}
+        val = v.split(',').map {|x| x.strip.downcase}
         senders[k] = val.join(',')
       end
       
       categories.each do |k, v|
-        val = v.split(',').map {|x| x.strip}
+        val = v.split(',').map {|x| x.strip.downcase}
         val = val.map {|x| DailyMessengerUtils.format_category(x)}
         categories[k] = val.join(',')
       end
