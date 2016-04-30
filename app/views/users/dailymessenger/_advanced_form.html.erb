@@ -1,23 +1,31 @@
-<p>
-  This section lets you further customize the filtering options available in a
-  <strong>case-insensitive and space-insensitive</strong> way.
-  The filtering process has four major components:
-</p>
+<br>
 
-<ul>
-  <li><p>Key Words: If a message contains one of these words, pass it through the filter.</p></li>
-  <li><p>Antiwords: If a message contains one of these words, reject it. Even if it contains a keyword</p></li>
-  <li><p>Senders: Look only at messages sent by these groups.</p></li>
-  <li><p>Category: A specific section of the Daily Messages we look at. Examples Include:</p></li>
+<button class="btn-primary btn-lg" data-toggle="collapse" type="button" data-target="#help">
+  Click me to expand the help section!
+</button>
+
+<div id="help" class="collapse">
+  <p>
+    This section lets you further customize the filtering options available in a
+    <strong>case-insensitive and space-insensitive</strong> way.
+    The filtering process has four major components:
+  </p>
+  
   <ul>
-    <li>Lectures/Films/Readings/Panels</li>
-    <li>Announcements</li>
-    <li>Academics/Teaching/Research</li>
-    <li>Art/Music/Theatre/Dance</li>
-    <li>Religion & Spiritual Life</li>
-    <li>Campus Life & Student Organizations</li>
+    <li><p>Key Words: If a message contains one of these words, pass it through the filter.</p></li>
+    <li><p>Antiwords: If a message contains one of these words, reject it. Even if it contains a keyword</p></li>
+    <li><p>Senders: Look only at messages sent by these groups.</p></li>
+    <li><p>Category: A specific section of the Daily Messages we look at. Examples Include:</p></li>
+    <ul>
+      <li>Lectures/Films/Readings/Panels</li>
+      <li>Announcements</li>
+      <li>Academics/Teaching/Research</li>
+      <li>Art/Music/Theatre/Dance</li>
+      <li>Religion & Spiritual Life</li>
+      <li>Campus Life & Student Organizations</li>
+    </ul>
   </ul>
-</ul>
+</div>
 
 <%= form_for(@dm, html: {class: 'form', :autocomplete => "off"})do |f| %>
   <div class="form-group">
