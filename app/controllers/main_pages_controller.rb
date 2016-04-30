@@ -178,11 +178,11 @@ class MainPagesController < ApplicationController
         if anti_keywords
           anti_keywords = anti_keywords.split(",")
         end
-        mappings[topic] = Arrayutils::filter(ms_map, keywords.split(","), anti_keywords)
+        mappings[topic] = DailyMessengerUtils::filter(ms_map, keywords.split(","), anti_keywords)
       end
       
       DAILY_MESSENGER_SENDERS.each do |sender, sender_words|
-        mappings[sender] = Arrayutils::filter_sender(ms_categorized["all"], sender_words.split(","))
+        mappings[sender] = DailyMessengerUtils::filter_sender(ms_categorized["all"], sender_words.split(","))
       end
       
       # For each service daily, we get the correct messages,
@@ -195,9 +195,34 @@ class MainPagesController < ApplicationController
         filtered_content = mymessage.empty? ? "\r\n" : mymessage + "\r\n\r\n"
         filtered_content = Stringutils::to_html(filtered_content)
         
-        # Populate the DM with content.
-        preview = dm_preview(dm_keys, mappings)
-        body = dm_body(dm_keys, mappings)
+        preview = ""
+        body = ""
+        
+        # If the user is an advanced user, we must manually construct their
+        # mapping.
+        if dm.advanced?
+          # Get keys.
+          # For each each key, we generate the appropriate messages
+          
+          # Look in appropriate categories, if valid
+          # Look for appropriate senders, if valid
+          # Remove all messages which contain an antiword
+          # Keep all messages that contain a keyword.
+          
+          dm_keys = dm.adv_keys
+          
+          dm_keys.each do |key|
+            category = dm.adv_categories[key]  # "" or valid.
+            category = category.blank? ? "all" : category
+            
+            messages = ms_categorized[category]
+            
+          end
+        else
+          # Populate the DM with content.
+          preview = dm_preview(dm_keys, mappings)
+          body = dm_body(dm_keys, mappings)
+        end
         
         filtered_content = filtered_content + preview + body
         
@@ -302,7 +327,7 @@ class MainPagesController < ApplicationController
     
     keys.each do |key|
       content_header = "\t=== " + key + " ===\r\n"
-      content = mappings[key].map{|x| Stringutils::get_title(x)}.join("\n")
+      content = mappings[key].map{|x| DailyMessengerUtils::get_title(x)}.join("\n")
       
       if(! content.empty?)
         preview = preview + Stringutils::to_html(content_header + content + "\r\n\r\n")
@@ -326,11 +351,11 @@ class MainPagesController < ApplicationController
       content = content.map{|msg|
         # We need to do a lot of cleaning to make sure the title allows for a
         # valid link.
-        title = Stringutils::get_nice_title(msg)
+        title = DailyMessengerUtils::get_nice_title(msg)
         title = title.gsub("\"", "'").gsub("&", 'and').gsub(/[^A-Za-z0-9\s-]/i, ' ')
         #msg + "\r\n\t" + generate_calendar_link(title, Stringutils::get_dm_date(msg, Date.current.in_time_zone))
-        date = Stringutils::get_dm_date(msg, Date.current.in_time_zone)
-        times = Stringutils::dm_get_time(msg)
+        date = DailyMessengerUtils::get_dm_date(msg, Date.current.in_time_zone)
+        times = DailyMessengerUtils::dm_get_time(msg)
         if times.size == 1
           msg = msg + "\r\n\t" + generate_calendar_link(title, date, times[0])
         elsif times.size == 2
