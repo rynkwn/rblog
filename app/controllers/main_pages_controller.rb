@@ -172,7 +172,7 @@ class MainPagesController < ApplicationController
       
       DAILY_MESSENGER_KEYWORDS.each do |topic, keywords|
         category = DAILY_MESSENGER_CATEGORY_MAPS.fetch(topic, "all")
-        ms_map = ms_categorized[category]
+        ms_map = ms_categorized[category]  # An array of messages in the category.
         
         anti_keywords = DAILY_MESSENGER_ANTI_KEYWORDS.fetch(topic, nil)
         if anti_keywords
@@ -212,16 +212,32 @@ class MainPagesController < ApplicationController
           dm_keys = dm.adv_keys
           
           dm_keys.each do |key|
-            category = dm.adv_categories[key]  # "" or valid.
+            # Relevant attributes of each key.
+            keywords = dm.adv_keywords[key].split(",")
+            antiwords = dm.adv_antiwords[key].split(",")
+            senders = dm.adv_senders[key].split(",")
+            category = dm.adv_categories[key].split(",")  # "" or valid.
             category = category.blank? ? "all" : category
             
+            # TODO: For each category, we concat the unique messages to our list of
+            # messages.
             messages = ms_categorized[category]
+            
+            # Now we check each sender, and we keep the ones that contain the sender.
+            if !senders.blank?
+              messages = messages.select{|msg|
+                msg = DailyMessengerUtils.get_sender(msg)
+                DailyMessengerUtils.contains_string(msg, senders)
+              }
+            end
+            
+            filtered_messages = DailyMessengerUtils::filter(messages, keywords, antiwords)
             
           end
         else
           # Populate the DM with content.
-          preview = dm_preview(dm_keys, mappings)
-          body = dm_body(dm_keys, mappings)
+          preview = dm_keys.map{|key| DailyMessengerUtils::preview(key, mappings[key])}.join
+          body = dm_keys.map{|key| DailyMessengerUtils::body(key, mappings[key])}.join
         end
         
         filtered_content = filtered_content + preview + body
@@ -320,107 +336,6 @@ class MainPagesController < ApplicationController
   #
   #############################################################
   
-  # Generate Daily Messenger Preview section given a list of keys
-  # and a mapping that maps keys to daily messages.
-  def dm_preview(keys, mappings)
-    preview = ""
-    
-    keys.each do |key|
-      content_header = "\t=== " + key + " ===\r\n"
-      content = mappings[key].map{|x| DailyMessengerUtils::get_title(x)}.join("\n")
-      
-      if(! content.empty?)
-        preview = preview + Stringutils::to_html(content_header + content + "\r\n\r\n")
-      end
-    end
-    
-    return preview
-  end
   
-  # Generate Daily Messenger body given a list of keys and a mapping
-  # that maps keys to daily messages.
-  def dm_body(keys, mappings)
-    body = ""
-    
-    keys.each do |key|
-      content_header = "\n\n\n" +
-                          "----------------------------------------------------" + "\n" +
-                          "\t" + key + "\n" +
-                          "----------------------------------------------------" + "\n"
-      content = mappings[key]
-      content = content.map{|msg|
-        # We need to do a lot of cleaning to make sure the title allows for a
-        # valid link.
-        title = DailyMessengerUtils::get_nice_title(msg)
-        title = title.gsub("\"", "'").gsub("&", 'and').gsub(/[^A-Za-z0-9\s-]/i, ' ')
-        #msg + "\r\n\t" + generate_calendar_link(title, Stringutils::get_dm_date(msg, Date.current.in_time_zone))
-        date = DailyMessengerUtils::get_dm_date(msg, Date.current.in_time_zone)
-        times = DailyMessengerUtils::dm_get_time(msg)
-        if times.size == 1
-          msg = msg + "\r\n\t" + generate_calendar_link(title, date, times[0])
-        elsif times.size == 2
-          msg = msg + "\r\n\t" + generate_calendar_link(title, date, times[0], times[1])
-        else
-          msg = msg + "\r\n\t" + generate_calendar_link(title, date)
-        end
-        msg
-      }
-      content = content.join("\n\n")
-      
-      if(! content.empty?)
-        body = body + Stringutils::to_html(content_header + content)
-      end
-    end
-    
-    return body
-  end
-  
-  # Generates the URL + button to create a google calendar event.
-  def generate_calendar_link(title, date=DateTime.current.in_time_zone, start_t=nil, end_t=nil, location=nil)
-    base_url = "https://calendar.google.com/calendar/render?action=TEMPLATE"
-    title_add = title ? "&text=" + title : ""
-    date_add = "&dates=" + generate_calendar_datetime(date, start_t, end_t)
-    location_add = location ? "&location=" + location : ""
-    
-    final_url = base_url + title_add + date_add + location_add
-    
-    button_text = "Add to Calendar!"
-    button_code = '<table cellspacing="0" cellpadding="0">' +
-                  '<tr>' +
-                  '<td align="center" width="130" height="20" bgcolor="#449D44" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; color: #ffffff; display: block;">' +
-                  '<a href="' + final_url +  '" style="font-size:12px; font-weight: bold; font-family: verdana; text-decoration: none; width:100%; display:inline-block">' +
-                  '<span style="color: #FFFFFF">' + button_text + '</span></a>' +
-                  '</td>' +
-                  '</tr>' +
-                  '</table>'
-    
-    
-    return button_code
-  end
-  
-  # Generates an appropriately formatted datetime string
-  # for use in generate_calendar_link
-  # Requires a date param.
-  # @param date The date the event takes place on. We assume it ends the same day.
-  # @param start_time The start time of the event. We make do if not available.
-  # @param end_time The end time of the event. Only valid if we have the start time.
-  def generate_calendar_datetime(date=Date.current.in_time_zone, start_time=nil, end_time=nil)
-    start_date = date.strftime("%Y%m%d")
-    current_date = Date.current.in_time_zone
-    
-    seconds_in_day = 86400
-    seconds_in_half_hour = 1800
-    
-    end_date = date == current_date ? (date + seconds_in_day).strftime("%Y%m%d") :
-                                      (date + 1).strftime("%Y%m%d")
-    
-    if start_time
-      start_date = start_date + "T" + start_time.strftime("%H%M%S")
-      end_date = end_time ? date.strftime("%Y%m%d") + "T" + end_time.strftime("%H%M%S") :
-                            date.strftime("%Y%m%d") + "T" + (start_time + seconds_in_half_hour).strftime("%H%M%S")
-    end
-    
-    return start_date + '/' + end_date
-  end
   
 end
