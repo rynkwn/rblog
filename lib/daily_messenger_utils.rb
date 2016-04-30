@@ -172,11 +172,9 @@ module DailyMessengerUtils
   def DailyMessengerUtils.anti_filter(daily_messages, messages_to_remove)
     filtered_messages = {}
     
-    daily_messages.keys do |key|
-      filtered_messages[key] = daily_messages[key].select{|msg|
-        !messages_to_remove.contains(msg)
-      }
-    end
+    daily_messages.each {|key, values|
+      filtered_messages[key] = values - messages_to_remove
+    }
     
     return filtered_messages
   end
