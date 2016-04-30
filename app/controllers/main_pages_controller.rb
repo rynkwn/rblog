@@ -203,9 +203,15 @@ class MainPagesController < ApplicationController
         if dm.advanced?
           filtered_messages = DailyMessengerUtils.adv_filter(ms_categorized, dm)
           
-          
           if dm.anti?
+            filtered_daily_messages = ms_categorized
+            filtered_daily_messages.delete("all")
+            messages_to_remove = filtered_messages.values.join
             
+            filtered_daily_messages = DailyMessengerUtils.anti_filter(filtered_daily_messages, messages_to_remove)
+            
+            preview = filtered_daily_messages.map{|key| DailyMessengerUtils::preview(key, filtered_messages[key])}.join
+            body = filtered_daily_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_messages[key])}.join
           else
             preview = filtered_messages.keys.map{|key| DailyMessengerUtils::preview(key, filtered_messages[key])}.join
             body = filtered_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_messages[key])}.join

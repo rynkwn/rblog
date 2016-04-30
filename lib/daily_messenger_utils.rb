@@ -167,6 +167,20 @@ module DailyMessengerUtils
     return messages
   end
   
+  # @param daily_messages A hash of the normal daily messages.
+  # @param messages_to_remove An array of all messages we want to remove.
+  def DailyMessengerUtils.anti_filter(daily_messages, messages_to_remove)
+    filtered_messages = {}
+    
+    daily_messages.keys do |key|
+      filtered_messages[key] = daily_messages[key].select{|msg|
+        !messages_to_remove.contains(msg)
+      }
+    end
+    
+    return filtered_messages
+  end
+  
   #############################################################
   #
   # Time and Date Functionality.

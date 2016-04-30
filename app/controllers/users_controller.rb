@@ -122,9 +122,12 @@ class UsersController < ApplicationController
         categories[k] = val.join(',')
       end
       
+      anti = (params["anti"] == "true") ? 1 : 0
+      
       # Now we aggregate our formatted data to update our @dm object.
       formatted_params = {}
       formatted_params[:adv] = 1
+      formatted_params[:anti] = anti
       formatted_params[:key_words] = []
       formatted_params[:sender] = []
       formatted_params[:adv_keys] = words
