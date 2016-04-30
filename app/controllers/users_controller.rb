@@ -75,6 +75,11 @@ class UsersController < ApplicationController
       modified_params[:sender] = senders
       modified_params[:adv] = 0
       modified_params[:anti] = 0
+      modified_params[:adv_keys] = []
+      modified_params[:adv_keywords] = {}
+      modified_params[:adv_antiwords] = {}
+      modified_params[:adv_senders] = {}
+      modified_params[:adv_categories] = {}
       
       if @dm.update_attributes(modified_params)
         redirect_to my_daily_messenger_path
@@ -97,31 +102,37 @@ class UsersController < ApplicationController
       # BEHAVIOR.
       # http://stackoverflow.com/questions/812541/ruby-change-each-value-in-a-hash-with-something-like-collect-for-arrays
       advkeys.each do |k, v|
-        val = v.split(',').map {|x| x.strip}
+        val = v.split(',').map {|x| x.strip.downcase}
         advkeys[k] = val.join(',')
       end
       
       antiwords.each do |k, v|
-        val = v.split(',').map {|x| x.strip}
+        val = v.split(',').map {|x| x.strip.downcase}
         antiwords[k] = val.join(',')
       end
       
       senders.each do |k, v|
-        val = v.split(',').map {|x| x.strip}
+        val = v.split(',').map {|x| x.strip.downcase}
         senders[k] = val.join(',')
       end
       
       categories.each do |k, v|
-        val = v.split(',').map {|x| x.strip}
+        val = v.split(',').map {|x| x.strip.downcase}
         val = val.map {|x| DailyMessengerUtils.format_category(x)}
         categories[k] = val.join(',')
       end
       
+      anti = (params["anti"] == "true") ? 1 : 0
+      
       # Now we aggregate our formatted data to update our @dm object.
       formatted_params = {}
       formatted_params[:adv] = 1
+      formatted_params[:anti] = anti
+      formatted_params[:key_words] = []
+      formatted_params[:sender] = []
       formatted_params[:adv_keys] = words
       formatted_params[:adv_keywords] = advkeys
+      formatted_params[:adv_antiwords] = antiwords
       formatted_params[:adv_senders] = senders
       formatted_params[:adv_categories] = categories
       
