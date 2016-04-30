@@ -75,6 +75,11 @@ class UsersController < ApplicationController
       modified_params[:sender] = senders
       modified_params[:adv] = 0
       modified_params[:anti] = 0
+      modified_params[:adv_keys] = []
+      modified_params[:adv_keywords] = {}
+      modified_params[:adv_antiwords] = {}
+      modified_params[:adv_senders] = {}
+      modified_params[:adv_categories] = {}
       
       if @dm.update_attributes(modified_params)
         redirect_to my_daily_messenger_path
@@ -120,8 +125,11 @@ class UsersController < ApplicationController
       # Now we aggregate our formatted data to update our @dm object.
       formatted_params = {}
       formatted_params[:adv] = 1
+      formatted_params[:key_words] = []
+      formatted_params[:sender] = []
       formatted_params[:adv_keys] = words
       formatted_params[:adv_keywords] = advkeys
+      formatted_params[:adv_antiwords] = antiwords
       formatted_params[:adv_senders] = senders
       formatted_params[:adv_categories] = categories
       

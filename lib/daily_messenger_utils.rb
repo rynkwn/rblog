@@ -82,11 +82,9 @@ module DailyMessengerUtils
   def DailyMessengerUtils.filter_sender(messages, filters)
     filtered = []
     
-    for i in 0..(messages.length - 1)
-      if contains_string(get_sender(messages[i]), filters)
-        filtered << messages[i]
-      end
-    end
+    filtered = messages.select{|msg|
+      contains_string(get_sender(msg), filters)
+    }
     
     return filtered
   end
@@ -99,10 +97,14 @@ module DailyMessengerUtils
   def DailyMessengerUtils.filter(messages, filters, antifilters=nil)
     filtered = []
     
-    for i in 0..(messages.length - 1)
-      if contains_string(messages[i], filters) && !contains_string(messages[i], antifilters)
-        filtered << messages[i]
-      end
+    if filters.any?
+      filtered = messages.select{|msg|
+        contains_string(msg, filters) && !contains_string(msg, antifilters)
+      }
+    else
+      filtered = messages.reject{|msg|
+        contains_string(msg, antifilters)
+      }
     end
     
     return filtered
@@ -114,7 +116,7 @@ module DailyMessengerUtils
   # @param array is the String array which we're comparing on bodytext.
   # We assume each word in array is downcased. Array may be nil.
   def DailyMessengerUtils.contains_string(bodytext, array)
-    if array
+    if array.any?
       array.each do |word|
         if(bodytext.downcase.include? word)
           return true
@@ -123,6 +125,46 @@ module DailyMessengerUtils
     end
     
     return false
+  end
+  
+  # Creates a hash where each key is the topic/heading selected, and the values
+  # are the filtered messages.
+  # @param categorized_messages A hash matching categories to daily messages.
+  # @param dm The user's Daily Messenger settings.
+  def DailyMessengerUtils.adv_filter(categorized_messages, dm)
+    dm_keys = dm.adv_keys
+    filtered_messages = {}
+    
+    dm_keys.each do |key|
+      keywords = dm.adv_keywords[key].split(",")
+      antiwords = dm.adv_antiwords[key].split(",")
+      senders = dm.adv_senders[key].split(",")
+      categories = dm.adv_categories[key].split(",")  # "" or valid.
+      categories = categories.any? ? categories : ["all"]
+      
+      # TODO: For each category, we concat the unique messages to our list of
+      # messages.
+      messages = aggregate_categorized_messages(categorized_messages, categories)
+
+      # Now we check each sender, and we keep the ones that contain the sender.
+      if senders.any?
+        messages = filter_sender(messages, senders)
+      end
+      
+      filtered_messages[key] = filter(messages, keywords, antiwords)
+    end
+    
+    return filtered_messages
+  end
+  
+  # Aggregate all messages in the selected categories from a hash of categorized messages. 
+  def DailyMessengerUtils.aggregate_categorized_messages(categorized_messages, categories)
+    messages = []
+    categories.each do |cat|
+      messages.concat(categorized_messages[cat])
+    end
+    
+    return messages
   end
   
   #############################################################

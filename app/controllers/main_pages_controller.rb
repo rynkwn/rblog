@@ -201,38 +201,14 @@ class MainPagesController < ApplicationController
         # If the user is an advanced user, we must manually construct their
         # mapping.
         if dm.advanced?
-          # Get keys.
-          # For each each key, we generate the appropriate messages
+          filtered_messages = DailyMessengerUtils.adv_filter(ms_categorized, dm)
           
-          # Look in appropriate categories, if valid
-          # Look for appropriate senders, if valid
-          # Remove all messages which contain an antiword
-          # Keep all messages that contain a keyword.
           
-          dm_keys = dm.adv_keys
-          
-          dm_keys.each do |key|
-            # Relevant attributes of each key.
-            keywords = dm.adv_keywords[key].split(",")
-            antiwords = dm.adv_antiwords[key].split(",")
-            senders = dm.adv_senders[key].split(",")
-            category = dm.adv_categories[key].split(",")  # "" or valid.
-            category = category.blank? ? "all" : category
+          if dm.anti?
             
-            # TODO: For each category, we concat the unique messages to our list of
-            # messages.
-            messages = ms_categorized[category]
-            
-            # Now we check each sender, and we keep the ones that contain the sender.
-            if !senders.blank?
-              messages = messages.select{|msg|
-                msg = DailyMessengerUtils.get_sender(msg)
-                DailyMessengerUtils.contains_string(msg, senders)
-              }
-            end
-            
-            filtered_messages = DailyMessengerUtils::filter(messages, keywords, antiwords)
-            
+          else
+            preview = filtered_messages.keys.map{|key| DailyMessengerUtils::preview(key, filtered_messages[key])}.join
+            body = filtered_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_messages[key])}.join
           end
         else
           # Populate the DM with content.
@@ -329,13 +305,5 @@ class MainPagesController < ApplicationController
     end
     return summary
   end
-  
-  #############################################################
-  #
-  # Daily Messenger Private functions
-  #
-  #############################################################
-  
-  
   
 end
