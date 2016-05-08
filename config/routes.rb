@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   get 'daily_messenger_keyword_change' => 'main_pages#daily_messenger_keyword_change'
   post 'daily_messenger_keyword_change' => 'main_pages#daily_messenger_keyword_change'
   
+  # aRg Competition Pages
+  get 'arg_competitions' => 'projects#competitions'
+  get 'arg_competition' => 'projects#competition'
+
   #################################
   #
   # Login/Logout Routes
