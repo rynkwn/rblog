@@ -6,6 +6,11 @@ class ProjectsController < ApplicationController
     end
   end
   
+  def competitions
+    id = params[:id]
+    render "projects/competitions/" + id.to_s + "/competition.html.erb"
+  end
+  
   private
   
   # Temp Google Search
