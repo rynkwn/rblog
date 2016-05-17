@@ -237,7 +237,7 @@ module DailyMessengerUtils
   
   # Looks at a small phrase and tries to see if it refers to a date. If it is a date
   # we return the appropriate date, formatted.
-  # otherwise we 
+  # otherwise we return nil.
   # We assume the string is downcased, stripped of any punctuation, and in an array
   # split by spaces.
   # @param str is an array containing 1-2 strings.
@@ -281,7 +281,13 @@ module DailyMessengerUtils
         day = samp[1].to_i
         
         if month > 0 && month <= 12 && day > 0 && day <= 31
-          return Date.parse(str)
+          # TODO: IMPROVE EXCEPTION HANDLING.
+          # bolted exception handling.
+          begin
+            return Date.parse(str)
+          rescue ArgumentError
+            return nil
+          end
         end
       end
       
