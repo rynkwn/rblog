@@ -16,7 +16,7 @@ class Bloghistory < ApplicationMailer
       :subject => 'BLOG ANALYTICS: ' + start_date + ' - ' + end_date,
       :to      => 'rynkwn@gmail.com',
       :from    => SENDER_SIGNATURE,
-      :text_body => content
+      :text_body => content.to_s
       )
   end
   
