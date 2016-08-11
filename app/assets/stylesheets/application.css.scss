@@ -25,6 +25,8 @@ $grey_white: #CBCBCB;
 $light_grey: #9899A7;
 $black: #000000;
 
+$link_color: #1d7ac1;
+
 $background-pic: "tweed.png";
 $body-background: "zwartevilt.png";
 $transparent-background: "partiallytransp.png";
@@ -61,16 +63,11 @@ $secondary: $grey_white;
 
 /* Taken from Hartl/Universal */
 body {
-  /*
   margin: auto;
-  margin-bottom: 2cm; */
+  margin-bottom: 2cm;
   /*background: image-url($background-pic) repeat 0 0; */
   background: #2f2f2f;
   color: #c6c6c6;
-  
-  height: 100%;
-  font-family: 'verdana', sans-serif;
-  font-size: 14px;
 }
 
 section {
@@ -166,7 +163,7 @@ p {
 }
 
 .byline {
-  color: $black;
+  color: $white;
   font-style: italic;
   margin-bottom: 18px;
 }
@@ -177,12 +174,12 @@ p {
 
 /* unvisited link */
 a:link {
-    color: blue;
+    color: $link_color;
 }
 
 /* visited link */
 a:visited {
-    color: blue;
+    color: $link_color;
 }
 
 /* Colors */
