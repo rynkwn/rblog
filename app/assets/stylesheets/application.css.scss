@@ -21,10 +21,12 @@
 $white: #ffffff;
 $pearly_white: #E8E5DA;
 $link_blue: #2A6496;
-$light_grey: #9799A7;
+$grey_white: #CBCBCB;
+$light_grey: #9899A7;
 $black: #000000;
 
-$background-pic: "mochaGrunge.png";
+$background-pic: "tweed.png";
+$body-background: "zwartevilt.png";
 $transparent-background: "partiallytransp.png";
 
 @font-face {
@@ -54,14 +56,21 @@ $transparent-background: "partiallytransp.png";
 }
 
 /* Color Scheme */
-$primary: $white;
-$secondary: $black;
+$primary: $black;
+$secondary: $grey_white;
 
 /* Taken from Hartl/Universal */
 body {
+  /*
   margin: auto;
-  margin-bottom: 2cm;
-  /*background: image-url($background-pic) repeat 0 0;*/
+  margin-bottom: 2cm; */
+  /*background: image-url($background-pic) repeat 0 0; */
+  background: #2f2f2f;
+  color: #c6c6c6;
+  
+  height: 100%;
+  font-family: 'verdana', sans-serif;
+  font-size: 14px;
 }
 
 section {
@@ -98,7 +107,7 @@ textarea {
   padding-right: 30px;
   padding-bottom: 30px;
   max-width: 70%;
-  background: image-url($transparent-background) repeat 0 0;
+  /* background: image-url($transparent-background) repeat 0 0; */
 }
 
 /* typography */
@@ -110,8 +119,9 @@ textarea {
   color: $secondary;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
   color: $secondary;
+  text-shadow: 1px 1px 1px #000;
 }
 
 h1, h2, h3, h4 {
