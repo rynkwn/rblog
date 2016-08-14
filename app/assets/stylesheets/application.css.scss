@@ -20,16 +20,21 @@
 /* Color and Asset Variables */
 $white: #ffffff;
 $pearly_white: #E8E5DA;
-$link_blue: #2A6496;
-$grey_white: #CBCBCB;
+$link_blue: #1d7ac1;
+$grey_white: #DDDDDD;
 $light_grey: #9899A7;
 $black: #000000;
 
-$link_color: #1d7ac1;
+$link_color: #349ce3;
 
-$background-pic: "tweed.png";
+$background-pic: "dark-tweed.png";
 $body-background: "zwartevilt.png";
 $transparent-background: "partiallytransp.png";
+
+
+/* Color Scheme */
+$primary: $black;
+$secondary: $grey_white;
 
 @font-face {
     font-family: 'callunaregular';
@@ -57,16 +62,11 @@ $transparent-background: "partiallytransp.png";
   font-style: normal;
 }
 
-/* Color Scheme */
-$primary: $black;
-$secondary: $grey_white;
-
 /* Taken from Hartl/Universal */
 body {
   margin: auto;
   margin-bottom: 2cm;
-  /*background: image-url($background-pic) repeat 0 0; */
-  background: #2f2f2f;
+  background: image-url($background-pic) repeat 0 0;
   color: #c6c6c6;
 }
 
