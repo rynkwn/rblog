@@ -24,6 +24,7 @@ $link_blue: #1d7ac1;
 $grey_white: #DDDDDD;
 $light_grey: #9899A7;
 $black: #000000;
+$williams_purple: #792297;
 
 $link_color: #349ce3;
 
@@ -207,6 +208,18 @@ a:visited {
   }
 }
 
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: $black;
+    background-color : $pearly_white; 
+}
+
 /* Table */
 
 th {
@@ -225,4 +238,9 @@ td {
 .button-text {
   color: $black;
   font-weight: bold;
+}
+
+.btn {
+  background-color: $williams_purple;
+  border-color: $williams_purple;
 }
