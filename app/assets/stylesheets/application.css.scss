@@ -20,12 +20,22 @@
 /* Color and Asset Variables */
 $white: #ffffff;
 $pearly_white: #E8E5DA;
-$link_blue: #2A6496;
-$light_grey: #9799A7;
+$link_blue: #1d7ac1;
+$grey_white: #DDDDDD;
+$light_grey: #9899A7;
 $black: #000000;
+$williams_purple: #792297;
 
-$background-pic: "mochaGrunge.png";
+$link_color: #349ce3;
+
+$background-pic: "dark-tweed.png";
+$body-background: "zwartevilt.png";
 $transparent-background: "partiallytransp.png";
+
+
+/* Color Scheme */
+$primary: $black;
+$secondary: $grey_white;
 
 @font-face {
     font-family: 'callunaregular';
@@ -53,14 +63,12 @@ $transparent-background: "partiallytransp.png";
   font-style: normal;
 }
 
-/* Color Scheme */
-$primary: $white;
-$secondary: $black;
-
 /* Taken from Hartl/Universal */
 body {
   margin: auto;
-  /*background: image-url($background-pic) repeat 0 0;*/
+  margin-bottom: 2cm;
+  background: image-url($background-pic) repeat 0 0;
+  color: #c6c6c6;
 }
 
 section {
@@ -97,7 +105,7 @@ textarea {
   padding-right: 30px;
   padding-bottom: 30px;
   max-width: 70%;
-  background: image-url($transparent-background) repeat 0 0;
+  /* background: image-url($transparent-background) repeat 0 0; */
 }
 
 /* typography */
@@ -109,8 +117,9 @@ textarea {
   color: $secondary;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, p {
   color: $secondary;
+  text-shadow: 1px 1px 1px #000;
 }
 
 h1, h2, h3, h4 {
@@ -155,7 +164,7 @@ p {
 }
 
 .byline {
-  color: $black;
+  color: $white;
   font-style: italic;
   margin-bottom: 18px;
 }
@@ -166,12 +175,12 @@ p {
 
 /* unvisited link */
 a:link {
-    color: blue;
+    color: $link_color;
 }
 
 /* visited link */
 a:visited {
-    color: blue;
+    color: $link_color;
 }
 
 /* Colors */
@@ -199,6 +208,18 @@ a:visited {
   }
 }
 
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: $black;
+    background-color : $pearly_white; 
+}
+
 /* Table */
 
 th {
@@ -210,4 +231,16 @@ th {
 
 td {
     padding: 8px;
+}
+
+/* Buttons */
+
+.button-text {
+  color: $black;
+  font-weight: bold;
+}
+
+.btn {
+  background-color: $williams_purple;
+  border-color: $williams_purple;
 }
