@@ -26,7 +26,7 @@ $light_grey: #9899A7;
 $black: #000000;
 $williams_purple: #792297;
 
-$link_color: #349ce3;
+$link_color: #45Adf4;
 
 $background-pic: "dark-tweed.png";
 $body-background: "zwartevilt.png";
@@ -153,6 +153,13 @@ p {
   text-indent: 2em;
   text-align: justify;
   margin-top: 10px;
+}
+
+code {
+  background-color: #eee;
+  padding: 0.2em;
+  word-break: normal;
+  text-shadow: 0px 0px 0px #000;
 }
 
 .text-block {
