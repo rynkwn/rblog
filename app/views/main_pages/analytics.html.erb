@@ -4,7 +4,7 @@
 
 <%= form_tag(analytics_path, method: "get") do %>
   <%= select_tag(:table, options_for_select(@data_tables)) %>
-  <%= submit_tag("Filter") %>
+  <%= submit_tag("Filter", :class => "black") %>
 <% end %>
 
 <br>

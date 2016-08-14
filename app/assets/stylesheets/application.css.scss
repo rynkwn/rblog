@@ -21,6 +21,7 @@
 $white: #ffffff;
 $pearly_white: #E8E5DA;
 $link_blue: #1d7ac1;
+$grey: #969896;
 $grey_white: #DDDDDD;
 $light_grey: #9899A7;
 $black: #000000;
@@ -216,7 +217,6 @@ a:visited {
 }
 
 input[type=text], select {
-    width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -230,24 +230,20 @@ input[type=text], select {
 /* Table */
 
 th {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px;
-    text-align: center;
+  background-color: $williams_purple;
+  color: white;
+  padding: 15px;
+  text-align: center;
 }
 
 td {
-    padding: 8px;
+  padding: 8px;
 }
 
 /* Buttons */
 
-.button-text {
-  color: $black;
-  font-weight: bold;
-}
-
 .btn {
   background-color: $williams_purple;
   border-color: $williams_purple;
+  color: white;
 }
