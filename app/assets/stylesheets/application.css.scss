@@ -29,14 +29,14 @@ $williams_purple: #792297;
 
 $link_color: #45Adf4;
 
-$background-pic: "dark-tweed.png";
+$background-pic: "subtle_grunge.png";
 $body-background: "zwartevilt.png";
 $transparent-background: "partiallytransp.png";
 
 
 /* Color Scheme */
 $primary: $black;
-$secondary: $grey_white;
+$secondary: $black;
 
 @font-face {
     font-family: 'callunaregular';
@@ -120,7 +120,7 @@ textarea {
 
 h1, h2, h3, h4, h5, h6, p {
   color: $secondary;
-  text-shadow: 1px 1px 1px #000;
+  text-shadow: .1px .1px 0px #000;
 }
 
 h1, h2, h3, h4 {
