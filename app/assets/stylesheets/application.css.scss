@@ -66,6 +66,10 @@ $secondary: $black;
 body {
   margin: auto;
   margin-bottom: 2cm;
+  
+  // For some reason, there's a pixel-wide white rectangle at the corners
+  // near the site title.
+  margin-left: -1px;
   color: #c6c6c6;
   background: image-url($background-pic) repeat 0 0;
 }
@@ -162,7 +166,7 @@ code {
 }
 
 .byline {
-  color: $white;
+  color: $black;
   font-style: italic;
   margin-bottom: 18px;
 }
