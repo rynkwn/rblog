@@ -14,7 +14,10 @@
 </behind-the-scenes-stuff>
 
 <body>
-  <%= render 'layouts/title' %>
+  <div class = "backgroundb">
+    <%= render 'layouts/title' %>
+  </div>
+  
   <div class="main">
     <% flash.each do |key, message| %>
       <div id="flash-<%= key %>" class="alert alert-<%= key %> fade in">

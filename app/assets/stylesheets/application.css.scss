@@ -32,7 +32,6 @@ $link_color: #0169B0;
 $background-pic: "subtle_grunge.png";
 $transparent-background: "partiallytransp.png";
 
-
 /* Color Scheme */
 $primary: $black;
 $secondary: $black;
@@ -80,23 +79,9 @@ textarea {
 }
 
 .center {
-  margin: auto;
   text-align: center;
 }
 
-.center h1 {
-  margin-bottom: 10px;
-}
-
-/* Setup for screen layout. */
-.left {
-  position: relative;
-  left: 0;
-  top: 100px;
-  bottom: 0;
-  width: 178px;
-}
-  
 .main {
   position: relative;
   margin: auto;
@@ -117,6 +102,14 @@ textarea {
   color: $secondary;
 }
 
+.shadowless {
+  text-shadow: 0px 0px 0px #000;
+}
+
+.backgroundb {
+  background: image-url("dark-tweed.png") repeat 0 0;
+}
+
 h1, h2, h3, h4, h5, h6, p {
   color: $secondary;
   text-shadow: .1px .1px 0px #000;
@@ -134,14 +127,12 @@ h5, h6, p, div {
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
-  margin-bottom: 30px;
   text-align: center;
 }
 
 h2 {
   font-size: 2.4em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
 }
@@ -216,14 +207,14 @@ a:visited {
 }
 
 input[type=text], select {
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    color: $black;
-    background-color : $pearly_white; 
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: $black;
+  background-color : $pearly_white; 
 }
 
 /* Table */
