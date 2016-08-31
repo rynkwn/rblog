@@ -27,10 +27,9 @@ $light_grey: #9899A7;
 $black: #000000;
 $williams_purple: #792297;
 
-$link_color: #45Adf4;
+$link_color: #0169B0;
 
 $background-pic: "subtle_grunge.png";
-$body-background: "zwartevilt.png";
 $transparent-background: "partiallytransp.png";
 
 
@@ -68,8 +67,8 @@ $secondary: $black;
 body {
   margin: auto;
   margin-bottom: 2cm;
-  background: image-url($background-pic) repeat 0 0;
   color: #c6c6c6;
+  background: image-url($background-pic) repeat 0 0;
 }
 
 section {
