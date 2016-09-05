@@ -26,7 +26,7 @@ module ApplicationHelper
                   "I'm not paid enough for this.",
                   "o_o",
                   "Han shot first",
-                  "Jar Jar was not the worst thing. It was the droids."
+                  "The droids were worse than Jar Jar."
                 ]
     subtitles.sample
   end

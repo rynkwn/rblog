@@ -1,91 +1,92 @@
-<titlebar class="navbar navbar-inverse">
+<titlebar class="navbar navbar-default">
   <div class="container">
-    <div class="center">
-      <h1><%= link_to NAME_OF_SITE, root_path, style: "color:white" %></h1>
-      <h5 class="white"><%= subtitle %></h5>
-    </div>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home",  root_path %></li>
-        <li><%= link_to "About", about_path %></li>
-        
-        <!-- Blogs -->
+    <ul class="nav navbar-nav navbar-left">
+      <header>
+        <h1><%= link_to NAME_OF_SITE, root_path %></h1>
+        <span><%= subtitle %></span>
+      </header>
+    </ul>
+    
+    <ul class="nav navbar-nav navbar-right" style="margin-top:21px;">
+      <li><%= link_to "Home",  root_path %></li>
+      <li><%= link_to "About", about_path %></li>
+      
+      <!-- Blogs -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Blogs <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <% Subject.all.each do |subject| %>
+            <li><%= link_to subject.name, overview_path(id: subject) %></li>
+          <% end %>
+        </ul>
+      </li>
+      
+      <!-- Projects -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Projects <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to "This Site", 'https://github.com/rynkwn/rblog'%></li>
+          <li><%= link_to "NiuPiao (Code)", 'https://github.com/Niupiao'%></li>
+          <li><%= link_to "Garden of Eden Simulator", 'https://github.com/rynkwn/MiniProjects/tree/master/GDE'%></li>
+          <li><%= link_to "Sheep Game", 'https://github.com/rynkwn/MiniProjects/tree/master/SheepGame'%></li>
+          <li><%= link_to "QMJ", 'https://github.com/anttsou/qmj'%></li>
+          <li><%= link_to "DateParser", 'https://rubygems.org/gems/date_parser/'%></li>
+          <li><%= link_to "Coding Competitions", arg_competitions_path %></li>
+        </ul>
+      </li>
+      
+      <!-- Tools -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Tools <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= link_to "Feeling Lucky?", lucky_path %></li>
+          <li><%= link_to "Daily Messenger", dailymessenger_path %></li>
+        </ul>
+      </li>
+      
+      <!-- Account -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          Account <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <% if !logged_in? %>
+            <li><%= link_to "Login", login_path %></li>
+            <li><%= link_to "Sign up", new_user_path %></li>
+          <% else %>
+            <li><%= link_to "Logout", logout_path %></li>
+            <li><%= link_to "Delete my Account", user_delete_path(id: current_user) %></li>
+            <li><%= link_to "My Daily Messenger", my_daily_messenger_path %></li>
+          <% end %>
+        </ul>
+      </li>
+      
+      <!-- Ryan Links -->
+      <% if ryan? %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            Blogs <b class="caret"></b>
+            Admin Tools <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <% Subject.all.each do |subject| %>
-              <li><%= link_to subject.name, overview_path(id: subject) %></li>
-            <% end %>
+            <li><%= link_to "New Blog", new_blog_path %></li>
+            <li><%= link_to "New Subject", new_subject_path %></li>
+            <li><%= link_to "Manage Blogs", blogs_path %></li>
+            <li><%= link_to "Manage Subjects", subjects_path %></li>
+            <li><%= link_to "Data Nuke", datanuke_path %></li>
+            <li><%= link_to "Data Reboot", dataparse_path %></li>
+            <li><%= link_to "Analytics", analytics_path %></li>
+            <li><%= link_to "Daily Messenger Manager", daily_messenger_send_path %></li>
+            <li><%= link_to "Daily Messenger Announcement", daily_messenger_announcement_path %></li>
+            <li><%= link_to "DM Keyword Changer", daily_messenger_keyword_change_path %></li>
           </ul>
         </li>
-        
-        <!-- Projects -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            Projects <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to "This Site", 'https://github.com/rynkwn/rblog'%></li>
-            <li><%= link_to "NiuPiao (Code)", 'https://github.com/Niupiao'%></li>
-            <li><%= link_to "Garden of Eden Simulator", 'https://github.com/rynkwn/MiniProjects/tree/master/GDE'%></li>
-            <li><%= link_to "Sheep Game", 'https://github.com/rynkwn/MiniProjects/tree/master/SheepGame'%></li>
-            <li><%= link_to "QMJ", 'https://github.com/anttsou/qmj'%></li>
-            <li><%= link_to "DateParser", 'https://rubygems.org/gems/date_parser/'%></li>
-            <li><%= link_to "Coding Competitions", arg_competitions_path %></li>
-          </ul>
-        </li>
-        
-        <!-- Tools -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            Tools <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to "Feeling Lucky?", lucky_path %></li>
-            <li><%= link_to "Daily Messenger", dailymessenger_path %></li>
-          </ul>
-        </li>
-        
-        <!-- Account -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            Account <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <% if !logged_in? %>
-              <li><%= link_to "Login", login_path %></li>
-              <li><%= link_to "Sign up", new_user_path %></li>
-            <% else %>
-              <li><%= link_to "Logout", logout_path %></li>
-              <li><%= link_to "Delete my Account", user_delete_path(id: current_user) %></li>
-              <li><%= link_to "My Daily Messenger", my_daily_messenger_path %></li>
-            <% end %>
-          </ul>
-        </li>
-        
-        <!-- Ryan Links -->
-        <% if ryan? %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Admin Tools <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "New Blog", new_blog_path %></li>
-              <li><%= link_to "New Subject", new_subject_path %></li>
-              <li><%= link_to "Manage Blogs", blogs_path %></li>
-              <li><%= link_to "Manage Subjects", subjects_path %></li>
-              <li><%= link_to "Data Nuke", datanuke_path %></li>
-              <li><%= link_to "Data Reboot", dataparse_path %></li>
-              <li><%= link_to "Analytics", analytics_path %></li>
-              <li><%= link_to "Daily Messenger Manager", daily_messenger_send_path %></li>
-              <li><%= link_to "Daily Messenger Announcement", daily_messenger_announcement_path %></li>
-              <li><%= link_to "DM Keyword Changer", daily_messenger_keyword_change_path %></li>
-            </ul>
-          </li>
-        <% end %>
-      </ul>
-    </nav>
+      <% end %>
+    </ul>
   </div>
 </titlebar>
