@@ -29,5 +29,8 @@ module Workspace
     
     # Load lib directory
     config.autoload_paths << Rails.root.join('lib')
+    
+    # HTTPS Setup
+    config.force_ssl = true
   end
 end
