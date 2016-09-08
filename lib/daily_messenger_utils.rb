@@ -338,7 +338,11 @@ module DailyMessengerUtils
   def DailyMessengerUtils.preview(key, messages)
     preview = ""
     
-    content_header = "\t=== " + key + " ===\r\n"
+    ## There are instances where we start off with something like
+    ## === announcements ===
+    content_header = (!key.include? "===") ? "\t=== " + key + " ===\r\n" :
+                                             "\t" + key + "\r\n"
+    
     content = messages.map{|x| get_title(x)}.join("\n")
     
     if(! content.empty?)
