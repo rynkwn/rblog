@@ -41,6 +41,9 @@ gem 'coderay'
 ## My own gem for date parsing.
 gem 'date_parser'
 
+# Reading in RSS Feeds
+gem 'feedjira'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
