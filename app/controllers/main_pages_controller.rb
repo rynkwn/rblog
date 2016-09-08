@@ -201,7 +201,7 @@ class MainPagesController < ApplicationController
         
         # If the user is an advanced user, we must manually construct their
         # mapping.
-        filtered_messages = dm.advanced? ? DailyMessengerUtils.adv_filter(ms_categorized, dm) :
+        filtered_messages = dm.advanced? ? DailyMessengerUtils.adv_filter(daily_messages, dm) :
                                            mappings.slice(*dm_keys)
         
         if dm.anti?
