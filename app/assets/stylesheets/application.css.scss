@@ -27,16 +27,14 @@ $light_grey: #9899A7;
 $black: #000000;
 $williams_purple: #792297;
 
-$link_color: #45Adf4;
+$link_color: #0169B0;
 
-$background-pic: "dark-tweed.png";
-$body-background: "zwartevilt.png";
+$background-pic: "subtle_grunge.png";
 $transparent-background: "partiallytransp.png";
 
-
 /* Color Scheme */
-$primary: $black;
-$secondary: $grey_white;
+$text-color: $black;
+$byline-color: $black;
 
 @font-face {
     font-family: 'callunaregular';
@@ -68,8 +66,12 @@ $secondary: $grey_white;
 body {
   margin: auto;
   margin-bottom: 2cm;
-  background: image-url($background-pic) repeat 0 0;
+  
+  // For some reason, there's a pixel-wide white rectangle at the corners
+  // near the site title.
+  margin-left: -1px;
   color: #c6c6c6;
+  background: image-url($background-pic) repeat 0 0;
 }
 
 section {
@@ -81,23 +83,11 @@ textarea {
 }
 
 .center {
-  margin: auto;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.center h1 {
-  margin-bottom: 10px;
-}
-
-/* Setup for screen layout. */
-.left {
-  position: relative;
-  left: 0;
-  top: 100px;
-  bottom: 0;
-  width: 178px;
-}
-  
 .main {
   position: relative;
   margin: auto;
@@ -110,17 +100,18 @@ textarea {
 }
 
 /* typography */
-.primary {
-  color: $primary;
+
+.text-color {
+  color: $text-color;
 }
 
-.secondary {
-  color: $secondary;
+.shadowless {
+  text-shadow: 0px 0px 0px #000;
 }
 
-h1, h2, h3, h4, h5, h6, p {
-  color: $secondary;
-  text-shadow: 1px 1px 1px #000;
+h1, h2, h3, h4, h5, h6, p, li {
+  color: $text-color;
+  text-shadow: .1px .1px 0px #000;
 }
 
 h1, h2, h3, h4 {
@@ -135,20 +126,17 @@ h5, h6, p, div {
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
-  margin-bottom: 30px;
   text-align: center;
 }
 
 h2 {
   font-size: 2.4em;
   letter-spacing: -1px;
-  margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
 }
 
 p {
-  color: $secondary;
   font-size: 1.2em;
   line-height: 1.7em;
   text-indent: 2em;
@@ -168,11 +156,11 @@ code {
 }
 
 .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .byline {
-  color: $white;
+  color: $byline-color;
   font-style: italic;
   margin-bottom: 18px;
 }
@@ -216,15 +204,19 @@ a:visited {
   }
 }
 
+form {
+  color: $text-color;
+}
+
 input[type=text], select {
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    color: $black;
-    background-color : $pearly_white; 
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: $black;
+  background-color : $pearly_white; 
 }
 
 /* Table */
@@ -237,8 +229,10 @@ th {
 }
 
 td {
+  color: $text-color;
   padding: 8px;
 }
+
 
 /* Buttons */
 

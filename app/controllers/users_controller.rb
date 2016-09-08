@@ -63,6 +63,8 @@ class UsersController < ApplicationController
   
   def daily_messenger_edit
     user = current_user
+    anti = (params["anti"] == "true") ? 1 : 0
+    adv = (params["option"] == "basic") ? 0 : 1
     
     if params["option"] == "basic"
       words = params[:words]
@@ -73,8 +75,8 @@ class UsersController < ApplicationController
       modified_params = {}
       modified_params[:key_words] = words
       modified_params[:sender] = senders
-      modified_params[:adv] = 0
-      modified_params[:anti] = 0
+      modified_params[:adv] = adv
+      modified_params[:anti] = anti
       modified_params[:adv_keys] = []
       modified_params[:adv_keywords] = {}
       modified_params[:adv_antiwords] = {}
@@ -122,11 +124,9 @@ class UsersController < ApplicationController
         categories[k] = val.join(',')
       end
       
-      anti = (params["anti"] == "true") ? 1 : 0
-      
       # Now we aggregate our formatted data to update our @dm object.
       formatted_params = {}
-      formatted_params[:adv] = 1
+      formatted_params[:adv] = adv
       formatted_params[:anti] = anti
       formatted_params[:key_words] = []
       formatted_params[:sender] = []

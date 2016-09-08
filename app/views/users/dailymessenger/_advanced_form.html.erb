@@ -16,7 +16,7 @@
     <li><p>Antiwords: If a message contains one of these words, reject it. Even if it contains a keyword.</p></li>
     <li><p>Senders: Look only at messages sent by these groups. If it's empty, we accept everyone.</p></li>
     <li><p>Category: Specific section(s) of the Daily Messages we look at. Examples Include:</p></li>
-    <ul>
+    <ul class="text-color">
       <li>Lectures/Films/Readings/Panels</li>
       <li>Announcements</li>
       <li>Academics/Teaching/Research</li>
@@ -41,7 +41,7 @@
     <%= hidden_field_tag :option, "advanced" %>
     
     <!-- Anti Option -->
-    <%= f.label :anti, "Flip the System: Everything you select below is what we filter OUT of the Daily Messages" %>
+    <%= f.label :anti, "I want to filter my choices OUT of the Daily Messages" %>
     &nbsp;&nbsp;
     <%= check_box_tag "anti", true, checked = @dm.anti?, class: "dm-form-checkbox" %>
     

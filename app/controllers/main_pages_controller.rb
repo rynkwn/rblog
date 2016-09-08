@@ -127,7 +127,7 @@ class MainPagesController < ApplicationController
         mymessage = mymessage + params[:mymessage]
       end
       
-      # These two lines of code will probably case some heartache for me
+      # These two lines of code will probably cause some heartache for me
       # in the future. Be aware.
       msg = DailyMessage.new(content: message)
       msg.save
@@ -166,8 +166,7 @@ class MainPagesController < ApplicationController
       #messagesComp = Arrayutils::delete_at(messagesComp, redundant_indices)
       #senders = Arrayutils::delete_at(senders, redundant_indices)
       
-      # mappings will store integers to reference which messages satisfy 
-      # a key_word or sender choice.
+      # Mappings store the messages 
       mappings = {}
       
       DAILY_MESSENGER_KEYWORDS.each do |topic, keywords|
@@ -198,28 +197,23 @@ class MainPagesController < ApplicationController
         preview = ""
         body = ""
         
+        daily_messages = ms_categorized
+        
         # If the user is an advanced user, we must manually construct their
         # mapping.
-        if dm.advanced?
-          filtered_messages = DailyMessengerUtils.adv_filter(ms_categorized, dm)
+        filtered_messages = dm.advanced? ? DailyMessengerUtils.adv_filter(daily_messages, dm) :
+                                           mappings.slice(*dm_keys)
+        
+        if dm.anti?
+          daily_messages.delete("all")
           
-          if dm.anti?
-            filtered_daily_messages = ms_categorized
-            filtered_daily_messages.delete("all")
-            messages_to_remove = filtered_messages.values.flatten
-            
-            filtered_daily_messages = DailyMessengerUtils.anti_filter(filtered_daily_messages, messages_to_remove)
-            preview = filtered_daily_messages.keys.map{|key| DailyMessengerUtils::preview(key, filtered_daily_messages[key])}.join
-            body = filtered_daily_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_daily_messages[key])}.join
-          else
-            preview = filtered_messages.keys.map{|key| DailyMessengerUtils::preview(key, filtered_messages[key])}.join
-            body = filtered_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_messages[key])}.join
-          end
-        else
-          # Populate the DM with content.
-          preview = dm_keys.map{|key| DailyMessengerUtils::preview(key, mappings[key])}.join
-          body = dm_keys.map{|key| DailyMessengerUtils::body(key, mappings[key])}.join
+          messages_to_remove = filtered_messages.values.flatten
+          
+          filtered_messages = DailyMessengerUtils.anti_filter(daily_messages, messages_to_remove)
         end
+        
+        preview = filtered_messages.keys.map{|key| DailyMessengerUtils::preview(key, filtered_messages[key])}.join
+        body = filtered_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_messages[key])}.join
         
         filtered_content = filtered_content + preview + body
         
@@ -261,10 +255,10 @@ class MainPagesController < ApplicationController
     if params["new_selections"]
       params["new_selections"].each do |service|
         if service != no_service_flag  # Is a DM user.
-          service = eval(service)  # Needed to parse the String as a hash. Beware.
-          dm = ServiceDaily.find(service[:id])
-          dm.key_words = service[:key_words]
-          dm.sender = service[:sender]
+          service = JSON.parse(service.gsub('=>', ':')) # Parse String as hash.
+          
+          dm = ServiceDaily.find(service["id"])
+          dm.update_attributes(service)
           dm.save
         end
       end
