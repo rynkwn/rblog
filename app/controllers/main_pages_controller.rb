@@ -127,7 +127,7 @@ class MainPagesController < ApplicationController
         mymessage = mymessage + params[:mymessage]
       end
       
-      # These two lines of code will probably case some heartache for me
+      # These two lines of code will probably cause some heartache for me
       # in the future. Be aware.
       msg = DailyMessage.new(content: message)
       msg.save
