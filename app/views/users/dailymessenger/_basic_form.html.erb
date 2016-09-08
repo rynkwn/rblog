@@ -5,6 +5,13 @@
     
     <%= hidden_field_tag :option, "basic" %>
     
+    <%= f.label :anti, "I want to filter my choices OUT of the Daily Messages" %>
+    &nbsp;&nbsp;
+    <%= check_box_tag "anti", true, checked = @dm.anti?, class: "dm-form-checkbox" %>
+    
+    <br>
+    <br>
+    
     <%= f.label :key_words, "What topics are you interested in?"%>
     
     <table class="center">

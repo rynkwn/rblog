@@ -41,7 +41,7 @@
     <%= hidden_field_tag :option, "advanced" %>
     
     <!-- Anti Option -->
-    <%= f.label :anti, "Flip the System: Everything you select below is what we filter OUT of the Daily Messages" %>
+    <%= f.label :anti, "I want to filter my choices OUT of the Daily Messages" %>
     &nbsp;&nbsp;
     <%= check_box_tag "anti", true, checked = @dm.anti?, class: "dm-form-checkbox" %>
     
