@@ -262,9 +262,9 @@ class MainPagesController < ApplicationController
       params["new_selections"].each do |service|
         if service != no_service_flag  # Is a DM user.
           service = eval(service)  # Needed to parse the String as a hash. Beware.
+          
           dm = ServiceDaily.find(service[:id])
-          dm.key_words = service[:key_words]
-          dm.sender = service[:sender]
+          dm.update_attributes(service)
           dm.save
         end
       end
