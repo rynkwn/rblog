@@ -201,32 +201,19 @@ class MainPagesController < ApplicationController
         
         # If the user is an advanced user, we must manually construct their
         # mapping.
-        if dm.advanced?
-          filtered_messages = DailyMessengerUtils.adv_filter(ms_categorized, dm)
+        filtered_messages = dm.advanced? ? DailyMessengerUtils.adv_filter(ms_categorized, dm) :
+                                           mappings.slice(*dm_keys)
+        
+        if dm.anti?
+          daily_messages.delete("all")
           
-          if dm.anti?
-            daily_messages.delete("all")
-            messages_to_remove = filtered_messages.values.flatten
-            
-            filtered_messages = DailyMessengerUtils.anti_filter(daily_messages, messages_to_remove)
-          end
+          messages_to_remove = filtered_messages.values.flatten
           
-          preview = filtered_messages.keys.map{|key| DailyMessengerUtils::preview(key, filtered_messages[key])}.join
-          body = filtered_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_messages[key])}.join
-        else
-          filtered_messages = mappings.slice(*dm_keys)
-          
-          if dm.anti?
-            daily_messages.delete("all")
-            
-            messages_to_remove = filtered_messages.values.flatten
-            
-            filtered_messages = DailyMessengerUtils.anti_filter(daily_messages, messages_to_remove)
-          end
-          
-          preview = filtered_messages.keys.map{|key| DailyMessengerUtils::preview(key, filtered_messages[key])}.join
-          body = filtered_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_messages[key])}.join
+          filtered_messages = DailyMessengerUtils.anti_filter(daily_messages, messages_to_remove)
         end
+        
+        preview = filtered_messages.keys.map{|key| DailyMessengerUtils::preview(key, filtered_messages[key])}.join
+        body = filtered_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_messages[key])}.join
         
         filtered_content = filtered_content + preview + body
         
