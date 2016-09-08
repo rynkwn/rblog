@@ -37,6 +37,10 @@ gem 'google-search'
 gem 'redcarpet'
 gem 'coderay'
 
+# Daily Messenger Gems
+## My own gem for date parsing.
+gem 'date_parser'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

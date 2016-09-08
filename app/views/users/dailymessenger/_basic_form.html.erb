@@ -5,6 +5,13 @@
     
     <%= hidden_field_tag :option, "basic" %>
     
+    <%= f.label :anti, "I want to filter my choices OUT of the Daily Messages" %>
+    &nbsp;&nbsp;
+    <%= check_box_tag "anti", true, checked = @dm.anti?, class: "dm-form-checkbox" %>
+    
+    <br>
+    <br>
+    
     <%= f.label :key_words, "What topics are you interested in?"%>
     
     <table class="center">
@@ -17,7 +24,7 @@
               <td> </td>
               <td> </td>
             <% else %>
-              <td><%= check_box_tag "words[]", group[1], checked = Arrayutils::include?(@dm.key_words, group[1]) %></td>
+              <td><%= check_box_tag "words[]", group[1], checked = (Arrayutils::include?(@dm.key_words, group[1]) || Arrayutils::include?(@dm.adv_keys, group[1]))%></td>
             <td class="text-left"><%= group[1] %></td>
             <% end %>
         </tr>
@@ -29,14 +36,14 @@
     <table class="center">
       <% DAILY_MESSENGER_SENDERS.keys.in_groups_of(2, '&nbsp;') {|group| %>
         <tr>
-            <td><%= check_box_tag "senders[]", group[0], checked = Arrayutils::include?(@dm.sender, group[0]) %></td>
+            <td><%= check_box_tag "senders[]", group[0], checked = (Arrayutils::include?(@dm.sender, group[0]) || Arrayutils::include?(@dm.adv_keys, group[0]))%></td>
             <td class="text-left"><%= group[0] %></td>
             
             <% if group[1] == '&nbsp;' %>
               <td> </td>
               <td> </td>
             <% else %>
-              <td><%= check_box_tag "senders[]", group[1], checked = Arrayutils::include?(@dm.sender, group[1]) %></td>
+              <td><%= check_box_tag "senders[]", group[1], checked = (Arrayutils::include?(@dm.sender, group[1]) || Arrayutils::include?(@dm.adv_keys, group[1]))%></td>
             <td class="text-left"><%= group[1] %></td>
             <% end %>
         </tr>
