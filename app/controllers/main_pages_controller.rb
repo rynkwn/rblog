@@ -261,9 +261,9 @@ class MainPagesController < ApplicationController
     if params["new_selections"]
       params["new_selections"].each do |service|
         if service != no_service_flag  # Is a DM user.
-          service = eval(service)  # Needed to parse the String as a hash. Beware.
+          service = JSON.parse(service.gsub('=>', ':')) # Parse String as hash.
           
-          dm = ServiceDaily.find(service[:id])
+          dm = ServiceDaily.find(service["id"])
           dm.update_attributes(service)
           dm.save
         end
