@@ -214,7 +214,7 @@ class MainPagesController < ApplicationController
           preview = filtered_messages.keys.map{|key| DailyMessengerUtils::preview(key, filtered_messages[key])}.join
           body = filtered_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_messages[key])}.join
         else
-          filtered_messages = daily_messages.slice(dm_keys)
+          filtered_messages = mappings.slice(*dm_keys)
           
           if dm.anti?
             daily_messages.delete("all")
