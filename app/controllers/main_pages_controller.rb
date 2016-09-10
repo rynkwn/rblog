@@ -7,10 +7,17 @@ class MainPagesController < ApplicationController
                           :data_parse, 
                           :analytics,
                           :analytics_send_data,
-                          :daily_messenger_send,
+                          #:daily_messenger_send,
                           :daily_messenger_announcement,
                           :daily_messenger_keyword_change
                          ]
+                         
+  # Kills any session that might exist when a request is made
+  # without a CSRF token.
+  # In order to prevent a redirect, daily_messenger_send no longer checks
+  # for authorization directly above. I NEED to do this manually.
+  protect_from_forgery with: :null_session, 
+    if: Proc.new { |c| c.request.format == 'application/json' }
   
   #############################################################
   #
