@@ -34,7 +34,7 @@ DAILY_MESSENGER_ANTI_KEYWORDS = {
 }
 
 DAILY_MESSENGER_SENDERS = {
-  "All Campus Entertainment (ACE)" => "ace,all-campus entertainment,all campus entertainment",
+  "All Campus Entertainment (ACE)" => " ace ,all-campus entertainment,all campus entertainment",
   "Art Department" => "art department",
   "Athletics Department" => "athletics",
   "Career Center" => "career center",
