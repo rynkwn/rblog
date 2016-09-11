@@ -121,8 +121,7 @@ class MainPagesController < ApplicationController
   # Sends out daily messenger emails
   def daily_messenger_send
     # Check authorization
-    if(authorized? || authorized_email?)
-      
+    if(ryan? || authorized_email?)
       message = authorized_email? ? parse_dm_email : params[:dailymessage]
       
       # If there's a daily message to send.
@@ -241,7 +240,6 @@ class MainPagesController < ApplicationController
           ServiceMailer::daily_messenger(email, subject, filtered_content).deliver
         }
       end
-      
     end
   end
   
