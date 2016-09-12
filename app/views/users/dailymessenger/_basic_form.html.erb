@@ -5,7 +5,7 @@
     
     <%= hidden_field_tag :option, "basic" %>
     
-    <%= f.label :anti, "I want to filter my choices OUT of the Daily Messages" %>
+    <%= f.label :anti, "I want the normal daily messages with the things I selected REMOVED" %>
     &nbsp;&nbsp;
     <%= check_box_tag "anti", true, checked = @dm.anti?, class: "dm-form-checkbox" %>
     
