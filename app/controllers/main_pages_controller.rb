@@ -295,7 +295,7 @@ class MainPagesController < ApplicationController
   # then, should be able to get around it.
   def authorized_email?
     return params["From"] == "message@williams.edu" && 
-           params["To"] == "bc4b25fe7f8f1e5592b086c7059e5c4e@inbound.postmarkapp.com" &&
+           # params["To"] == "bc4b25fe7f8f1e5592b086c7059e5c4e@inbound.postmarkapp.com" &&
            params["Subject"].include?("Daily Messages")
   end
   
