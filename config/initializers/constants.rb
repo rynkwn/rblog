@@ -55,6 +55,6 @@ DAILY_MESSENGER_SENDERS = {
 
 # For a given topic or sender, do we want it to only check a specific category?
 DAILY_MESSENGER_CATEGORY_MAPS = {
-  "Talks (Economics and Politics)" => "=== lectures/films/readings/panels ===",
-  "Talks (Philosophy)" => "=== lectures/films/readings/panels ==="
+  "Talks (Economics and Politics)" => "=== Lectures/Films/Readings/Panels ===",
+  "Talks (Philosophy)" => "=== Lectures/Films/Readings/Panels ==="
 }
