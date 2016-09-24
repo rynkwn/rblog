@@ -27,6 +27,7 @@ DAILY_MESSENGER_KEYWORDS = {
 DAILY_MESSENGER_ANTI_KEYWORDS = {
   "Competitions" => "basketball,golf,hockey,colloquium",
   "Food! (and Meals)" => "",
+  "Internships and Jobs (General)" => "colloquium",
   "Literature/Magazines" => "magazines,screening,perform",
   "Music (Events, Auditions)" => "dance,documentary,theatre,theater",
   "Talks (Economics and Politics)" => "screening",
@@ -39,6 +40,7 @@ DAILY_MESSENGER_SENDERS = {
   "Athletics Department" => "athletics",
   "Career Center" => "career center",
   "Chaplain's Office" => "chaplain's office,chaplains office,chaplain",
+  "Computer Science Department" => "computer science department",
   "Department of Biology" => "biology department",
   "Department of Chemistry" => "chemistry department",
   "Department of Psychology" => "psychology department",
@@ -53,6 +55,6 @@ DAILY_MESSENGER_SENDERS = {
 
 # For a given topic or sender, do we want it to only check a specific category?
 DAILY_MESSENGER_CATEGORY_MAPS = {
-  "Talks (Economics and Politics)" => "=== lectures/films/readings/panels ===",
-  "Talks (Philosophy)" => "=== lectures/films/readings/panels ==="
+  "Talks (Economics and Politics)" => "=== Lectures/Films/Readings/Panels ===",
+  "Talks (Philosophy)" => "=== Lectures/Films/Readings/Panels ==="
 }
