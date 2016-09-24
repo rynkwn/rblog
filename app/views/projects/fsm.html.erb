@@ -1,0 +1,13 @@
+<%= form_tag(fsm_path, :method => "post", class: "navbar-form center") do %>
+  <h3>Paste the LaTeX output of MadeByEvan's FSM here!</h3>
+  <div class="input-append">
+    <%= text_area_tag :fsm, params[:fsm], cols: 100, rows: 20, class: "span2 center" %>
+  </div>
+  
+  <h3>What input strings do you want to test?</h3>
+  <h4>(Put each string on its own line)</h3>
+  <div class="input-append">
+    <%= text_area_tag :input, params[:input], cols: 100, rows: 10, class: "span2 center" %>
+  </div>
+  <button class="btn btn-success btn-sm" type="submit"> Check Machine </button>
+<% end %>

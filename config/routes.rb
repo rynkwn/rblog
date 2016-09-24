@@ -68,6 +68,8 @@ Rails.application.routes.draw do
   #
   #################################
   get 'lucky' => 'projects#lucky'
+  get 'fsm' => 'projects#fsm'
+  post 'fsm' => 'projects#fsm'
   
   #################################
   #
