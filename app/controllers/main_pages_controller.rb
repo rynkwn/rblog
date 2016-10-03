@@ -237,7 +237,13 @@ class MainPagesController < ApplicationController
           
           filtered_content = header + filtered_content
           
-          ServiceMailer::daily_messenger(email, subject, filtered_content).deliver
+          ## We try to send the email. If it fails, we send an email to me informing
+          ## me of the issue.
+          begin
+            ServiceMailer::daily_messenger(email, subject, filtered_content).deliver
+          rescue Postmark::InvalidMessageError => error_message
+            ServiceMailer::email(email + " was not able to receive their DM", "rynkwn@gmail.com", error_message.to_s).deliver
+          end
         }
       end
     end
