@@ -111,7 +111,8 @@ textarea {
 
 h1, h2, h3, h4, h5, h6, p, li {
   color: $text-color;
-  //text-shadow: .1px .1px 0px #000;
+  text-shadow: .1px .1px 0px #000;
+  -moz-text-shadow: .1px .1px 0px #000;
 }
 
 h1, h2, h3, h4 {

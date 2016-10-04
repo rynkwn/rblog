@@ -19,7 +19,7 @@ module UsersHelper
         value = ""
       end
     end
-    return value.gsub(',', ', ')
+    return value.nil? ? "" : value.gsub(',', ', ')
   end
   
   def grab_senders(key)
@@ -31,7 +31,7 @@ module UsersHelper
         value = ""
       end
     end
-    return value.gsub(',', ', ')
+    return value.nil? ? "" : value.gsub(',', ', ')
   end
   
   def grab_category(key)
@@ -45,7 +45,7 @@ module UsersHelper
         value = DailyMessengerUtils.unbox_category(value)
       end
     end
-    return value.gsub(',', ', ')
+    return value.nil? ? "" : value.gsub(',', ', ')
   end
   
   # If the user is an advanced user, grab their specified antiword values.

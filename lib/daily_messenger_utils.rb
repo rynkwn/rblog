@@ -396,7 +396,7 @@ module DailyMessengerUtils
   # Given a category formatted like '=== STUFF ==='
   # return 'STUFF'
   def DailyMessengerUtils.unbox_category(category)
-    cat = category.gsub("===", '').strip
+    cat = cat.nil? ? "" : category.gsub("===", '').strip
     return cat
   end
   
