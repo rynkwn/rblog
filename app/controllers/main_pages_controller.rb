@@ -10,7 +10,7 @@ class MainPagesController < ApplicationController
                           #:daily_messenger_send,
                           :daily_messenger_announcement,
                           :daily_messenger_keyword_change,
-                          :debug
+                          #:debug
                          ]
                          
   # Kills any session that might exist when a request is made
