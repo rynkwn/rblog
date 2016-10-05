@@ -9,7 +9,8 @@ class MainPagesController < ApplicationController
                           :analytics_send_data,
                           #:daily_messenger_send,
                           :daily_messenger_announcement,
-                          :daily_messenger_keyword_change
+                          :daily_messenger_keyword_change,
+                          :debug
                          ]
                          
   # Kills any session that might exist when a request is made
@@ -301,6 +302,146 @@ class MainPagesController < ApplicationController
         @selection[user.email] = dm.to_json
       else
         @selection[user.email] = no_service_flag
+      end
+    end
+  end
+  
+  #############################################################
+  #
+  # Functions allowing me to debug the production server
+  #
+  #############################################################
+  
+  def debug
+    # Check authorization
+    if(ryan? || authorized_email?)
+      message = authorized_email? ? parse_dm_email : params[:dailymessage]
+      
+      # If there's a daily message to send.
+      if(message && ! message.empty?)
+        
+        mymessage = ""
+        if(params[:mymessage] && ! params[:mymessage].empty?)
+          mymessage =       "\n\n\n" + 
+                            "----------------------------------------------------" + "\n" +
+                            "\t" + "Message from Ryan" + "\n" +
+                            "----------------------------------------------------" + "\n"
+          mymessage = mymessage + params[:mymessage]
+        end
+        
+        # These two lines of code will probably cause some heartache for me
+        # in the future. Be aware.
+        
+        # Messages stores the original messages (with my date modification)
+        messages = []
+        
+        #DailyMessage.all.reverse.each {|ms|
+        #  date_created = ms.created_at.in_time_zone.strftime("%a, %b %d")
+        #  days_messages = ms.content.split("\r\n\r\n").map do |x|
+        #    x = (!x.include? "===") ? date_created + "\r\n" + x :
+        #                              x
+        #  end
+          
+        #  messages = messages.concat(days_messages)
+        #}
+        
+        days_messages = DailyMessage.last.content.split("\r\n\r\n")
+        
+        messages = messages.concat(days_messages)
+        
+        current_date = Date.current.in_time_zone
+        #messages = messages.reject {|ms| 
+        #  last_relevant_date = Stringutils::get_dm_date(ms, current_date)
+        #  last_relevant_date != [] && last_relevant_date < current_date
+        #}
+        
+        # Now I want to organize messages by category.
+        category_test = Proc.new {|x| x.include?("===")}
+        ms_categorized = Arrayutils::group(messages, category_test, false, true)
+        ms_categorized["all"] = messages.reject{|ms| ms.include?("===")}
+        
+        # TODO: Increase robustness. Currently useless.
+        # Check for repeated messages and remove them.
+        #redundant_indices = Arrayutils::redundant_indices(messagesComp)
+        #messagesComp = Arrayutils::delete_at(messagesComp, redundant_indices)
+        #senders = Arrayutils::delete_at(senders, redundant_indices)
+        
+        # Mappings store the messages 
+        mappings = {}
+        
+        DAILY_MESSENGER_KEYWORDS.each do |topic, keywords|
+          category = DAILY_MESSENGER_CATEGORY_MAPS.fetch(topic, "all")
+          ms_map = ms_categorized[category]  # An array of messages in the category.
+          
+          anti_keywords = DAILY_MESSENGER_ANTI_KEYWORDS.fetch(topic, nil)
+          if anti_keywords
+            anti_keywords = anti_keywords.split(",")
+          end
+          mappings[topic] = DailyMessengerUtils::filter(ms_map, keywords.split(","), anti_keywords)
+        end
+        
+        DAILY_MESSENGER_SENDERS.each do |sender, sender_words|
+          mappings[sender] = DailyMessengerUtils::filter_sender(ms_categorized["all"], sender_words.split(","))
+        end
+        
+        # FOR DEBUGGING
+        puts "MAPPINGS: "
+        puts mappings
+        
+        # For each service daily, we get the correct messages,
+        # put them together, and then send them to the person.
+        dm = ServiceDaily.find(1)
+        
+        email = dm.user.email
+        dm_keys = dm.key_words.concat(dm.sender)
+        
+        filtered_content = mymessage.empty? ? "\r\n" : mymessage + "\r\n\r\n"
+        filtered_content = Stringutils::to_html(filtered_content)
+        
+        preview = ""
+        body = ""
+        
+        daily_messages = ms_categorized
+        
+        # If the user is an advanced user, we must manually construct their
+        # mapping.
+        filtered_messages = dm.advanced? ? DailyMessengerUtils.adv_filter(daily_messages, dm) :
+                                           mappings.slice(*dm_keys)
+                              
+        # DEBUGGING    
+        puts email + "'s filtered messages are below:"
+        puts "Advanced: " + dm.advanced?.to_s
+        puts "ANTI: " + dm.anti?.to_s
+        puts "ADV KEYWORDS: " + dm.adv_keys.to_s
+        
+        puts "FILTERED: " 
+        puts filtered_messages.to_s
+        
+        if dm.anti?
+          daily_messages.delete("all")
+          
+          messages_to_remove = filtered_messages.values.flatten
+          
+          filtered_messages = DailyMessengerUtils.anti_filter(daily_messages, messages_to_remove)
+        end
+        
+        preview = filtered_messages.keys.map{|key| DailyMessengerUtils::preview(key, filtered_messages[key])}.join
+        body = filtered_messages.keys.map{|key| DailyMessengerUtils::body(key, filtered_messages[key])}.join
+        
+        filtered_content = filtered_content + preview + body
+        
+        # Assume that Daily Messenger is empty.
+        subject = preview.blank? ? "Daily Messenger: Nothing Interesting Going On" :
+                                   'Your Daily Messenger for ' + Date.current.in_time_zone.strftime("%a, %b %d")
+        
+        header = "----------------------------------------------------" + "\n" +
+                 "Change preferences at http://www.arg.press/my_daily_messenger" + "\n" +
+                 "----------------------------------------------------"
+        header = Stringutils::to_html(header)
+        
+        filtered_content = header + filtered_content
+        
+        @filtered_content = filtered_content
       end
     end
   end
