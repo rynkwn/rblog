@@ -219,11 +219,12 @@ class MainPagesController < ApplicationController
                                 
           # DEBUGGING    
           puts email + "'s filtered messages are below:"
-          puts "Advanced: " + dm.advanced?
-          puts "ANTI: " + dm.anti?
-          puts "ADV KEYWORDS: " + dm.adv_keys
+          puts "Advanced: " + dm.advanced?.to_s
+          puts "ANTI: " + dm.anti?.to_s
+          puts "ADV KEYWORDS: " + dm.adv_keys.to_s
           
-          puts filtered_messages
+          puts "FILTERED: " 
+          puts filtered_messages.to_s
           
           if dm.anti?
             daily_messages.delete("all")
