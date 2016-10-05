@@ -459,6 +459,10 @@ class MainPagesController < ApplicationController
            params["Subject"].include?("Daily Messages")
   end
   
+  def weak_auth_email?
+    return params["From"] == "rhk1@williams.edu"
+  end
+  
   # Parsing Daily Messenger Emails
   #
   # This is rather hard-coded. Primarily because making it determine where the
