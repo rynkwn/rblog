@@ -24,8 +24,8 @@ Rails.application.routes.draw do
   post 'daily_messenger_announcement' => 'main_pages#daily_messenger_announcement'
   get 'daily_messenger_keyword_change' => 'main_pages#daily_messenger_keyword_change'
   post 'daily_messenger_keyword_change' => 'main_pages#daily_messenger_keyword_change'
-  get 'debug' => 'main_pages#debug'
-  post 'debug' => 'main_pages#debug'
+  #get 'debug' => 'main_pages#debug'
+  #post 'debug' => 'main_pages#debug'
   
   # aRg Competition Pages
   get 'arg_competitions' => 'projects#competitions'
