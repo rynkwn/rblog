@@ -314,8 +314,8 @@ class MainPagesController < ApplicationController
   
   def debug
     # Check authorization
-    if(ryan? || authorized_email?)
-      message = authorized_email? ? parse_dm_email : params[:dailymessage]
+    if(ryan? || weak_auth_email?)
+      message = weak_auth_email? ? parse_dm_email : params[:dailymessage]
       
       # If there's a daily message to send.
       if(message && ! message.empty?)
@@ -345,7 +345,7 @@ class MainPagesController < ApplicationController
         #  messages = messages.concat(days_messages)
         #}
         
-        days_messages = DailyMessage.last.content.split("\r\n\r\n")
+        days_messages = message.split("\r\n\r\n")
         
         messages = messages.concat(days_messages)
         
