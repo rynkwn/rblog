@@ -193,6 +193,10 @@ class MainPagesController < ApplicationController
           mappings[sender] = DailyMessengerUtils::filter_sender(ms_categorized["all"], sender_words.split(","))
         end
         
+        # FOR DEBUGGING
+        puts "MAPPINGS: "
+        puts mappings
+        
         # For each service daily, we get the correct messages,
         # put them together, and then send them to the person.
         ServiceDaily.all.each {|dm|
@@ -212,6 +216,10 @@ class MainPagesController < ApplicationController
           # mapping.
           filtered_messages = dm.advanced? ? DailyMessengerUtils.adv_filter(daily_messages, dm) :
                                              mappings.slice(*dm_keys)
+                                
+          # DEBUGGING    
+          puts email + "'s filtered messages are below:"
+          puts filtered_messages
           
           if dm.anti?
             daily_messages.delete("all")
