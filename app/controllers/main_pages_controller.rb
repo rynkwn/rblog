@@ -219,6 +219,10 @@ class MainPagesController < ApplicationController
                                 
           # DEBUGGING    
           puts email + "'s filtered messages are below:"
+          puts "Advanced: " + dm.advanced?
+          puts "ANTI: " + dm.anti?
+          puts "ADV KEYWORDS: " + dm.adv_keys
+          
           puts filtered_messages
           
           if dm.anti?
