@@ -136,6 +136,7 @@ module DailyMessengerUtils
   def DailyMessengerUtils.adv_filter(categorized_messages, dm)
     dm_keys = dm.adv_keys
     filtered_messages = {}
+    puts "AdvKeys: " + dm_keys.to_s
     
     dm_keys.each do |key|
       keywords = dm.adv_keywords[key].split(",")
@@ -143,6 +144,11 @@ module DailyMessengerUtils
       senders = dm.adv_senders[key].split(",")
       categories = dm.adv_categories[key].split(",")  # "" or valid.
       categories = categories.any? ? categories : ["all"]
+      
+      puts "Keywords: " + keywords.to_s
+      puts "Antiwords: " + antiwords.to_s
+      puts "Senders: " + senders.to_s
+      puts "categories: " + categories.to_s
       
       # TODO: For each category, we concat the unique messages to our list of
       # messages.
