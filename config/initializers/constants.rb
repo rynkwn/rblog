@@ -18,7 +18,7 @@ DAILY_MESSENGER_KEYWORDS = {
   "Music (Events, Auditions)" => " audition, composer, recital, musician, pianist, cellist, master class , concert ", # concert?
   "Spiritual Events" => " worship , faith ",
   "Startups and Entrepreneurship" => " startup , entrepreneur ",
-  "Talks (Economics and Politics)" => " crops, global studies, cde , poec , political economy , economics department seminar, inequality , welfare , economics , justice ",
+  "Talks (Economics and Politics)" => " crops, global studies, cde , poec , political economy, economics department seminar, inequality, welfare, economics, justice ",
   "Talks (Philosophy)" => "philosophy"
 }
 
@@ -29,8 +29,8 @@ DAILY_MESSENGER_ANTI_KEYWORDS = {
   "Food! (and Meals)" => "",
   "Internships and Jobs (General)" => "meditation,colloquium,lecture,volunteer",
   "Literature/Magazines" => "magazines,screening,perform",
-  "Music (Events, Auditions)" => "dance,documentary,theatre,theater,talk, economic, lecture",
-  "Talks (Economics and Politics)" => "screening,movie,film",
+  "Music (Events, Auditions)" => "dance,documentary,theatre,theater, colloquium, economic, lecture",
+  "Talks (Economics and Politics)" => " screening, movie, film",
   "Spritual Events" => "prize,competition, wcma "
 }
 
