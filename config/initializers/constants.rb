@@ -9,29 +9,29 @@ CLIENT = Postmark::ApiClient.new(POSTMARK_API_KEY)
 
 # Daily Message Constants
 DAILY_MESSENGER_KEYWORDS = {
-  "A cappella" => "ephoria,accidentals,octet,springstreeters,good question,ephlats,elizabethans,aristocows",
-  "Competitions" => "competition,contest,tournament,cash prize",
-  "Food! (and Meals)" => "dining services,theme dinner,spring dinner",
-  "Internships and Jobs (General)" => "recruiter,internship,job,part-time,full time,full-time,route 2,career center,employment,on-campus recruit,earn cash,apply to be,research experience",
-  "Finance + Consulting Internships" => "investment banking,investment management,consulting firm,consultant internship,strategy consulting,jp morgan,j.p morgan, j.p. morgan,jp. morgan,barclays,goldman sachs,mckinsey,consulting,summer analyst",
-  "Literature/Magazines" => "magazine,prose,short stories,poetry,literary,literary magazine",
-  "Music (Events, Auditions)" => "audition,composer,recital,musician,pianist,cellist,master class",
-  "Spiritual Events" => "worship,faith",
-  "Startups and Entrepreneurship" => "startup,entrepreneur",
-  "Talks (Economics and Politics)" => "global studies,cde,poec,political economy,economics department seminar,inequality,welfare,economics,justice",
+  "A cappella" => " ephoria, accidentals, octet, springstreeters, good question , ephlats, elizabethans, aristocows",
+  "Competitions" => " competition, contest, tournament, cash prize",
+  "Food! (and Meals)" => " dining services, theme dinner, spring dinner",
+  "Internships and Jobs (General)" => " recruiter, internship, job, part-time, full time, full-time, route 2, career center, employment, on-campus recruit, earn cash, apply to be",
+  "Finance + Consulting Internships" => " investment banking, investment management, consulting firm, consultant internship, strategy consulting, jp morgan, j.p morgan, j.p. morgan, jp. morgan, barclays, goldman sachs, mckinsey, consulting, summer analyst",
+  "Literature/Magazines" => " magazine, prose, short stories, poetry, literary, literary magazine",
+  "Music (Events, Auditions)" => " audition, composer, recital, musician, pianist, cellist, master class , concert ", # concert?
+  "Spiritual Events" => " worship , faith ",
+  "Startups and Entrepreneurship" => " startup , entrepreneur ",
+  "Talks (Economics and Politics)" => " crops, global studies, cde , poec , political economy, economics department seminar, inequality, welfare, economics, justice ",
   "Talks (Philosophy)" => "philosophy"
 }
 
 # If a message contains these words, then for a key_word, we reject that message
 # regardless of what else it contains.
 DAILY_MESSENGER_ANTI_KEYWORDS = {
-  "Competitions" => "basketball,golf,hockey,colloquium,math puzzle night",
+  "Competitions" => "basketball,golf,hockey,colloquium,join us for dinner at math puzzle night",
   "Food! (and Meals)" => "",
-  "Internships and Jobs (General)" => "talk,colloquium,lecture,volunteer",
-  "Literature/Magazines" => "magazines,screening,perform,service",
-  "Music (Events, Auditions)" => "dance,documentary,theatre,theater,talk",
-  "Talks (Economics and Politics)" => "screening,movie,film",
-  "Spritual Events" => 'prize,competition'
+  "Internships and Jobs (General)" => "meditation,colloquium,lecture,volunteer",
+  "Literature/Magazines" => "magazines,screening,perform",
+  "Music (Events, Auditions)" => "dance,documentary,theatre,theater, colloquium, economic, lecture",
+  "Talks (Economics and Politics)" => " screening, movie, film",
+  "Spritual Events" => "prize,competition, wcma "
 }
 
 DAILY_MESSENGER_SENDERS = {
