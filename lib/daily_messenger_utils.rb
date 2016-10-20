@@ -118,7 +118,7 @@ module DailyMessengerUtils
   # @param array is the String array which we're comparing on bodytext.
   # We assume each word in array is downcased. Array may be nil.
   def DailyMessengerUtils.contains_string(bodytext, array)
-    bodytext = bodytext.downcase.gsub(/[^a-z0-9\s]/i, '')
+    bodytext = bodytext.downcase.gsub(/[^a-z0-9&\s]/i, '')
     if !array.nil? && array.any?
       array.each do |word|
         if(bodytext.downcase.include? word)

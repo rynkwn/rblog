@@ -27,9 +27,9 @@ DAILY_MESSENGER_KEYWORDS = {
 DAILY_MESSENGER_ANTI_KEYWORDS = {
   "Competitions" => "basketball,golf,hockey,colloquium,join us for dinner at math puzzle night",
   "Food! (and Meals)" => "",
-  "Internships and Jobs (General)" => "meditation,colloquium,lecture,volunteer",
+  "Internships and Jobs (General)" => "meditation,colloquium,lecture,volunteer, story time ",
   "Literature/Magazines" => "magazines,screening,perform",
-  "Music (Events, Auditions)" => "dance,documentary,theatre,theater, colloquium, economic, lecture",
+  "Music (Events, Auditions)" => "dance,documentary,theatre,theater, colloquium, economic, lecture, cap and bells , cap & bells ",
   "Talks (Economics and Politics)" => " screening, movie, film",
   "Spritual Events" => "prize,competition, wcma "
 }
