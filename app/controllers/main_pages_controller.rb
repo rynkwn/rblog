@@ -101,11 +101,11 @@ class MainPagesController < ApplicationController
                       hits: summarize_hits
                       }
                       
-      Bloghistory::analytics_email(
-                                   first_date, 
-                                   last_date, 
-                                   summary_data
-                                   ).deliver
+      #Bloghistory::analytics_email(
+      #                             first_date, 
+      #                             last_date, 
+      #                             summary_data
+      #                             ).deliver
       Hit.delete_all
       redirect_to(analytics_path)
     else
